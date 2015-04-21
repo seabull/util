@@ -1,0 +1,234 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set def_interval	= 5000
+  set def_connect	= "/"
+
+  while ( "$1" =~ -* )
+    switch ( "$1" )
+    # Oracle connection string
+      case "-c":
+        if ( $?connect != 0 ) then
+          set msg = "Option '$1' found twice - please only specify one"
+          goto usage
+        endif
+        if ( "$2" == "" ) then
+          set msg = "Option '$1' missing argument"
+          goto usage
+        endif
+        set connect = "$2" ; shift
+        breaksw
+    # Set the number of rows already processed
+      case "-position":
+        if ( $?cp_pos != 0 || $?lp_pos != 0 ) then
+          set msg = "Option '$1' found twice - please only specify one"
+          goto usage
+        endif
+        if ( "$2" == "" || "$3" == "" ) then
+          set msg = "Option '$1' requires two arguments"
+          goto usage
+        endif
+        set cp_pos = "$2" ; shift
+        set lp_pos = "$2" ; shift
+        breaksw
+    # Set the Business Date
+      case "-business":
+      case "-bus":
+      case "-for":
+        if ( $?Business_Date != 0 ) then
+          set msg = "Option '$1' - business date already set - please set only once."
+          goto usage
+        endif
+        if ( "$2" == "" ) then
+          set msg = "Option '$1' requires an argument"
+          goto usage
+        endif
+        set Business_Date = "$2" ; shift
+        breaksw
+    # Set the Run Timestamp
+      case "-at":
+        if ( $?Run_Timestamp != 0 ) then
+          set msg = "Option '$1' - run timestamp already set - please set only once."
+          goto usage
+        endif
+        if ( "$2" == "" ) then
+          set msg = "Option '$1' requires an argument"
+          goto usage
+        endif
+        set Run_Timestamp = "$2" ; shift
+        breaksw
+    # Set the number of rows already processed
+      case "-interval":
+        if ( $?interval != 0 ) then
+          set msg = "Option '$1' found twice - please only specify once"
+          goto usage
+        endif
+        set interval = "$2" ; shift
+        breaksw
+    # Unrecognized option
+      default:
+        set msg = "Unrecognized option '$1'"
+        goto usage
+    endsw
+    shift
+  end
+
+#------------------------------------------------------------------------------
+
+  if ( $?Business_Date == 0 ) then
+    set msg = "missing business date - please specify"
+    goto usage
+  endif
+
+  if ( $?Run_Timestamp == 0 ) then
+    set msg = "missing run timestamp - please specify"
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  if ( $#argv != 1 ) then
+    set msg = "Wrong number of arguments - expected one beyond options"
+    goto usage
+  endif
+
+  set data_source = "$1"
+
+#------------------------------------------------------------------------------
+
+  if ( $?connect == 0 ) then
+    if ( $?ETL_CONNECT != 0 ) then
+      set connect = "$ETL_CONNECT"
+    else
+      set connect = "$def_connect"
+    endif
+  endif
+
+  if ( $?interval	== 0 )  set interval		= "$def_interval"
+  if ( $?Run_Timestamp	== 0 )  set Run_Timestamp	= ""
+
+  if ( $?cp_pos		== 0 )  set cp_pos		= "Null"
+  if ( $?lp_pos		== 0 )  set lp_pos		= "Null"
+    
+#------------------------------------------------------------------------------
+
+  set check = ""
+
+echo "<> $connect"
+
+echo "" ; date
+
+sqlplus -s $connect <<--Sql-Done-- |& tr -d '\014'
+--
+  Whenever SqlError Exit -1 ;
+--
+  Set ServerOutput On Size 1000000 FeedBack On LineSize 112
+--
+  Declare
+    status		edw.Status_Type ;
+    Business_Date	Date ;
+    Run_Timestamp	Date ;
+    Time_Start		Integer ;
+    Time_Elapsed	Integer ;
+  Begin
+    Business_Date := cvt.Validate_Date ( '$Business_Date' ) ;
+    If ( Business_Date is Null ) then
+      pl('Error:  Business Date - invalid format '||chr(39)||'$Business_Date'||chr(39)) ;
+    End If ;
+    Run_Timestamp := cvt.Validate_TS ( '$Run_Timestamp' ) ;
+    If ( Run_Timestamp is Null ) then
+      pl('error:  Run Timestamp - invalid format '||chr(39)||'$Run_Timestamp'||chr(39)) ;
+    End If ;
+    pl ( '- Starting load' ) ;
+    Time_Start := Dbms_Utility.Get_Time ;
+    l_$data_source.load ( $cp_pos, $lp_pos, $interval, Run_Timestamp, Business_Date, status ) ;
+    Time_Elapsed := ( Dbms_Utility.Get_Time - Time_Start ) ;
+    pl('.') ;
+    pl('.  Run Timestamp:          ' || To_Char(Run_Timestamp,'YYYY-Mon-DD HH24:Mi:SS') ) ;
+    pl('.  Status:                 ' || status ) ;
+    pl('.') ;
+    pl('.  Elapsed                 ' || To_Char(Time_Elapsed,'999,999,999') || ' seconds' ) ;
+    pl('.  Inserted:               ' || To_Char(etl.Insert_Count,'999,999,999') ) ;
+    pl('.  Updated:                ' || To_Char(etl.Update_Count,'999,999,999') ) ;
+    pl('.  Deleted:                ' || To_Char(etl.Delete_Count,'999,999,999') ) ;
+    pl('.  Conversion errors:      ' || To_Char(etl.Conversion_Errors,'999,999,999') ) ;
+    pl('.  Log entries:            ' || To_Char(etl.Error_Log_Entries,'999,999,999') ) ;
+    pl('.') ;
+    pl('.  Map    - Lookups     =  ' || To_Char(lookup.Map_Lookups,'999,999,999') ) ;
+    pl('.         - Entries     =  ' || To_Char(lookup.Map_Cache.Count,'999,999,999') ) ;
+    pl('.         - Hit Rate    =  ' || To_Char(lookup.Map_Hit_Rate,'999,999,999.99') ) ;
+    pl('.         - Seconds     =  ' || To_Char(lookup.Map_Time/100,'999,999,999.99') ) ;
+    pl('.         - % Time      =  ' || To_Char(lookup.Map_Time/Time_Elapsed,'999,999,999.99') ) ;
+    pl('.') ;
+    pl('.  Class  - Lookups     =  ' || To_Char(lookup.Class_Lookups,'999,999,999') ) ;
+    pl('.         - Entries     =  ' || To_Char(lookup.Class_Cache.Count,'999,999,999') ) ;
+    pl('.         - Hit Rate    =  ' || To_Char(lookup.Class_Hit_Rate,'999,999,999.99') ) ;
+    pl('.         - Seconds     =  ' || To_Char(lookup.Class_Time/100,'999,999,999.99') ) ;
+    pl('.         - % Time      =  ' || To_Char(lookup.Class_Time/Time_Elapsed,'999,999,999.99') ) ;
+    pl('.') ;
+    pl ( '- Done' ) ;
+  Exception
+    When etl.Fatal_Error Then
+      pl ( '*** Exception Occurred - etl.Fatal_Error' ) ;
+      pl ( '.  Run Timestamp:  ' || To_Char(Run_Timestamp,'YYYY-Mon-DD HH24:Mi:SS') ) ;
+      pl ( '.  Log entries:    ' || etl.Error_Log_Entries ) ;
+    When etl.Other_Error Then
+      pl ( '*** Exception Occurred - etl.Other_Error' ) ;
+      pl ( '.  Run Timestamp:  ' || To_Char(Run_Timestamp,'YYYY-Mon-DD HH24:Mi:SS') ) ;
+      pl ( '.  Log entries:    ' || etl.Error_Log_Entries ) ;
+  End ;
+/
+--
+  Show Errors
+--
+--Sql-Done--
+
+  if ( $status != 0 ) then
+    set msg = "sqlplus exit status non-zero"
+    goto usage
+  endif
+
+  echo "" ; date ; echo ""
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  etl-run-process [options] <data-source-name>"
+  echo ""
+  echo "Options:"
+  echo ""
+  echo "  -c <string>           Oracle connection string, default '$def_connect'."
+  echo "                        (or taken from 'ETL_CONNECT' if defined)"
+  echo ""
+  echo "  -interval <n>         Number of records to process before committing."
+  echo "                        ( default $interval )"
+  echo ""
+  echo "  -position <cp> <lp>   Number of records already commited."
+  echo ""
+  echo "  -for <Business-Day>   Run the job for the Business Day specified, accepted formats"
+  echo "                        'DD-Mon-YYYY' or 'YYYY-Mon-DD' (time will be 12:00)"
+  echo ""
+  echo "  -business, -b         Synonyms for '-for'"
+  echo ""
+  echo "  -at <run-timestamp>   Run the job for the Run Date specified, accepted formats"
+  echo "                        'DD-Mon-YYYY HH24:Mi:SS' or 'YYYY-Mon-DD HH24:Mi:SS'"
+  echo "                        (time may be ' HH24:Mi:SS',' HH24.Mi.SS','.HH24.Mi.SS')"
+  echo ""
+  echo "Examples:"
+  echo ""
+  echo "  etl-run-process -c etl/... std_shipto_mstr"
+  echo ""
+  echo "  etl-run-process -c etl/... -interval 1000 std_shipto_mstr"
+  echo ""
+  echo "  etl-run-process -c etl/... -position 3000 0 std_shipto_mstr"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

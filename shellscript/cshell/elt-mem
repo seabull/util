@@ -1,0 +1,78 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  if ( $#argv != 2 ) then
+    set msg = "Wrong number of arguments - expected two."
+    goto usage
+  endif
+
+  if ( "$1" == "" || "$2" == "" ) then
+    set msg = "Invalid arguments - empty string(s)"
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  set map = ( $1 )
+  set mem = ( $2 )
+
+  if ( $#mem != 1 ) then
+    set msg = "The provided member is a list ($elt) - it should be a single string."
+    goto usage
+  endif
+
+  set mem = "$mem"
+
+#------------------------------------------------------------------------------
+
+  foreach elt ( $map )
+    if ( "$elt" == "$mem" ) then
+      echo "$mem"
+      exit 0
+    endif
+  end
+
+# Not found - error status but no text output
+
+  exit 1
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  elt-mem <map> <member>"
+  echo ""
+  echo "- Outputs <member> if it exists in set <map>."
+  echo ""
+  echo "- If the element is not found it exits with a non-zero status but"
+  echo "  no text is output."
+  echo ""
+  echo "Example:"
+  echo ""
+
+  echo "  home> elt-mem '0 1 2 3 4' 1"
+  echo "  1"
+  if ( $SHELL =~ **csh ) then
+    echo '  home> echo $status'
+  else
+    echo '  home> echo $?'
+  endif
+  echo "  0"
+  echo ""
+
+  echo "  home> elt-mem 'aa bb xx' dd"
+  if ( $SHELL =~ **csh ) then
+    echo '  home> echo $status'
+  else
+    echo '  home> echo $?'
+  endif
+  echo "  1"
+  echo "  home>"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

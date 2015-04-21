@@ -1,0 +1,58 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set out = /usr/tmp/.rcs-u.$$.out
+
+  if ( $#argv <= 0 ) then
+    set msg = "No files specified."
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  foreach file ( $* )
+    if ( ! -w $file ) then
+      echo "- not writable  - '$file'"
+      continue
+    endif
+    rcs -u $file >& $out
+    if ( $status == 0 ) then
+      echo "- unlocked      - '$file'"
+    else
+      set msg = "Unlock failed."
+      cat $out
+      goto usage
+    endif
+    rm -f $file
+    if ( $status != 0 ) then
+      set msg = "Remove failed."
+      cat $out
+      goto usage
+    endif
+    co $file >& $out
+    if ( $status != 0 ) then
+      set msg = "Checkout failed."
+      cat $out
+      goto usage
+    endif
+  end
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  rcs-u <rcs-file> [...]"
+  echo ""
+  echo "- Unlock the specified file(s) and check out a read-only copy."
+  echo ""
+
+  rm -f $out
+
+  exit -1
+
+#------------------------------------------------------------------------------

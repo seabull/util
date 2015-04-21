@@ -1,0 +1,19 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  @ id = $$ * 10000 ;
+
+  set opts = ( userid=apps/apps )
+  set opts = ( $opts destype=file )
+  set opts = ( $opts desname=try.out )
+  set opts = ( $opts desformat=$FND_TOP/srw/L )
+  set opts = ( $opts batch=yes )
+  set opts = ( $opts P_CONC_REQUEST_ID=$id )
+  set opts = ( $opts report="$1" )
+
+  shift
+
+  exec ar25run $opts $*
+
+#------------------------------------------------------------------------------
+

@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set oem   = oemmail%us.oracle.com@ibrick.ucamp.com
+  set self  = Philip_Dye%ucamp.com@ibrick.ucamp.com
+
+  set tar   = 11317424.600
+
+  exec mailx -s $tar $oem $self
+
+#------------------------------------------------------------------------------

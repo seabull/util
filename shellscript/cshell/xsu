@@ -1,0 +1,95 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+start:
+
+  set cmd = "su -"
+
+  echo "args:  $*"
+
+  if ( $#argv == 0 ) set argv = ( root )
+
+  set user = "$1"
+
+  if ( "$user" == "-" ) echo "- skipping '$user'"
+
+  if ( "$user" == "-" ) goto skip
+
+  set cmd = ( $cmd $user )
+
+# abbreviate the host name since icons are limited to about 7 characters
+
+  set host = "` hostname | cut -c5- `"
+
+  set name = "$host $user"
+
+#------------------------------------------------------------------------------
+
+  set cmd1 = "$cmd"
+  set cmd2 = ""
+  set cmd3 = ""
+
+  if ( $?xsu_user_env == 1 ) then
+    if ( "$xsu_user_env" != "$user" ) then
+#     set entry = "` ( ypcat passwd ; cat /etc/passwd ) | grep $xsu_user_env | head -1 `"
+      set entry = "` ( cat /etc/passwd ; ypcat passwd ) | grep $xsu_user_env | head -1 `"
+      set uhome = ` echo $entry | awk -F: '{ print $(NF-1) }' `
+#     set entry = "` ( ypcat passwd ; cat /etc/passwd ) | grep $user | head -1 `"
+      set entry = "` ( cat /etc/passwd ; ypcat passwd ) | grep $user | head -1 `"
+      set shell = ` echo $entry | awk -F: '{ print $NF }' `
+      if ( "$shell" == "" ) then
+          echo "xsu:  cannot maintain environment - user '$user' not found in nis or locally"
+      else
+        if ( $shell =~ *csh ) then
+          set other  = $uhome/.other.csh
+        else
+          set other  = $uhome/.other.sh
+        endif
+        if ( ! -f $other ) then
+          echo "xsu:  cannot maintain environment - '$other' not found"
+        else
+          set cmd = ( $cmd -c $other )
+        endif
+      endif
+    endif
+  endif
+
+#------------------------------------------------------------------------------
+
+  set xargs = ( -geometry 110x54+170+14 -bg black -fg yellow -vb -sb -sl 1000 )
+
+  echo "xsu:  $cmd"
+
+  ( xterm $xargs -T "$name" -n "$name" -e $cmd < /dev/null >& /dev/null & )
+ 
+skip:
+ 
+  shift
+
+  if ( $#argv > 0 ) echo "- continuing with $1"
+
+  if ( $#argv > 0 ) goto start
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  xsu [<user-name>] [...]"
+  echo ""
+  echo "- Calls 'su - [<usename>]' within its own xterm"
+  echo ""
+  echo "- xsu_user_env may be set to a user name to maintain that user's"
+  echo "  environment across xsu sessions, ~<xsu_user_env>/.other.{sh,csh}"
+  echo "  is run after su to establish the environment."
+  echo ""
+  echo "- Multiple <user-name>'s may be specified to open several xterms at a time."
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

@@ -1,0 +1,9 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+echo ""
+echo "Authenticate as yangl.root to become 'costing'"
+echo ""
+exec su yangl.root -c "exec su - costing"
+
+#------------------------------------------------------------------------------

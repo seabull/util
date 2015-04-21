@@ -1,0 +1,134 @@
+#!/usr/bin/perl
+#!/usr/lpp/ssp/perl5/bin/perl
+#------------------------------------------------------------------------------
+
+use strict ;
+
+use File::Path ;
+
+use Cwd ;
+
+#------------------------------------------------------------------------------
+
+my $log = "/usr/tmp/.aget-files.$$.log" ;
+
+sub usage
+{
+  my ( $err_no, $err_str ) = ( 0 + $!, "$!" ) ;
+
+  if ( -r $log )
+  {
+    system("cat $log") ;
+    printf "\n" ;
+  }
+
+  printf "\n" ;
+  printf "Error:  " . shift(@_) . "\n", @_ ;
+  printf "\n" ;
+
+  ( $err_no ) &&
+    printf "OS error:  $err_str\n\n- OS Error may be meaningless since errno isn't reset.\n\n" ;
+
+  printf "Usage:  aget-files <host> <remote-dir> <file-list>\n" ;
+  printf "\n" ;
+  printf "- Get each of the listed files including directory structure.\n" ;
+  printf "\n" ;
+
+  unlink ( $log ) ;
+  
+  exit ( -1 ) ;
+}
+
+#------------------------------------------------------------------------------
+{
+  ( int(@ARGV) != 3 ) &&
+    usage("Wrong number of arguments - expected three") ;
+
+  my $host = "$ARGV[0]" ;
+  my $from = "$ARGV[1]" ;
+  my $list = "$ARGV[2]" ;
+
+  printf "<> getting files from %s in %s\n", $host, $from ;
+  
+  open ( LIST, "<$list" ) ||
+    usage("Can't open '$list'") ;
+
+  my $base = cwd ;
+
+# print "cwd:  $base\n" ;
+
+  my ( $line, $text, $dir, $nam ) ;
+
+  $| = 1 ;
+
+  for ( $line = 1 ; ( $text = <LIST> ) ; $line ++ )
+  {
+    chdir ( $base ) ||
+      usage("Unable to move to '$base'") ;
+
+    my $comment = "^#" ;
+
+    next if ( $text =~ /$comment/ ) ;
+
+    chomp ( $text ) ;
+
+    $text =~ s/[ ][ ]*/ / ;
+    $text =~ s/^[ ]// ;
+
+    my ($size,$file,@rest) = split(/[ ][ ]*/,$text) ;
+
+    if ( "@rest" ne "" )
+    {
+      printf "error> size = $size\n" ;
+      printf "error> file = $file\n" ;
+      usage("Line %d has more than two fields:  %s\n",$line,$text) ;
+    }
+
+#   printf "*** $text\n" ;
+
+#   printf "-> $size\n" ;
+#   printf "-> $file\n" ;
+
+    ( $dir = $file ) =~ s,[/][^/]*$,, ;
+    ( $nam = $file ) =~ s,.*[/],, ;
+
+    $dir = ( $dir eq $nam ) ? "." : $dir ;
+
+#   printf "-> dir  =  $dir\n" ;
+#   printf "-> nam  =  $nam\n" ;
+
+    if ( ! -d "$dir/." )
+    {
+      mkpath ( $dir, 0755 ) ||
+        usage ( "Unable to create directory '$dir'" ) ;
+    }
+
+#   printf "-> siz  =  %d\n", ( -s $file ) ;
+
+    next if ( ( -r $file ) && ( int ( -s $file ) == int ( $size ) ) ) ;
+
+#   last if ( $line > 8 ) ;
+
+    printf "get:  $dir/$nam\n" ;
+
+#   printf "cmd>  aftp-get $host -cd $from/$dir $nam\n" ;
+
+    chdir ( $dir ) ||
+      usage("Unable to move to '$dir'") ;
+
+    system ( "aftp-get $host -cd $from/$dir $nam > $log 2>&1" ) &&
+      usage("fetch failed for $file [1]") ;
+
+    ( ( -s $nam ) != $size ) &&
+      usage("fetch failed for $file [2]") ;
+  }
+
+  close ( LIST ) ;
+
+  printf "<> done\n" ;
+  
+  unlink ( $log ) ;
+  
+  exit ( 0 ) ;
+}
+#------------------------------------------------------------------------------

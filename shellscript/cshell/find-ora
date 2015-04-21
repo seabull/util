@@ -1,0 +1,33 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  find . \
+    \( -name '*.sql
+    -o -name '*.pls
+    -o -name '*.pkh
+    -o -name '*.pkb
+    -o -name '*.sf
+    -o -name '*.sp
+    -o -name '*.ctl
+    -o -name '*.sqm
+    -o -name '*.pbm
+    -o -name '*.ctm
+    -o -name '*.csh
+    -o -name '*.ksh
+    -o -name '*.sh
+    -o -name '*.pdl
+    -o -name '*.tr*g
+    -o -name '*.trig
+    -o -name '*.dat
+    -o -name '*.txt
+    -o -name '*.doc
+    -o -name '*.bkb
+    -o -name '*.
+    -o -name '*.
+    -o -name '*.
+    -o -name '*.
+    -o -name '*.
+    -o -name '*.
+    \) -print
+
+#------------------------------------------------------------------------------

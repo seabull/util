@@ -1,0 +1,50 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set out = /usr/tmp/.el-output.$$
+
+  if ( $#argv <= 0 ) then
+    set msg = "No files specified."
+    goto usage
+  endif
+
+  
+
+#------------------------------------------------------------------------------
+
+  foreach file ( $* )
+    if ( -w $file ) then
+      echo "- writable      - '$file'"
+      continue
+    endif
+    co -l $* >& $out
+    if ( $status == 0 ) then
+      echo "- checked out   - '$file'"
+    else
+      set msg = "Checkout failed"
+      cat $out
+      goto usage
+    endif
+  end
+
+  exec emacs $*
+
+  set msg = "exec() failed."
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  el <rcs-file> [...]"
+  echo ""
+  echo "- Check out and lock the specified file(s)."
+  echo ""
+
+  rm -f $out
+
+  exit -1
+
+#------------------------------------------------------------------------------

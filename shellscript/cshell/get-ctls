@@ -1,0 +1,4 @@
+#!/bin/csh -f
+
+  ( find /a/gstcws/home/. / -name '*.ctl' -print | tee ~/log/sql-ldr-ctl-files.lst /dev/tty ) > & /dev/null
+

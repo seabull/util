@@ -1,0 +1,37 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+# file:  set-man-path
+#------------------------------------------------------------------------------
+
+# Generate Unix Manual Page search path - MANPATH
+
+#------------------------------------------------------------------------------
+
+# For all elements of the executable search path & /usr/share/bin
+#    if <path>/../man exists, add it to the shared manrary search path
+
+  set man_path = ( )
+
+  set base = "`pwd`"
+  foreach bin ( $path /usr/share/bin /usr/bin )
+    set man = "$bin:h/man"  
+    if ( -d $man/. ) then
+      cd $man/. ; set man_path = ( $man_path `pwd` )	# physical path
+    endif
+  end
+  cd $base
+
+  if ( $?MANPATH == 0 ) setenv  MANPATH " "
+
+# Appends all orignal values to the end of the ld path.
+
+  set man_path = ( $man_path ` echo $MANPATH | sed 's/:/ /g' ` )
+
+# Remove duplicates.
+
+  if ( $#man_path > 0 ) then
+    set man_path = ( ` clean-path $man_path ` )
+    echo $man_path | sed 's/ /:/g'
+  endif
+
+#-----------------------------------------------------------------------------

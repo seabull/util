@@ -1,0 +1,13 @@
+#!/bin/sh
+#----------------------------------------------------------------------
+
+lprng-stop-svc
+
+echo "- Starting lpd service"
+
+cygrunsrv	--install	lprng			\
+		--path		/usr/local/sbin/lpd.exe	\
+		--args		-F			\
+		--disp		'Cygwin LPRng'
+
+#----------------------------------------------------------------------

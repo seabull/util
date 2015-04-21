@@ -1,0 +1,20 @@
+#!/bin/csh -f
+
+  set dst = /tmp/netscape/$USER
+
+  if ( -d $dst/. ) then
+    echo "error:  already done"
+    exit -1
+  endif
+
+  mkdir $dst
+
+  chmod 700 $dst
+
+  mv ~/.netscape/archive	$dst/.
+  mv ~/.netscape/cache		$dst/.
+
+  ln -s $dst/archive		~/.netscape/.
+  ln -s $dst/cache		~/.netscape/.
+
+#------------------------------------------------------------------------------

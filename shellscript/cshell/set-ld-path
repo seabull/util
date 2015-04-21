@@ -1,0 +1,37 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+# file:  set-ld-path
+#------------------------------------------------------------------------------
+
+# Generate shared library search path - LD_LIBRARY_PATH
+
+#------------------------------------------------------------------------------
+
+# For all elements of the executable search path
+#    if <path>/../man exists, add it to the shared library search path
+
+  set lib_path = ( )
+
+  set base = "`pwd`"
+  foreach bin ( $path )
+    set lib = "$bin:h/lib"
+    if ( -d $lib/. ) then
+      cd $lib/. ; set lib_path = ( $lib_path `pwd` )	# physical path
+    endif
+  end
+  cd $base
+
+  if ( $?LD_LIBRARY_PATH == 0 ) setenv  LD_LIBRARY_PATH ""
+
+# Appends all orignal values to the end of the ld path.
+
+  set lib_path = ( $lib_path ` echo $LD_LIBRARY_PATH | sed 's/:/ /g' ` )
+
+# Remove duplicates.
+
+  if ( $#lib_path > 0 ) then
+    set lib_path = ( ` clean-path $lib_path ` )
+    echo $lib_path | sed 's/ /:/g'
+  endif
+
+#-----------------------------------------------------------------------------

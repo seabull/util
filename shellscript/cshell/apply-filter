@@ -1,0 +1,96 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+# simple model for safely applying a filter to a file
+
+    set quiet = 1
+
+#------------------------------------------------------------------------------
+
+  if ( "$1" == "-verbose" ) then
+    set quiet = 0
+    shift
+  endif
+
+  if ( "$1" == "" ) then
+    set msg = "Missing filter name"
+    goto usage_error
+  endif
+
+  set f_name = "$1" ; shift
+
+  if ( "$1" == "" ) then
+    set msg = "Missing filter usage"
+    goto usage_error
+  endif
+
+  set f_usage = "$1" ; shift
+
+  if ( "$1" == "" ) then
+    set msg = "Missing filter command"
+    goto usage_error
+  endif
+
+  alias f_command "$1" ; shift
+
+  if ( "$1" == "" ) then
+    set msg = "First file name is missing or is an empty string"
+    goto error
+  endif
+
+# echo "name:      $f_name"
+# echo "usage:     $f_usage"
+# echo "command:   `alias f_command`"
+
+#------------------------------------------------------------------------------
+
+  set base = ".apply-filter.%%%.$$"
+
+  while ( "$1" != "" )
+    if ( $quiet == 0 ) echo "- $1"
+    set tmp = "$base.tmp"
+    set sav = "$base.sav"
+    f_command < "$1" > "$tmp"
+    if ( $status != 0 ) then
+      set msg = "File '$1' - $f_name failed"
+      goto error
+    endif
+    mv "$1" "$sav"
+    if ( $status != 0 ) then
+      set msg = "File '$1' - move (1) failed while saving original"
+      goto error
+    endif
+    mv "$tmp" "$1"
+    if ( $status != 0 ) then
+      set msg = "File '$1' - move (2) failed while installing new copy"
+      set msg = "$msg - will attempt to restore original"
+      mv "$sav" "$1"
+      goto error
+    endif
+    rm -f "$sav"
+    shift
+  end
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage_error:
+
+  echo "Error:  $msg"
+
+  echo "Usage:  apply-filter <filter-name> <filter-usage> <filter-command> <file> [...]"
+
+  exit -1
+
+#------------------------------------------------------------------------------
+
+error:
+
+  echo "Error:  $msg"
+
+  echo "Usage:  $f_usage <file> [...]"
+
+  exit -1
+
+#------------------------------------------------------------------------------

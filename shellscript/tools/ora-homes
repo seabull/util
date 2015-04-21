@@ -1,0 +1,63 @@
+#!/bin/sh
+
+e=1
+#-----------------------------------------------------------------------------
+#set -x
+
+trap 'e=$?; exit' 1 2 15
+trap 'rm -f /tmp/${prog}$$T*; trap 0; exit $e' 0
+
+prog=`basename $0 .sh`
+T="/tmp/${prog}$$T"
+
+#TT="/tmp/${prog}$$TT"
+#cmd ${@+"$@"}
+#-----------------------------------------------------------------------------
+usage()
+{
+	echo $2
+	cat << EOF_USAGE
+Usage:	${prog} 
+Description:
+	- Outputs known Oracle SIDs with their respective home directories, 
+	  one per line.
+EOF_USAGE
+	exit $1
+}
+#------------------------------------------------------------------------------
+TABS="/etc/oratab /var/opt/oracle/oratab"
+FILES=
+X_AWK=awk
+X_GREP=grep
+ORASID=
+
+#------------------------------------------------------------------------------
+
+if [ $# -gt 1 ]; then
+	usage 1 "No argument needed" 1>&2
+fi
+
+#------------------------------------------------------------------------------
+ORASID=$1
+
+for tab in $TABS
+do
+	#echo $tab
+	if [ -r $tab ]; then
+		#echo $tab
+		#grep "^${ORASID}": $tab | head -1 | ${X_AWK} -F: '{ print $2 }'
+		FILES="$FILES $tab"
+	fi
+done
+
+if [ x"$FILES" = "x" ]; then
+	usage 1 "No oratab files found or accessible ($TABS)" 1>&2
+fi
+
+#usage 1 "No oratab file found or accessible ($TABS)" 1>&2
+${X_GREP} -v '^#' $FILES | \
+	${X_AWK} -F: '{ printf "%-8s  %s\n", $1, $2 }' | \
+	sed -e '/^[ 	]*$/d' | \
+	sort
+
+#------------------------------------------------------------------------------

@@ -1,0 +1,77 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set filter = /usr/tmp/.wrap-lines.$$
+
+  if ( $#argv != 1 ) then
+    set msg = "Wrong number arguments - just one required."
+    goto usage
+  endif
+
+  set width = "$1"
+
+  if ( "$width" == "" ) then
+    set msg = "Empty string specified for line width."
+    goto usage
+  endif
+
+  if ( "` echo $width | sed 's/[0-9]//g' `" != "" ) then
+    set msg = "Non-digits in line width."
+    goto usage
+  endif
+
+  if ( $width <= 3 ) then
+    set msg = "Line width must be greater than 3."
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+cat <<--Done-- > $filter
+{
+  gsub(/[       ]* \$/,"") ;             # Strip trailing whitepace
+
+  s = \$0 ; l = length(s) ; p = "" ;
+
+  while ( 1 )
+  {
+    m = ( $width - length(p) ) ;
+
+    if ( l <= m )
+    {
+      printf "%s%s\n", p, s ;
+      break ;
+    }
+
+    printf "%s%s\n", p, substr(s,1,m) ;
+
+    s = substr(s,m+1) ;
+    l = length(s) ;
+    p = ">> " ;
+  }
+}
+--Done--
+
+#------------------------------------------------------------------------------
+
+  untab | awk -f $filter
+
+  rm -f $filter
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  wrap <line-width>"
+  echo ""
+
+  rm -f $filter
+
+  exit -1
+
+#------------------------------------------------------------------------------

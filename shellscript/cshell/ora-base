@@ -1,0 +1,30 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  if ( "$1" == "" ) then
+    echo ""
+    echo "error:  missing oracle instance name (sid)"
+    echo ""
+    echo "usage:  ora-home <sid>"
+    echo ""
+    exit -1
+  endif
+
+  set tab = /etc/oratab
+
+  if ( ! -f $tab ) then
+    echo ""
+    echo "error:  file '$tab' - does not exist or is not a plain file"
+    echo ""
+    echo "usage:  ora-home <sid>"
+    echo ""
+    exit -1
+  endif
+
+  set x0 = ` grep "$1" $tab | awk -F: '{ print $2 }' `
+
+  set x1 = "$x0:h"
+
+  echo "$x1:h"
+
+#------------------------------------------------------------------------------

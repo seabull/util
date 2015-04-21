@@ -1,0 +1,25 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+# Simple form of applying a sed expression to a set of files.
+
+# Rewrite in perl with options:
+#      -e <expression>
+#      -i                Interactive y/n change approval
+#      -c                Confirm changes (at end)
+#      -v                Verbose - show changes
+
+  set usage = "mod <sed-expression>"
+
+  if ( "$1" == "" ) then
+    echo "Error:  No sed expression specified"
+    echo "Usage:  $usage <file> [...]'"
+    exit -1
+  endif
+  
+  set cmd = 'sed '"$1"' '
+  shift
+
+  exec apply-filter mod "$usage" "$cmd" $*
+
+#------------------------------------------------------------------------------

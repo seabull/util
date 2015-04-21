@@ -1,0 +1,14 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+set user = $0
+
+set user = $user:t
+
+echo ""
+echo "Authenticate as phdye.root to become '$user'"
+echo ""
+
+exec su phdye.root -c "exec su - $user"
+
+#------------------------------------------------------------------------------

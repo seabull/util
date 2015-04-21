@@ -1,0 +1,145 @@
+#!/usr/local/bin/perl
+#------------------------------------------------------------------------------
+
+# tctee - clone that groks process tees - Perl Cookbook - O'Reilly
+# perl3 compatible, or better.
+
+#------------------------------------------------------------------------------
+
+use Time::CTime ;
+
+#------------------------------------------------------------------------------
+
+sub usage
+{
+  printf "\n" ;
+  printf "Error:  " . shift(@_) . "\n", @_ ;
+  printf "\n" ;
+
+  printf "Usage:  ttee [-aintu] [filenames] ...\n" ;
+  printf "\n" ;
+  printf "- ...\n" ;
+  printf "\n" ;
+  printf "Options:\n" ;
+  printf "\n" ;
+  printf "  -a    append to output file(s).\n" ;
+  printf "\n" ;
+  printf "  -c    timestamp each line with time of day (clock time).\n" ;
+  printf "\n" ;
+  printf "  -e    output elapsed time to files and std output when input ends.\n" ;
+  printf "\n" ;
+  printf "  -i    ignore interupts:  INT, TERM, HUP, QUIT\n" ;
+  printf "\n" ;
+  printf "  -t    timestamp each line with elapsed time.\n" ;
+  printf "\n" ;
+  printf "  -u    unbuffer output.\n" ;
+  printf "\n" ;
+# printf "  -<#>  output <#> blank lines after the time.\n" ;
+# printf "\n" ;
+
+  exit ( -1 ) ;
+}
+
+#------------------------------------------------------------------------------
+
+my ( $append, $clock, $elapsed, $ignore_ints, $nostdout )	= (0,0,0,0,0) ;
+my ( $timestamp, $unbuffer, $mode, $status )			= (0,0,0,0) ;
+my ( $fh, %fh ) ;
+
+if ( 0+@ARGV > 0 )
+{
+  while ( $ARGV[0] =~ /^-(.+)/ && ( shift, ( $_ = $1 ), 1 ) )
+  {
+    ( /^$/ ) &&
+      next ;
+
+    s/a// && (++$append,      redo) ;
+    s/c// && (++$clock,       redo) ;
+    s/e// && (++$elapsed,     redo) ;
+    s/i// && (++$ignore_ints, redo) ;
+    s/n// && (++$nostdout,    redo) ;
+    s/t// && (++$timestamp,   redo) ;
+    s/u// && (++$unbuffer,    redo) ;
+
+    usage("unrecognized option '$1'") ;
+  }
+
+  if ( $ignore_ints )
+  {
+    for $sig ('INT', 'TERM', 'HUP', 'QUIT')
+     { $SIG{$sig} = 'IGNORE'; }
+  }
+
+  $SIG{'PIPE'} = 'PLUMBER' ;
+
+  $mode	= $append ? '>>' : '>' ;
+  $fh	= 'FH000' ;
+
+  unless ( $nostdout )
+  {
+    %fh = ( 'STDOUT', 'standard output' ) ;		# always go to stdout
+  }
+
+  ( $unbuffer ) &&
+    ( $| = 1 ) ;
+
+  for ( @ARGV )
+  {
+    if ( ! open ( $fh, ( /^[^>|]/ && $mode ) . $_ ) )
+    {
+      warn "$0: cannot open $_: $!\n" ;		# like sun's ; i prefer die
+      $status ++ ;
+      next ;
+    }
+
+    ( $unbuffer ) &&
+      select ( ( select($fh), $| = 1 ) [0] ) ;
+
+    $fh { $fh ++ } = $_ ;
+  }
+}
+
+#------------------------------------------------------------------------------
+
+{
+  my $start = time() ;
+
+  while ( <STDIN> )
+  {
+    for $fh ( keys %fh )
+    {
+      ( $timestamp ) &&
+        printf $fh "%s : ", strftime("%T",gmtime(time()-$start)) ;
+      ( $clock ) &&
+        printf $fh "%s : ", strftime("%T",localtime(time)) ;
+      print $fh $_ ;
+    }
+  }
+
+  for $fh ( keys %fh )
+  {
+    ( $elapsed ) &&
+      printf $fh "%s Elapsed time\n", strftime("%T",gmtime(time()-$start)) ;
+ 
+    if ( ! close($fh) && defined $fh{$fh} )
+    {
+      warn "$0: couldn't close $fh{$fh}: $!\n" ;
+      $status ++ ;
+    }
+  }
+
+  exit $status ;
+}
+
+#------------------------------------------------------------------------------
+
+sub PLUMBER
+{
+  warn "$0: pipe to \"$fh{$fh}\" broke!\n" ;
+
+  $status ++ ;
+
+  delete $fh { $fh } ;
+}
+
+#------------------------------------------------------------------------------

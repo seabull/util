@@ -1,0 +1,42 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  if ( $#argv <= 0 ) then
+    set msg = "No arguments - expected at least on job numnber"
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  source ~phdye/.cshrc
+
+  foreach n ( $* )
+
+    eval "cjob $n data"
+
+    if ( $status != 0 ) then
+      set msg = "Job '$n' - unable to access data area"
+      goto usage
+    endif
+
+    ls -1s DW???DM[AB].* | awk '{ m=$1/1024;s+=m;printf "%-20s  %10d m  %10d m\n",$2,m,s}' | print
+
+  end
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  pj <j> [...]"
+  echo ""
+  echo "- Print a listing of the data files and their sizes"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

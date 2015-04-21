@@ -1,0 +1,816 @@
+q
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"
+
+alias ora_sid ' if ( $?ORACLE_SID ) eval "$orx_sid" | tr A-Z a-z '
+alias ora_user ' if ( $?CXAPPS )	eval "$orx_user" | sed "s,/..*,,g" '
+
+alias ora_cx ' set OraCx="< `ora_user` `ora_sid` >" '
+alias ora ' eval `ora-set-env !:*` ; ora_cx ; cd . '
+
+if ( $?ORACLE_SID == 0 ) then
+
+ora_cx
+echo $CXAPPS
+echo $ORACLE_SID
+endif
+
+if ( $?prompt != 0 ) then
+
+if ( "$LOGNAME" != "phdye" ) then
+
+set UxName = ""
+endif
+
+alias setprompt ' set prompt = "$UxName$OraCx : $cwd:t > " '
+alias cd ' cd !*	; setprompt '
+alias psh ' pushd !*	; setprompt '
+alias pop ' popd !*	; setprompt '
+
+cd .
+
+endif
+
+
+
+set history = 3000
+
+alias ll 'ls -l'
+alias cls /usr/bin/clear
+alias c cls
+alias md mkdir
+alias rd rmdir
+alias h 'history | tail -40'
+alias hh 'history | tail -80'
+alias m more
+alias g grep
+
+
+
+
+
+unalias emacs
+
+alias emacsx "` which emacs `"

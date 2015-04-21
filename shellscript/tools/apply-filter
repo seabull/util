@@ -1,0 +1,135 @@
+#!/bin/sh
+
+e=1
+#-----------------------------------------------------------------------------
+set -x
+
+# catch 0, SIGHUP(1), SIGINT(2), SIGTERM(15)
+trap 'e=$?; exit' 1 2 15
+trap 'rm -f /tmp/${prog}$$T*; trap 0; exit $e' 0
+
+prog=`basename $0 .sh`
+T="/tmp/${prog}$$T"
+TT="/tmp/${prog}$$TT"
+#cmd ${@+"$@"}
+#-----------------------------------------------------------------------------
+usage()
+{
+	echo $2
+	cat << EOF_USAGE
+Usage: ${prog} [options] <filter-name> <filter-usage> <filter-command> <file> [<file> <file> ...]
+Options:
+	-v	verbose mode
+
+EOF_USAGE
+	exit $1
+}
+#------------------------------------------------------------------------------
+CONN=
+X_MV=mv
+X_CP=cp
+X_CP_OPT=-f
+VERBOSE=
+FILTER_NAME=
+FILTER_USAGE=
+FILTER_CMD=
+_BASE_=".${prog}.$$"
+#------------------------------------------------------------------------------
+
+if [ $# -eq 0 ]; then
+	usage 1 "Empty argument list" 1>&2
+fi
+
+if [ "$OPTIND" = 1 ]; then
+	while getopts vc:h OPT
+	do
+		case $OPT in
+		v)	VERBOSE=TRUE
+			;;
+		c)	CONN=$OPTARG
+			;;
+		h)	usage 1 "----------" 1>&2
+			;;
+		\?)	usage 1 "Wrong arguments." 1>&2
+			;;
+		esac
+	done
+	shift `expr $OPTIND - 1`
+else
+	while [ $# -gt 0 ]; do
+		case "$1" in 
+		-c)
+			CONN=$2
+			shift 2
+			;;
+		-c*)
+			CONN=`echo "$1" | sed 's/^..//'`
+			shift
+			;;
+		-v)
+			VERBOSE=TRUE
+			;;
+		-h)
+			usage 0 "------------" 1>&2
+			;;
+		-*)	usage 1 "Not supported option $1" 1>&2
+			;;
+		*)
+			break
+			;;
+		esac
+	done
+fi
+
+if [ $# -lt 4 ]; then 
+	usage 1 "Wrong number of arguments" 1>&2
+fi
+#------------------------------------------------------------------------------
+if [ x"$1" = "x" ]; then
+	usage 1 "Missing Filter Name" 1>&2
+fi
+FILTER_NAME="$1"
+shift;
+if [ x"$1" = "x" ]; then
+	usage 1 "Missing Filter Usage" 1>&2
+fi
+FILTER_USAGE="$1"
+shift;
+if [ x"$1" = "x" ]; then
+	usage 1 "Missing Filter Command" 1>&2
+fi
+FILTER_CMD="$1"
+shift;
+
+while [ ! x"$1" = "x" ]; do
+	if [ x"$VERBOSE" = "xTRUE" ]; then
+		echo "- $1" 
+	fi
+	echo "${FILTER_CMD} < $1 > ${T}"
+	# Using eval to make argument with spaces work.
+	# e.g. sed 's/Create with//' < foo1 > foo2
+	# 
+	eval "${FILTER_CMD} < $1 > ${T}"
+	if [ $? -gt 0 ]; then
+		usage 2 "" 1>&2
+	fi
+	${X_CP} "$1" "$TT"
+	if [ $? -gt 0 ]; then
+		usage 3 "Saving file $1 to $TT failed using ${X_MV}" 1>&2
+	fi
+	${X_CP} ${X_CP_OPT} "$T" "$1"
+	if [ $? -gt 0 ]; then
+		mv "$TT" "$1"
+		usage 3 "Moving file $T to $1 failed using ${X_MV}, restored the original copy." 1>&2
+	fi
+	rm -f "$TT"
+	shift
+done
+
+#------------------------------------------------------------------------------
+# echo "name:      $f_name"
+# echo "usage:     $f_usage"
+# echo "command:   `alias f_command`"
+
+#------------------------------------------------------------------------------
+

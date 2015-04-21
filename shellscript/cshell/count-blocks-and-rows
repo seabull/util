@@ -1,0 +1,19 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set out = .n-x
+
+  cat /dev/null > $out
+
+  foreach x ( `cat targets.lst` )
+    echo "- $x" ;
+    set s1  = "Select '.   Rows          ' || To_Char(Count(*),'999,999,999') from $x ;"
+    set s2x = "Select '.   Blocks        ' || To_Char(Blocks,'999,999,999') from All_Tables"
+    set s2  = "$s2x where owner = 'EDW' And table_name = Upper('$x') ;" ;
+    set s3x = "Select '.   Avg_Row_Len   ' || To_Char(Avg_Row_Len,'999,999,999') from All_Tables"
+    set s3  = "$s3x where owner = 'EDW' And table_name = Upper('$x') ;" ;
+    ( echo "- $x" ; ( echo "Set Pagesize 0 ;" ; echo "$s1" ; echo "$s2" ; echo "$s3" ) \
+      | sqlplus -s edw/edw ) >> $out
+  end
+
+#------------------------------------------------------------------------------

@@ -1,0 +1,30 @@
+#!/bin/ksh
+#------------------------------------------------------------------------------
+
+# Ensure that a command has been specified
+
+  if [ "x$1" = "x" ] ; then
+    echo ""
+    echo "error:  first argument missing - no command to run"
+    echo ""
+    echo "usage:  run-cmd <command> <arg0> [ <arg1> ... ]"
+    echo ""
+    exit -1
+  fi
+
+#------------------------------------------------------------------------------
+
+# Setup the environment
+
+  export Non_Interactive=1
+  export SHELL=/bin/ksh
+
+  . $HOME/.profile
+
+#------------------------------------------------------------------------------
+
+# Run the command
+
+  exec $*
+
+#------------------------------------------------------------------------------

@@ -1,0 +1,94 @@
+#!/usr/bin/perl -w
+#!/usr/lpp/ssp/perl5/bin/perl -w
+#------------------------------------------------------------------------------
+
+use strict ;
+
+use Net::FTP ;
+
+#------------------------------------------------------------------------------
+
+sub usage
+{
+  my ( $err_no, $err_str ) = ( 0 + $!, "$!" ) ;
+
+  printf "\n" ;
+  printf "Error:  " . shift(@_) . "\n", @_ ;
+  printf "\n" ;
+
+  ( $err_no ) &&
+    printf "OS error:  $err_str\n\n- OS Error may be meaningless since errno isn't reset.\n\n" ;
+
+  printf "Usage:  aget-list <host> <remote-dir>\n" ;
+  printf "\n" ;
+  printf "- Get a list of the file sizes including subdirectories\n" ;
+  printf "\n" ;
+  
+  exit ( -1 ) ;
+}
+
+#------------------------------------------------------------------------------
+{
+  ( int(@ARGV) != 2 ) &&
+    usage("Wrong number of arguments - expected two") ;
+
+  my $host = "$ARGV[0]" ;
+  my $from = "$ARGV[1]" ;
+
+# printf "host:  $host\n" ;
+# printf "from:  $from\n" ;
+
+  my $ftp = Net::FTP->new ( $host, Debug => 0 ) ;
+
+  ( ! defined ( $ftp ) ) &&
+    usage("Unable to connect to '$host' - $@") ;
+
+  $ftp->login("anonymous",$ENV{LOGNAME}.'@congra.com') ||
+    usage("login failed") ;
+
+  if ( ( $from ne "." ) && ( $from ne "/" ) )
+  {
+    $ftp->cwd($from) ||
+      usage("cwd failed") ;
+  }
+
+  printf "pwd:  %s\n", $ftp->pwd ;
+
+  my @list = $ftp->dir("-R") ;
+
+# my @list = $ftp->dir() ;
+
+  ( ! defined ( @list ) ) &&
+    usage("directory command failed - $@") ;
+
+  my $dir = "." ;
+
+  my $line = 0 ;
+
+#./foobar
+#-rw-r--r--   1 ftpuser  ftpusers      2074 Feb 22 19:54 00_index.txt
+
+  foreach my $text ( @list )
+  {
+    $line ++ ;
+
+#   last if ( $line > 50 ) ;
+
+    ( $text =~ /^[.]/ ) &&
+      ( ( $dir = $text ) =~ s/:$// ) ;
+
+    if ( $text =~ /^[-]/ )
+    {
+      my ($mode,$links,$user,$group,$size,$month,$day,$yt,$file)
+        = split(/[ ][ ]*/,$text) ;
+      printf "%12d  %s/%s\n", $size, $dir, $file ;
+    }
+  }
+
+  $ftp->quit ||
+    usage("quit failed") ;
+
+  exit ( 0 ) ;
+}
+#------------------------------------------------------------------------------
+

@@ -1,0 +1,4 @@
+#!/bin/csh -f
+
+  run rxvt -T gateway -e telnet gateway &
+

@@ -1,0 +1,104 @@
+#!/usr/local/bin/perl5 -w
+#!/usr/bin/perl -w
+#------------------------------------------------------------------------------
+use IO::Handle ;
+#------------------------------------------------------------------------------
+sub print_current
+{
+	my $current = $_[0] ;
+
+	if ( ( length($current) > 6 ) && ( $current =~ /^....[	]../ ) )
+	{
+		printf "%s\n", substr($current,2,2) . " " . substr($current,5) ;
+	}
+	else
+	{
+		printf "%s\n", $current ;
+	}
+
+	return 1 ;
+}
+
+#------------------------------------------------------------------------------
+
+# Strip leading blank lines
+
+while(defined( $line = <STDIN> ) && ( $line eq "\n" || $line eq "\r\n" ) )
+{ }
+
+# Output all lines up to the start of the execution plan
+# (strip blank lines from the end of the output)
+my $blank = 0 ;
+
+while( defined( $line ) && $line !~ /^Execution Plan$/ )
+{
+	if ( $line eq "\n" || $line eq "\r\n" )
+	{
+		$blank ++ ;
+	}
+	else
+	{
+		for ( ; ( $blank > 0 ) ; $blank -- )
+		{ print "\n" ; }
+		print $line ;
+	}
+	$line = <STDIN> ;
+}
+
+( ! defined ( $line ) ) &&
+	exit 0 ;
+
+#------------------------------------------------------------------------------
+
+# Output the execution plan
+#   - read lines up to '^Statistics'
+#   - collect wrapped lines to output as a single line
+
+$current = $line ; chomp($current) ; $found = 0 ;
+
+while ( defined( $line = <STDIN> ) )
+{
+	chomp($line) ;
+
+	last if ( $line =~ /^Statistics/ ) ;
+
+	if ( $line =~ /^[	]    / )
+	{
+		$line = substr($line,5) ;
+		$found = 1 ;
+	}
+	else
+	{
+		( ( length($current) > 0 ) || ( $found < 2 ) ) &&
+			( print_current ( $current ) ) ;
+		$current = "" ;
+		$found = ( $found == 1 ? 2 : 0 ) ;
+	}
+
+	$paren = substr($line,0,1) ;
+	$squote = substr($current,length($current)-1,1) ;
+	if ( ( $squote eq "'" ) && ( $paren eq "(" ) )
+	{
+		$current .= " " ;
+	}
+
+	$current .= $line ;
+}
+
+#------------------------------------------------------------------------------
+
+# Output the statistics
+
+( defined ( $current ) ) &&
+	print "$current\n" ;
+
+printf "$line\n" ;
+
+while ( defined ( $line = <STDIN> ) )
+{
+	print $line ;
+}
+
+exit 0
+
+#------------------------------------------------------------------------------

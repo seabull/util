@@ -1,0 +1,461 @@
+#!/usr/bin/perl
+#!/usr/lpp/ssp/perl5/bin/perl
+#------------------------------------------------------------------------------
+
+use strict ;
+
+use File::Path ;
+
+use Cwd ;
+
+use Net::FTP ;
+
+use Time::ParseDate ;
+use Time::CTime ;
+
+#------------------------------------------------------------------------------
+
+sub usage
+{
+  my ( $err_no, $err_str ) = ( 0 + $!, "$!" ) ;
+
+  printf "\n" ;
+  printf "Error:  " . shift(@_) . "\n", @_ ;
+  printf "\n" ;
+
+  ( $err_no ) &&
+    printf "OS error:  $err_str\n\n- OS Error may be meaningless since errno isn't reset.\n\n" ;
+
+  printf "Usage:  aget-files <host> <remote-dir> <file-list>\n" ;
+  printf "\n" ;
+  printf "- Get each of the listed files including directory structure.\n" ;
+  printf "\n" ;
+
+  exit ( -1 ) ;
+}
+
+#------------------------------------------------------------------------------
+
+# FTP connection state - maintained by ftp_* operations
+
+my $host	= $ARGV[0] ;
+my $start_dir	= $ARGV[1] ;
+my $list	= $ARGV[2] ;
+my $retries	= 30 ;
+my $wait	= 30 ;		# Wait seconds between retries
+my $base	= cwd ;
+my $ftp		= undef ;
+my $target_dir	= "." ;
+my $target_pwd	= "/" ;
+
+{
+  ( int(@ARGV) != 3 ) &&
+    usage("Wrong number of arguments - expected three") ;
+
+  ( my $tst = $host ) =~ s/[-_A-Za-z0-9.]*// ;
+
+  ( $tst ne "" ) &&
+    usage("Ftp host containts invalid characters ($tst)") ;
+
+  ( substr($start_dir,0,1) ne "/" ) &&
+    ( $start_dir = "/" . $start_dir ) ;
+#   usage("Starting directory ($start_dir) must be an absolute path") ;
+
+  printf "<> sending files to %s in %s\n", $host, $start_dir ;
+  
+  open ( LIST, "<$list" ) ||
+    usage("Can't open '$list'") ;
+
+  select STDOUT ; $| = 1 ;	# Unbuffered
+
+  ftp_connect() ;
+
+  my @next_file ;
+
+  while ( int ( @next_file = get_next_file() ) == 3 )
+  {
+    my ($size,$directory,$filename) = @next_file ;
+
+    chdir ( $base ) ||
+      usage("Unable to move to '$base'") ;
+
+#   printf "stat:  '%s' '%s'\n", $directory, $filename ;
+
+    my ( $local_size, $local_mtime ) = file_stat ( $directory, $filename ) ;
+
+    chdir ( $directory ) ||
+      usage("Unable to move to '$directory'") ;
+
+    ftp_target_directory ( $directory ) ;
+
+    my ( $remote_size, $remote_mtime ) = ftp_file_stat ( $filename ) ;
+
+    if ( ( $remote_size == $local_size ) && ( $remote_mtime >= $local_mtime ) )
+    {     
+      printf "match:   $directory/$filename\n" ;
+      next ;
+    }
+
+    printf "send:    $directory/$filename\n" ;
+
+    ftp_send ( $filename ) ;
+
+    ( $remote_size, $remote_mtime ) = ftp_file_stat ( $filename ) ;
+
+#   printf "** size local    =  %d\n", $local_size ;
+#   printf "** size remote   =  %d\n", $remote_size ;
+
+    ( $remote_size != $local_size ) &&
+      usage("'$directory/$filename' - after send - remote size does not match") ;
+
+#   printf "** mtime local   =  %d\n", $local_mtime ;
+#   printf "** mtime remote  =  %d\n", $remote_mtime ;
+
+  # 5 minute window for time offsets
+    ( ($remote_mtime+60*5) < $local_mtime ) &&
+      usage("'$directory/$filename' - after send - remote timestamp less than local") ; 
+  }
+
+  close ( LIST ) ;
+
+  $ftp->quit ;
+
+  printf "<> done\n" ;
+  
+  exit ( 0 ) ;
+}
+#------------------------------------------------------------------------------
+
+my $line = 0 ;
+
+sub get_next_file
+{
+  my ( $text, $directory, $filename ) ;
+
+  my $comment = "^#" ;
+
+# ( $line > 3 ) &&
+#   return undef ;
+
+  for ( $line ++ ; ( $text = <LIST> ) ; $line ++ )
+  {
+    next if ( $text =~ /$comment/ ) ;	# Skip lines starting with '#'
+
+    chomp ( $text ) ;			# Remove end of line
+
+    $text =~ s/^[ 	][ 	]*// ;		# Strip leading white space (tab,space)
+#   $text =~ s/[ 	][ 	]*/ / ;	# Collapse all spaces to singles
+
+    my ( $size, $filepath, @rest ) = split(/[ ][ ]*/,$text) ;
+
+    if ( @rest > 0 )
+    {
+      printf "error> size = $size\n" ;
+      printf "error> file = $filepath\n" ;
+      usage("Line %d has more than two fields:  %s\n",$line,$text) ;
+    }
+
+    ( my $directory  = $filepath ) =~ s,[/][^/]*$,, ;
+    ( my $filename   = $filepath ) =~ s,.*[/],, ;
+
+  # Equal only if there is no directory specified
+
+    $directory = ( $directory eq $filename ) ? "." : $directory ;
+
+    return ( $size, $directory, $filename ) ;
+  }
+
+  return undef ;
+}
+
+#------------------------------------------------------------------------------
+
+sub file_stat
+{
+  my ( $directory, $filename, @rest ) = @_ ;
+
+  ( ! defined ( $directory ) || ( $directory eq "" ) ) &&
+    usage("file_stat() - missing or empty directory") ;
+
+  ( ! defined ( $filename ) || $filename eq "" ) &&
+    usage("file_stat() - missing or empty filename") ;
+
+  ( @rest > 0 ) &&
+    usage("file_stat() - too many arguments") ;
+
+  my @stat_list = stat ( $directory . "/" . $filename ) ;
+
+  ( ! defined ( @stat_list ) ) &&
+    usage("stat failed for '%s/%s'",$target_dir,$filename) ;
+
+  my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,$atime,$mtime,$ctime,$blksize,$blocks)
+    = @stat_list ;
+
+  return ( $size, $mtime ) ;
+}
+
+#------------------------------------------------------------------------------
+
+sub ftp_connect
+{
+  ( ! defined ( $host ) ) &&
+    usage("ftp_connect() - missing host") ;
+
+  ( ! defined ( $start_dir ) ) &&
+    usage("ftp_connect() - missing starting directory") ;
+
+  ( ! defined ( $retries ) ) &&
+    usage("ftp_connect() - missing retries") ;
+
+  ( $retries < 0 ) &&
+    usage("ftp_connect() - retries ($retries) less than zero") ;
+
+  ( ! defined ( $wait ) ) &&
+    usage("ftp_connect() - missing wait time") ;
+
+  ( $wait < 0 ) &&
+    usage("ftp_connect() - wait time ($wait) less than zero") ;
+
+  my $err ;
+
+
+  for ( my $xtries = ($retries+1) ; ( ($xtries--) > 0 ) ; )
+  {
+    printf "<> connecting to '$host'\n" ;
+
+    $ftp = Net::FTP->new ( $host, Debug => 0 ) ;
+
+    $err = "Unable to connect to '$host' - $@" ;
+
+    if ( defined ( $ftp ) )
+    {
+      $err = "login failed" ;
+      if ( $ftp->login("anonymous",$ENV{LOGNAME}."@".$ENV{NETDOMAIN}) )
+      {
+	$err = "binary mode failed" ;
+	if ( $ftp->binary )
+	{
+	  $err = "change directory failed" ;
+	  if ( $ftp->cwd($start_dir) )
+	  {
+	    printf "-- connection established\n" ;
+	    return $ftp ;
+	  }
+	}
+      }
+    }
+
+    if ( $xtries > 0 )
+    {
+      printf "-- connection failed - $err\n" ;
+      printf "-- waiting %d seconds until next try\n", $wait ;
+      sleep ( $wait ) ;
+    }
+  }
+
+  printf "-- connection failed - no more retries\n" ;
+
+  usage($err) ;
+}
+
+#------------------------------------------------------------------------------
+
+sub ftp_target_directory
+{
+  my ( $directory, @rest ) = @_ ;
+
+  ( ! defined ( $directory ) || ( $directory eq "" ) ) &&
+    usage("ftp_target_directory() - missing or empty directory") ;
+
+  ( @rest > 0 ) &&
+    usage("ftp_target_directory() - too many arguments") ;
+
+  $target_dir = $directory ;
+
+  my $abs_path = $start_dir . "/" . $target_dir ;
+
+  my $multi_slash	= "[/][/]*" ;
+  my $slash_dot		= "[/][.][/]" ;
+  my $slash		= "/" ;
+
+  $abs_path =~ s/$multi_slash/$slash/g ;
+  $abs_path =~ s/$slash_dot/$slash/g ;
+
+# printf "** absolute path = %s\n", $abs_path ;
+
+  for ( my $xtries = ($retries+1) ; ( ($xtries--) > 0 ) ; )
+  {
+    next if ( ! defined ( ftp_connected() ) ) ;
+
+    if ( $ftp->cwd ( $abs_path ) )
+    {
+      next if ( ! defined ( $target_pwd = $ftp->pwd ) ) ;
+      return ;
+    }
+
+    printf "-- mkdir $target_dir\n" ;
+
+    $ftp->mkdir ( $abs_path, 1 ) ;
+  }
+
+  usage("Unable to create or move to target directory '$abs_path'") ;
+}
+
+#------------------------------------------------------------------------------
+
+sub ftp_send
+{
+  my ( $file, @rest ) = @_ ;
+
+  ( ! defined ( $file ) || ( $file eq "" ) ) &&
+    usage("ftp_send() - missing or empty file name") ;
+
+  ( @rest > 0 ) &&
+    usage("ftp_send() - too many arguments") ;
+
+  for ( my $xtries = ($retries+1) ; ( ($xtries--) > 0 ) ; )
+  {
+    next if ( ! defined ( ftp_in_target() ) ) ;
+
+    my $rc = $ftp->put ( $file ) ;
+
+    printf "-- put rc:    %s\n", defined ( $rc ) ? $rc : "<undef>" ;
+
+    sleep(120) ;
+
+    defined ( $rc ) &&
+      return ;
+
+    printf "ftp message:  %s\n", $ftp->message ;
+  }
+
+  usage("Unable to send '$file'") ;
+}
+
+#------------------------------------------------------------------------------
+
+sub ftp_connected
+{
+  my $pwd = $ftp->pwd ;
+
+# printf "-- ftp_connected:  %s\n", defined ( $pwd ) ? $pwd : "<undef>" ;
+
+  defined ( $pwd ) &&
+    return 1 ;
+
+  printf "-- reestablishing lost connection\n" ;
+
+  ftp_connect() ;
+
+  defined ( $pwd = $ftp->pwd ) &&
+    return 1 ;
+
+  printf "-- unable to reestablish connection\n" ;
+
+  return undef ;
+}
+
+#------------------------------------------------------------------------------
+
+sub ftp_in_target
+{
+  my $pwd = $ftp->pwd ;
+
+# printf "-- ftp_in_target:  %s\n", defined ( $pwd ) ? $pwd : "<undef>" ;
+
+# my ($package,$filename,$line,$subroutine,$hasargs,$wantarray,$evaltext,$is_require)
+#   = caller(0) ;
+
+# printf "** from %s at line %s\n", $subroutine, $line ;
+
+  ( defined ( $pwd ) && ( $pwd eq $target_pwd ) ) &&
+    return 1 ;
+
+  printf "-- not in target directory - %s\n", $ftp->message ;
+
+  ftp_target_directory ( $target_dir ) ;
+
+  $pwd = $ftp->pwd ;
+
+  if ( defined ( $pwd ) && ( $pwd eq $target_pwd ) )
+  {
+    printf "-- now in target directory ?\n" ;
+    return 1 ;
+  }
+
+  printf "-- still not in target directory\n" ;
+
+  return undef ;
+}
+
+#------------------------------------------------------------------------------
+
+sub ftp_do_file_stat
+{
+  my ( $filename, @rest ) = @_ ;
+
+  ( ! defined ( $filename ) || $filename eq "" ) &&
+    usage("ftp_do_file_stat() - missing or empty filename") ;
+
+  ( @rest > 0 ) &&
+    usage("ftp_do_file_stat() - too many arguments") ;
+
+  my @list = $ftp->dir ( $filename ) ;
+
+  ( ( ! defined ( @list ) ) || ( @list > 1 ) ) &&
+    return undef ;
+
+# -rwxrwxrwx 20 owner group      924 Mar 05 14:25 00readme.txt
+# 0123456789012345678901234567890123456789012345678901234567890
+# 0000000000111111111122222222223333333333444444444455555555556
+
+  my $text = $list[0] ;
+
+  ( $text !~ /^[-]/ ) &&
+    return undef ;
+
+  my ($mode,$links,$user,$group,$size,$month,$day,$yt,$file)
+    = split(/[ ][ ]*/,$text) ;
+        
+# printf "  - file   = %s\n", $file ;
+# printf "  - size   = %d\n", $size ;
+
+  my $mtime = parsedate("$month $day $yt") ;
+
+# printf "  - mtime  = %s\n", defined ( $mtime ) ? $mtime : "<undef>" ;
+# printf "  - mtime  = %s\n", asctime(localtime($mtime)) ;
+
+  return ( $size, $mtime ) ;
+}
+
+#------------------------------------------------------------------------------
+
+sub ftp_file_stat
+{
+  my ( $filename, @rest ) = @_ ;
+
+  ( ! defined ( $filename ) || ( $filename eq "" ) ) &&
+    usage("ftp_file_stat() - missing or empty file name") ;
+
+  ( @rest > 0 ) &&
+    usage("ftp_file_stat() - too many arguments") ;
+
+  my ( $size, $mtime ) ;
+
+  for ( my $xtries = ($retries+1) ; ( ($xtries--) > 0 ) ; )
+  {
+    next if ( ! defined ( ftp_in_target() ) ) ;
+
+    defined ( ( $size, $mtime ) = ftp_do_file_stat ( $filename ) ) &&
+      return ( $size, $mtime ) ;
+
+  # The file doesn't exist if we are still connected.
+
+    defined ( $ftp->pwd() ) &&
+      return -1 ;
+  }
+
+  usage("Unable to get size and modification time for '$filename'") ;
+}
+
+#------------------------------------------------------------------------------

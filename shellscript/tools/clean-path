@@ -1,0 +1,48 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+# file:  clean-exec-path
+#------------------------------------------------------------------------------
+
+  if ( $#argv <= 0 ) then
+    set msg = "Please provide at least one path element"
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  set new = ( )
+
+  while ( $#argv > 1 )
+    set elt = "$1" ; set new = ( $new $elt )
+    @ i = 2
+    while ( $i <= $#argv )
+      if ( "$elt" == "$argv[$i]" ) then
+        @ prev = $i - 1
+        @ post = $i + 1
+        set argv = ( $argv[1-$prev] $argv[$post-] )
+      else
+        @ i = $i + 1
+      endif
+    end
+    shift
+  end
+
+  echo $new $argv
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  clean-path <path-elt> [ ... ]"
+  echo ""
+  echo "- Removes duplicate elements from the path and outputs the new path"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

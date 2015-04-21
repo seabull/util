@@ -1,0 +1,56 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  if ( $#argv != 1 && $#argv != 3 ) then
+    set msg = "wrong number of arguments."
+    goto usage
+  endif
+
+  if ( $#argv != 1 && $#argv != 3 ) then
+    set msg = "wrong number of arguments."
+    goto usage
+  endif
+
+  set host = "$1"
+
+  if ( "$host" == "" ) then
+    set msg = "<remote-host> is an empty string."
+    goto usage
+  endif
+
+  if ( $#argv == 1 ) then
+#   set user = "` /usr/bin/whoami `"
+    set user = "` /usr/xpg4/bin/id -u -n `"
+  else
+    if ( "$2" != "-l" ) then 
+      set msg = "option '$2' not recognized."
+      goto usage
+    endif
+    if ( "$3" == "" ) then
+      set msg = "<remote-user> is an empty string."
+      goto usage
+    endif
+    set user = "$3"
+  endif
+
+  set title = "` echo $host | cut -c5- `"" $user"
+
+  set xargs = ( -geometry 110x54+170+14 -bg black -fg yellow -vb -sb -sl 1000 )
+
+  ( xterm $xargs -T "$title" -n "$title" -e rlogin $* < /dev/null >& /dev/null & )
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  xrlogin <remote-host> [ -l <remote-user> ]"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

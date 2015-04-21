@@ -1,0 +1,34 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+# file:  clean-exec-path
+#------------------------------------------------------------------------------
+
+# cleanup executable search path
+
+#------------------------------------------------------------------------------
+
+# For all elements <elt> of the executable search path
+#    if <elt> exists - retain its physical path
+
+  set bin_path = ( )
+
+  set base = "`pwd`"
+  foreach bin ( $path )
+    if ( "$bin" =~ /* ) then
+      if ( -d $bin/. ) then                     # locate physical path
+        cd $bin/.
+        set bin_path = ( $bin_path `pwd` )
+      endif
+    else
+      set bin_path = ( $bin_path "$bin" )
+    endif
+  end
+  cd $base
+
+# Remove duplicates.
+
+  set bin_path = ( ` clean-path $bin_path ` )
+
+  echo $bin_path | sed 's/ /:/g'
+
+#-----------------------------------------------------------------------------

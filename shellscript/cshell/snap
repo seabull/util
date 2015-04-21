@@ -1,0 +1,145 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  if ( "$1" == "" ) then
+    set msg = "No users specified"
+    goto usage
+  endif
+  
+#------------------------------------------------------------------------------
+
+# set dest = /d01/GRT/snapshots
+# set base = /u
+
+  set dest = `iw-base`/snapshots
+  set base = /home
+
+  if ( ! -w $dest/. ) then
+    set msg = "Snapshot area '$dest' does not exist or no write access"
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  if ( "$1" == "-area" ) goto archive_area
+
+#------------------------------------------------------------------------------
+
+  foreach user ( $* )
+
+    echo "- '$user'"
+
+    if ( ! -d "$base/$user/." ) then
+      set msg = "Unable to locate the user's home directory under '$base'"
+      goto usage
+    endif
+
+    set name = "$dest/$user.`date +%d-%b-%Y.%R`"
+    set save = "$name.tgz"
+    set list = "$name.lst"
+
+    cd $base/.
+
+    if ( $status != 0 ) then
+      set msg = "Unable to switch to user area '$base'"
+      goto usage
+    endif
+
+    echo "  snapshot  = $save"
+    echo "  log       = $list"
+
+    ( tar cvf - $user/. | gzip > $save ) >& $list
+
+    if ( $status != 0 ) then
+      echo "< tail of log >"
+      tail $list
+      set msg = "snaphot failed"
+      goto usage
+    endif
+
+  end
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+archive_area:
+
+  if ( $#argv > 3 ) then
+    set msg = "Too many arguments for '-area'"
+    goto usage
+  endif
+
+  set area  = "$2"
+  set tag   = "$3"
+
+  if ( "$area" == "" ) then
+    set msg = "Empty string specified for <area>"
+    goto usage
+  endif
+
+  if ( ! -d "$area/." || ! -r "$area/." ) then
+    set msg = "Area '$area' does not exist or is not accessible"
+    goto usage
+  endif
+
+  if ( "$tag" == "" ) then
+    set msg = "Empty string specified for <tag>"
+    goto usage
+  endif
+
+  cd "$area/."
+
+  if ( $status != 0 ) then
+    set msg = "Unable to switch to area '$area'"
+    goto usage
+  endif
+
+  set dir = "` pwd | sed -e 's,^/,,' `"
+
+  cd /.
+
+  if ( $status != 0 ) then
+    set msg = "Unable to switch to area the root directory '/'"
+    goto usage
+  endif
+
+  set name = "$dest/$tag.`date +%d-%b-%Y.%R`"
+  set save = "$name.tgz"
+  set list = "$name.lst"
+
+  echo "  snapshot  = $save"
+  echo "  log       = $list"
+
+  ( tar cvf - "$dir/." | gzip > $save ) >& $list
+
+  if ( $status != 0 ) then
+    echo "< tail of log >"
+    tail $list
+    set msg = "snaphot failed"
+    goto usage
+  endif
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  snap <user-name> [...]"
+  echo "        snap -area <path> <tag>"
+  echo "" 
+  echo "- Archives all files under the user's home directory"
+  echo ""
+  echo "- Or with '-area', archives the path specified using <tag>"
+  echo "  to identify the snapshot file.  Leading '/' stripped."
+  echo ""
+
+# echo "- Archives all files on the system owned by the user(s) specified."
+
+  exit -1
+
+#------------------------------------------------------------------------------

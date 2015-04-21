@@ -1,0 +1,135 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set lst	= /usr/tmp/.rw.$$.lst
+  set files	= /usr/tmp/.rw.$$.files
+  set out	= /usr/tmp/.rw.$$.out
+
+  unsetenv recursive	; unset recursive
+  unsetenv rcs_only	; unset rcs_only
+
+  set sub_opts	= ""
+  set self	= cat
+
+  while ( "$1" =~ -* )
+    switch ( "$1" )
+      case "-rcs":
+        set sub_opts = "$sub_opts $1"
+        set rcs_only = 1
+        breaksw
+      case "-r":
+        set recursive = 1
+        breaksw
+      case "-self":
+        set self = ( grep `whoami` )
+        breaksw
+      default:
+        set msg = "Unrecognized option '$1'"
+        goto usage
+    endsw
+    shift
+  end
+
+#------------------------------------------------------------------------------
+
+#  if ( ( $#argv == 0 ) && ( $?recursive == 1 ) ) then
+#    ( echo "$sub_opts" ; find . -type d -print ) \
+#      | awk 'NR<=1{o=$0;next}{printf"(echo # %s;rw %s %s)\n",$1,$1,o}' \
+#      | /bin/sh
+#    exit $status
+#  endif
+
+#------------------------------------------------------------------------------
+
+  if ( $#argv == 0 ) then
+    set args = ( . )
+  else
+    set args = ( $* )
+  endif
+
+  set base = "`pwd`"
+
+  foreach arg ( $args )
+
+    cd $base/.
+
+    if ( ! -d $arg/. ) then
+      ls -l $arg/. | egrep '^-[^ ]*w[^ ]' |& tee $lst | awk '{ print $9 }' >& $files
+    else
+      if ( $?recursive == 0 ) then
+        if ( $#argv != 0 ) echo "# $arg"
+        ls -l $arg/. | egrep '^-[^ ]*w[^ ]' |& tee $lst | awk '{ print $9 }' >& $files
+      else
+        ( echo "$sub_opts" ; find . -type d -print ) \
+          | awk 'NR<=1{o=$0;next}{printf"rw %s %s\n",o,$1}' \
+          | /bin/sh
+        if ( $status != 0 ) then
+          echo "error:  subcommand failed"
+          exit -1
+        endif
+        cat /dev/null > $files
+      endif
+    endif
+
+    if ( $status != 0 ) then
+      test -s $files
+      if ( $status == 0 ) then
+        cat $files
+        set msg = "sub-command failed"
+        goto usage
+      endif
+    endif
+
+    test -s $files
+
+    if ( $status == 0 ) then
+      foreach file ( ` cat $files ` )
+        if ( ( $?rcs_only == 1 ) && ( ! -f RCS/$file,v ) ) continue
+	awk '$9 == "'"$file"'" { print $0 }' $lst
+      end
+    endif
+
+  end
+
+  rm -f $lst $files $out
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  rw [options] [ <file> | <directory> ... ]"
+  echo ""
+  echo "Options:"
+  echo ""
+  echo "  -self     Only list files writable by the current user"
+  echo ""
+  echo "  -r        Operate recursively on all subdirectories"
+  echo ""
+  echo "  -rcs      Only report writable files that exist in under RCS"
+  echo ""
+  echo "- Using the files specified, list the that are writable (by anyone)."
+  echo ""
+  echo "- If no files or directories are specified, all files in the current directory"
+  echo "  are checked (same as 'rw .')"
+  echo ""
+  echo "- For directories specified on the command line, all files in the directories"
+  echo "  are checked."
+  echo ""
+  echo "- For directories specified on the command line, all files in the directories"
+  echo "  are checked."
+  echo ""
+  echo "- When directories are specified on the command line or when working"
+  echo "  recursively, '#' and the directory name is listed before checking"
+  echo "  each directory."
+  echo ""
+
+  rm -f $lst $files $out
+
+  exit -1
+
+#------------------------------------------------------------------------------

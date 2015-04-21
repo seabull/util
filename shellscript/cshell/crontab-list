@@ -1,0 +1,28 @@
+#!/usr0/fac-rams/perl -w
+#------------------------------------------------------------------------------
+
+use strict ;
+
+use Config::Crontab ;
+
+#------------------------------------------------------------------------------
+#
+# read each crontab in the current directory
+#
+{
+  opendir(DIR,".")
+    or die "$0: unable to open the current directory - $!" ;
+
+  my $ct = new Config::Crontab( ) ;
+
+  while ( defined ( $file = readdir(DIR) ) )
+  {
+    $ct->read ( -file => $file )
+      or die "$0: unable to read crontab file '$file' - $ct->error" ;
+
+    list ( $ct ) ;
+  }
+
+  closedir(DIR) ;
+}
+#------------------------------------------------------------------------------

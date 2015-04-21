@@ -1,0 +1,30 @@
+#!/bin/awk -f
+#------------------------------------------------------------------------------
+#
+{
+  if ( length($0) >= 110 )
+  {
+    event	= substr($0,1,27) ;
+    node	= substr($0,28,23) ;
+    type	= substr($0,41,14) ;
+    db  	= substr($0,55,17) ;
+    date	= substr($0,72,29) ;
+    msg		= substr($0,101,518) ;
+    cleared	= substr($0,619,16) ;
+    ack_date	= substr($0,635,29) ;
+    ack_msg	= substr($0,664,35) ;	# eol = 699
+  }
+  else
+  {
+    msg = $0 ;
+  }
+
+  printf "%9s %9s %15s %s\n",
+    substr(node,1,9) ,
+    substr(db,1,9) ,
+    substr(event,1,15) ,
+    substr(msg,1,70)
+  ;
+}
+#
+#------------------------------------------------------------------------------

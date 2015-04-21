@@ -1,0 +1,15 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set out = .n-rows
+
+  cat /dev/null > $out
+
+  foreach x ( `cat targets.lst` )
+    echo "- $x"
+    set stmt = "Select Count(RowId) from $x ;"
+    ( echo "- $x";(echo "Set Pagesize 0";echo "$stmt")|sqlplus -s edw/edw) \
+      >> $out
+  end
+
+#------------------------------------------------------------------------------

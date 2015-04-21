@@ -1,0 +1,79 @@
+#!/bin/csh -f
+#----------------------------------------------------------------------------
+#
+# - Should rewrite the remote print spooler portion to use a file such
+#   as ~/.print-host to determine print spooling host.
+#
+# - Alternatively, lp, lpstat, cancel, ... could be overridden with scripts
+#   that use ~/.print-host if it exists and operate locally otherwise
+#
+# - Even better would be to create ~/.printcap and implement a small package of
+#   print tools using perl that would direct printing as necessary.
+#
+#----------------------------------------------------------------------------
+
+# set filter = /usr/tmp/.print.ts.filter.$$
+# cat <<-Done- > $filter
+# cat <<-Done- > $filter
+# { printf "File:  %-57s %s\n", \$9, substr(\$0,42,12) }'
+# -Done-
+
+  set filter = '{ printf "File:  %-57s %s\n", $9, substr($0,42,12) }'
+
+#----------------------------------------------------------------------------
+
+  if ( $?PRINTER == 0 ) then
+#   set printer = melj05
+    set printer = hplj1
+  else
+    set printer = "$PRINTER"
+  endif
+
+  alias print_command 'lp -d$printer'
+
+#----------------------------------------------------------------------------
+
+# alias wrap wrap-80
+# alias wrap wrap-105
+  alias wrap 'wrap 140'
+
+  set host  = fifrux30
+  set opts  = ( )
+  set cnt   = 0
+
+  while ( "$1" != "" )
+    if ( "$1" =~ -* ) then
+      set opts = ( $opts "$1" )
+      if ( "$1" == "-olandscape" ) alias wrap wrap-105
+      if ( "$1" == "-oportrait"  ) alias wrap wrap-80
+      shift
+      continue
+    endif
+    @ cnt = $cnt + 1
+    if ( ! -f "$1" ) then
+      echo "error:  '$1' does not exist or is not a plain file"
+    else
+#      if ( "`hostname`" == "ffpprof" && "$printer" == "melj05" ) then
+#        alias print_command "remsh $host scripts/run-cmd scripts/print -d$printer $opts"
+#        set src = "$1"
+#        set dst = "tmp/printing/`hostname`/$src:t"
+#	remsh $host scripts/run-cmd make-path "$dst:h"
+#        rcp "$src" "$host":"$dst"
+#      endif
+       ( echo "" ; ls -l $1 | awk "$filter" ; echo "" ; wrap < "$1" ) | print_command $opts
+#      if ( "`hostname`" == "ffpprof" && "$printer" == "melj05" ) then
+#        remsh $host scripts/run-cmd rm -f $dst
+#      endif
+    endif
+    shift
+  end
+
+  if ( $cnt == 0 ) then
+    wrap | print_command $opts
+  endif
+
+# rm -f $filter
+
+  exit 0
+
+#----------------------------------------------------------------------------

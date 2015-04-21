@@ -1,0 +1,40 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  if ( $#argv > 0 ) then
+    set msg = "no arguments expected."
+    goto usage
+  endif
+
+  set tabs   = ( /etc/oratab /var/opt/oracle/oratab )
+  set files  = ( )
+
+  foreach tab ( $tabs )
+    if ( -r $tab ) set files = ( $files $tab )
+  end
+
+  if ( $#files <= 0 ) then
+    set msg = "no oratab file not found or accessible ( $tabs )"
+    goto usage
+  endif
+
+  grep -v '^#' $files | awk -F: '{ printf "%-8s  %s\n", $1, $2 }' | sort
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  e-echo ""
+  e-echo "Error:  $msg"
+  e-echo ""
+  e-echo "Usage:  ora-homes"
+  e-echo ""
+  e-echo "- Outputs known Oracle SIDs with their respective home directories, one"
+  e-echo "  per line."
+  e-echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

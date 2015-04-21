@@ -1,0 +1,75 @@
+#!/bin/csh -f
+
+  if ( $#argv != 2 ) then
+    set msg = "wrong number of arguments"
+    goto usage
+  endif
+
+  set src = "$1"
+
+  if ( ! -f "$src" ) then
+    set msg = "Input '$src' - does not exist or is not a plain"
+    goto usage
+  endif
+
+  set dst = "$2"
+
+#------------------------------------------------------------------------------
+
+set filter = /usr/tmp/.layout-column-filter.awk
+
+cat <<-Done- > $filter
+BEGIN { col = "" ; cnt = 0 ; }
+int(\$1) > 0 {
+  printf "< > < > < > \n" ;
+  printf "-> '%s'\n", \$0 ;
+  if ( \$NF == "'\]'." )
+  {
+    if ( cnt > 0 )
+    { printf " (%d) ,", cnt ; }
+    printf "%s\n", col ;
+    cnt = cnt + 1
+    col = "" ;
+  }
+  else
+  {
+    col = \$2 ;
+  }
+}
+END {
+  if ( cnt > 0 )
+  { printf "," ; }
+  printf "%s\n", col ;
+}
+#
+-Done-
+
+  if ( $status != 0 ) then
+    set msg = "awk filter generation failed"
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  awk -f $filter < $src | sort -u > $dst
+ 
+  if ( $status != 0 ) then
+    set msg = "awk failed"
+    goto usage
+  endif
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+
+  echo "error:  $msg"
+  echo ""
+  echo "usage:  layout-columns <input-file> <output-file>"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

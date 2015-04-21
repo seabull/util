@@ -1,0 +1,48 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  if ( "$1" == "" ) then
+    set msg = "missing path of directory to create"
+    goto usage
+  endif
+
+  if ( -e "$1" ) then
+    if ( ! -d "$1" ) then
+      set msg = "'$1' already exists and is not a directory"
+      goto usage
+    endif
+    exit 0
+  endif
+
+#------------------------------------------------------------------------------
+
+  set arg = "$1"
+  set elt = "$arg:t"
+  set dir = "$arg:h"
+
+  if ( "$dir" != "$arg" ) then
+    make-path $dir
+    if ( $status != 0 ) exit -1
+  endif
+
+  mkdir "$arg"
+  if ( $status != 0 ) then
+    set msg = "command 'mkdir $elt' failed"
+    goto usage
+  endif
+
+  exit 0
+  
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "error:  $msg"
+  echo ""
+  echo "usage:  make-path <path>"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

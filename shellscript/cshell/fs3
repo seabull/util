@@ -1,0 +1,60 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+set host = fs3
+
+#------------------------------------------------------------------------------
+
+if ( $# <= 0 ) then
+  set err_msg = "missing <userid>"
+  goto usage
+endif
+
+#------------------------------------------------------------------------------
+
+while ( $# > 0 )
+
+  if ( "$1" == "" ) then
+    set err_msg = "<userid> is an empty string"
+    goto usage
+  endif
+
+  set title   = " $1 @ $host"
+
+# w/o using filter, error complaining of 'Missing -.'
+  set filter = 's/[\t].*//'
+  set ip      = "` grep '$host' /etc/hosts | sed '$filter' `"
+
+  echo "ip:      $ip"
+
+  if ( "$ip" != "" ) then
+    set target  = "$1@$ip"
+  else
+    set target  = "$1@$host"
+  endif
+
+  echo "target:  $target"
+
+# rxvt -title "$title" -e ssh "$target"
+
+  ( ( rxvt -title "$title" -e ssh "$target" ) >& /dev/null & )
+
+  shift
+
+end
+
+exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "error:  $err_msg"
+  echo ""
+  echo "usage:  $host <userid>"
+  echo ""
+
+  exit 1
+
+#------------------------------------------------------------------------------

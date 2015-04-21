@@ -1,0 +1,4 @@
+#!/bin/csh -f
+
+awk 'BEGIN{x=".."}{t=substr($1,1,2);if(x!=t){if(NR>1)printf "%s  %8d  ( %8d, %8d )\n",x,n,mn,mx;x=t;n=0;mn=0;mx=0;}n++;mn+=$2;mx+=$3;}END{printf "%s  %8d  ( %8d, %8d )\n",x,n,mn,mx;}' seg-min-max.txt | & tee
+seg-min-max.summary

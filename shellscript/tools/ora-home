@@ -1,0 +1,54 @@
+#!/bin/sh
+
+e=1
+#-----------------------------------------------------------------------------
+#set -x
+
+trap 'e=$?; exit' 1 2 15
+trap 'rm -f /tmp/${prog}$$T*; trap 0; exit $e' 0
+
+prog=`basename $0 .sh`
+T="/tmp/${prog}$$T"
+
+#TT="/tmp/${prog}$$TT"
+#cmd ${@+"$@"}
+#-----------------------------------------------------------------------------
+usage()
+{
+	echo $2
+	cat << EOF_USAGE
+Usage: ${prog} <oracle_sid>
+Description:
+	- Outputs the Oracle home directory for the given <oracle-sid>.
+EOF_USAGE
+	exit $1
+}
+#------------------------------------------------------------------------------
+TABS="/etc/oratab /var/opt/oracle/oratab"
+AWK=awk
+ORASID=
+
+#------------------------------------------------------------------------------
+
+if [ $# -lt 1 ]; then
+	usage 1 "Empty argument list" 1>&2
+fi
+
+if [ $# -gt 2 ]; then 
+	usage 1 "Wrong number of arguments" 1>&2
+fi
+#------------------------------------------------------------------------------
+ORASID=$1
+for tab in $TABS
+do
+	#echo $tab
+	if [ -r $tab ]; then
+		#echo $tab
+		grep "^${ORASID}": $tab | head -1 | ${AWK} -F: '{ print $2 }'
+		e=0
+		exit $e
+	fi
+done
+usage 1 "No oratab file found or accessible ($TABS)" 1>&2
+
+#------------------------------------------------------------------------------

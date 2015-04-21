@@ -1,0 +1,673 @@
+#!/opt/iw/packages/bin/perl
+#------------------------------------------------------------------------------
+#
+#!/usr/local/bin/perl
+#
+# Copyright (c) 1998, Shigeru Ishida (ishida@isl.intec.co.jp)
+#
+# Permission to use, copy, modify, distribute, and its documentation,
+# in whole or in part, for any purpose, is hereby granted, provided that:
+#
+# 1. This copyright and permission notice appear in all copies of the
+# software and its documentation. Notices of copyright or attribution
+# which appear at the beginning of any file must remain unchanged.
+#
+# 2. The name of Shigeru Ishida may not be used to endorse or 
+# promote products derived from this software without specific
+# prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS, IMPLIED, OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY
+# WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+# IN NO EVENT SHALL SHIGERU ISHIDA BE LIABLE FOR ANY SPECIAL, INCIDENTAL,
+# INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND, OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER OR
+# NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF
+# LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
+# OF THIS SOFTWARE.
+#
+# --
+# PDF2TXT is a simple tool to convert PDF files (*.pdf) into TEXT files (*.txt).
+#
+# History:
+# 0.41	1998.12.17
+#   - Use a temporary file when uncompress is called to decompress LZW data.
+#     And so IPC::Open2 is not used any longer.
+#
+# 0.40	1998.11.28
+#   - Refer the operators of drawing text data. And so remove '-n' option not
+#     to put newline '\n' with the text extracted from PDF files.
+#
+# 0.32	1998.11.4
+#   - Change the RC4.pl interfaces.
+#
+# 0.31	1998.11.2
+#   - Fix bug in extracting stream data.
+#
+# 0.30	1998.10.31
+#   - Now it is available to extract the text from encrypted PDF files.
+#
+# 0.22	1998.10.31
+#   - Fix bug in converting "\(" into "(", "\)" into ")" and "\\" into "\".
+#
+# 0.21	1998.10.29
+#   - Fix bug about $lzw_stream variable.
+#
+# 0.20	1998.10.29
+#   - Convert PDF-format LZW data to compress-format LZW data and then deccode
+#     the data by use of UNIX uncompress command. The standard UNIX compress utility
+#     uses LZW, but with a slightly different file format. This conversion does *not*
+#     decompress the data. It simply converts it to a different file format.
+#     pdf2txt then calls uncompress to actually decompress the data.
+#     For Unisys's LZW patent, see <http://www.unisys.com/LeadStory/lzwfaq.html>.
+#
+# 0.12	1998.10.27
+#   - Add the option for omitting character code \ddd (octal).
+#   - Convert "\(" into "(", "\)" into ")" and "\\" into "\".
+#   - Fix bug in extracting string data from the stream decoded.
+#
+# 0.11	1998.10.15
+#   - Add the option for the output on stdout.
+#
+# 0.10	1998.10.12
+#   - Use cross-reference table.
+#
+# 0.04	1998.10.10
+#   - Fix bug in dealing with unknown decode-filters.
+#   - Add the option for base85-decoding if length of base85 data not a multiple of 5.
+#
+# 0.03	1998.10.9
+#   - Fix bug in extracting stream data.
+#
+# 0.02	1998.10.6
+#   - Fix bug in processing postscript after decode-filtering.
+#
+# 0.01	1998.10.5
+#   - Initial release.
+#
+# This tool uses these softwares below.
+#
+# . zlib		http://quest.jpl.nasa.gov/zlib/
+# . Compress::Zlib	CPAN
+# . uncompress		UNIX uncompress command
+# . MD5			CPAN
+# . RC4.pl		ftp://paprika.noc.intec.co.jp/pub/person/ishida/freeware/pdf2txt/
+#
+# Supported decoding methods:
+#
+#   /ASCIIHexDecode
+#   /ASCII85Decode	ASCII85Decode filter,
+#			Portable Document Format Reference Manual Version 1.2, p.51,
+#			27-Nov-1996. Adobe Systems Incorporated.
+#   /FlateDecode	RFC1951
+#   /LZWDecode		See History: 0.20 above.
+#
+
+require 'RC4.pl' ;
+
+use Compress::Zlib ;
+
+use MD5 ;
+
+$UNCOMPRESS = "/usr/bin/uncompress -c";
+$pdf_uncompress_tmpfile = "/tmp/pdf_uncompress.$$.Z";
+
+if ($#ARGV < 0) {
+    print STDERR "PDF2TXT is a simple tool to convert PDF files into TEXT files.\n";
+    print STDERR "Usage: pdf2txt [options] file...\n";
+    print STDERR "       options are:\n";
+    print STDERR "       -f: apply base85-decoding if length of base85 data not a multiple of 5\n";
+    print STDERR "       -o: omit character code \\ddd (octal)\n";
+    print STDERR "       -s: output on stdout\n";
+    print STDERR "(version 0.41 copyright (c) 1998, Shigeru Ishida)\n";
+    exit;
+}
+
+$force_b85 = 0;
+$put_stdout = 0;
+$omit_oct = 0;
+
+$passwd_pad = "28bf4e5e4e758a4164004e56fffa01082e2e00b6d0683e802f0ca9fe6453697a";
+$passwd_pad =~ s/([\dA-F]{2})/pack('C',hex($1))/eig;
+
+foreach $pdffile (@ARGV){
+
+    if ($pdffile =~ /^\-(.*)/) {
+	$options = $1;
+	if ($options =~ /f/) {
+	    $force_b85 = 1;
+	}
+	if ($options =~ /s/) {
+	    $put_stdout = 1;
+	}
+	if ($options =~ /o/) {
+	    $omit_oct = 1;
+	}
+	next;
+    }
+
+    if (!open(PDFFILE, "$pdffile")) {
+	warn "Can't open $pdffile: $!\n";
+	next;
+    }
+    binmode PDFFILE;
+
+    if ($put_stdout == 0) {
+	if ($pdffile =~ /(.*)\.pdf$/i) {
+	    $txtfile = "$1.txt";
+	} else {
+	    $txtfile = "$pdffile.txt";
+	}
+	if (!open(TXTFILE, ">$txtfile")) {
+	    warn "Can't open $txtfile: $!\n";
+	    close PDFFILE;
+	    next;
+	}
+	print STDERR "convert: $pdffile ==> $txtfile\n";
+    } else {
+	print STDERR "convert: $pdffile ==> stdout\n";
+    }
+
+    seek(PDFFILE, 0, 2);
+    $fsize = tell(PDFFILE);
+    seek(PDFFILE, 0, 0);
+    read(PDFFILE, $allbuf, $fsize);
+    close PDFFILE;
+
+    %xref_list = ();
+    %trailer_info = ();
+    %crypt_info = ();
+
+    $t_allbuf = $allbuf;
+    $t_allbuf =~ s/\s+xref\s+([\d\sfn]+)\s+trailer\s+\<\<\s*([\da-zA-Z\r\n\s\/\[\]\<\>]+)\s*\>\>\s/xref_trailer_entry($1, $2)/seg;
+    $t_allbuf = "";
+
+    @xref_keys = sort(keys %xref_list);
+    for ($i = 0; $i <= $#xref_keys; $i++) {
+	if ($i+1 <= $#xref_keys) {
+	    $read_size = $xref_keys[$i+1]-$xref_keys[$i];
+	} else {
+	    $read_size = $fsize-$xref_keys[$i];
+	}
+	$offset = $xref_keys[$i];
+
+	$object_data = substr($allbuf, $offset, $read_size);
+
+	if ($object_data =~ /\/Filter\s/ && $object_data =~ /\/Standard\s/) {
+	    &entry_crypt_info($object_data);
+
+	    $crypt_info{'MD'} = new MD5;
+	    $crypt_info{'MD'}->reset;
+	    $crypt_info{'MD'}->add($passwd_pad);
+	    $crypt_info{'MD'}->add($crypt_info{'O'});
+	    $permission = reverse pack("N", $crypt_info{'P'});
+	    $crypt_info{'MD'}->add($permission);
+	    $crypt_info{'MD'}->add($trailer_info{'ID'});
+	    $md_value = $crypt_info{'MD'}->digest();
+	    $crypt_info{'MDKEY'} = substr($md_value, 0, 5);
+
+	    print STDERR "Encrypted.";
+
+	    &RC4'set_key($crypt_info{'MDKEY'});
+            $user_passwd_info = $crypt_info{'U'};
+	    &RC4'crypto(*user_passwd_info);
+
+	    if ($user_passwd_info ne $passwd_pad) {
+		print STDERR " This PDF file is encrypted with user password. (not processed)\n";
+		last;
+	    } else {
+		print STDERR "\n";
+	    }
+
+	    next;
+	} elsif ($object_data =~ /\/Filter\s/) {
+	    if ($object_data =~ /^(\d+)\s+(\d+)\s+obj\s+\<\<\s+(.*)\s+\>\>\s+stream[\r\n]+(.*)[\r\n]+endstream\s+/s) {
+		$obj_number = $1;
+		$gen_number = $2;
+		$filter_line = $3;
+		$stream = $4;
+
+		if ($trailer_info{'Encrypt'} == 1 &&
+		    length($crypt_info{'MDKEY'}) > 0 && $obj_number > 0) {
+		    $obj_int = reverse pack("N", $obj_number);
+		    $gen_int = reverse pack("N", $gen_number);
+
+		    $encrypt_key =
+			$crypt_info{'MDKEY'} . substr($obj_int, 0, 3) . substr($gen_int, 0, 2);
+
+		    $crypt_info{'MD'}->reset;
+		    $crypt_info{'MD'}->add($encrypt_key);
+		    $encrypt_key = $crypt_info{'MD'}->digest();
+		    $encrypt_key = substr($encrypt_key, 0, 10);
+
+		    &RC4'set_key($encrypt_key);
+		    &RC4'crypto(*stream);
+		}
+
+		@decodes = &decode_mechod($filter_line);
+		next if $decodes[0] eq "NONE" || $decodes[0] eq "UNKNOWN" ||
+		    ($decodes[0] ne "/ASCIIHexDecode" &&
+		     $decodes[0] ne "/ASCII85Decode" &&
+		     $decodes[0] ne "/FlateDecode" &&
+		     $decodes[0] ne "/LZWDecode");
+
+		($unknown_filter, $decode_count) = &decode_stream(*stream, @decodes);
+
+		if ($unknown_filter == 0 && $decode_count > 0 && length($stream) > 0) {
+		    foreach $line (split(/[\r\n]/, $stream)) {
+			$line = &extract($line);
+			next if length($line) == 0;
+			if ($put_stdout == 0) {
+			    print TXTFILE $line;
+			} else {
+			    print $line;
+			}
+		    }
+		}
+		next;
+	    }
+	    next;
+	}
+	next;
+    }
+    close TXTFILE if $put_stdout == 0;
+
+    print STDERR "  done.\n";
+}
+
+unlink($pdf_uncompress_tmpfile);
+
+
+sub xref_trailer_entry {
+    local($xref_buf, $trailer_buf) = @_;
+
+    foreach $xref_line (split(/[\r\n]/, $xref_buf)) {
+	$xref_list{$1} = $2 if $xref_line =~ /\s*(\d+)\s+(\d+)\s+n/s;
+    }
+    if ($trailer_buf =~ /\/ID\s*\[\s*\<([\da-fA-F]+)\>/s) {
+	$trailer_info{'ID'} = $1;
+	$trailer_info{'ID'} =~ s/([\dA-F]{2})/pack('C',hex($1))/eig;
+    }
+    $trailer_info{'Encrypt'} = 1 if $trailer_buf =~ /\s+\/Encrypt\s+/s;
+
+    "";
+}
+
+sub unescape_string {
+    local($string) = @_;
+
+    $string =~ s/\\n/\n/g;
+    $string =~ s/\\r/\r/g;
+    $string =~ s/\\t/\t/g;
+    $string =~ s/\\b/\b/g;
+    $string =~ s/\\f/\f/g;
+    $string =~ s/\\\\/\\/g;
+    $string =~ s/\\\(/\(/g;
+    $string =~ s/\\\)/\)/g;
+
+    $string;
+}
+
+sub entry_crypt_info {
+    local($crypt_line) = @_;
+
+    $crypt_info{'V'} = $1 if $crypt_line =~ /\s+\/V\s+(\d+)\s+/s;
+    $crypt_info{'R'} = $1 if $crypt_line =~ /\s+\/R\s+(\d+)\s+/s;
+    if ($crypt_line =~ /\s+\/O\s+\((.*)\)\s+\/U\s+\((.*)\)\s+/s) {
+	$crypt_info{'O'} = &unescape_string($1);
+	$crypt_info{'U'} = &unescape_string($2);
+    }
+    $crypt_info{'P'} = $1 if $crypt_line =~ /\s+\/P\s+(\d+)\s+/s;
+}
+
+sub decode_mechod  {
+    local($line) = @_;
+    local($filter_line) = ("UNKNOWN");
+
+    if ($line =~ /\s*\/Filter\s+(.*)/) {
+	$filter_line = $1;
+    }
+    if ($line =~ /\s*\/Type\s+\/(.*)\s+/) {
+	if ($1 =~ /XObject/) {
+	    $filter_line = "NONE";
+	}
+    }
+    if ($line =~ /\s*\/Subtype\s+\/(.*)\s+/) {
+	if ($1 =~ /Image/) {
+	    $filter_line = "NONE";
+	}
+    }
+    if ($line =~ /\s*\/Width\s+/) {
+	$filter_line = "NONE";
+    }
+    if ($line =~ /\s*\/Height\s+/) {
+	$filter_line = "NONE";
+    }
+    if ($line =~ /\s*\/BitsPerComponent\s+/) {
+	$filter_line = "NONE";
+    }
+    if ($line =~ /\s*\/ColorSpace\s+/) {
+	$filter_line = "NONE";
+    }
+
+    $filter_line =~ tr/\[\]//d;
+    if ($filter_line =~ /^\s*(.*)\s*$/) {
+	$filter_line = $1;
+    }
+    return (split(/\s+/, $filter_line));
+}
+
+sub inflate {
+    local($input) = @_;
+    local($x, $output, $status) = ('', '', '');
+
+    if (!($x = inflateInit())) {
+	warn "Cannot create a inflation stream\n";
+	return "";
+    }
+    ($output, $status) = $x->inflate(\$input);
+
+    if ($status != Z_OK && $status != Z_STREAM_END) {
+	warn "inflation failed\n";
+	return "";
+    }
+    $output;
+}
+
+# The subroutines of getCode() and pdf_uncompress() are perl version of
+# LZWStream::getCode() and LZWStream::dumpFile() in Stream.cc, xpdf-0.7a-pl2.
+# xpdf-0.7a-pl2 is created by Derek B. Noonburg.
+# See <http://www.aimnet.com/~derekn/xpdf/>.
+#
+# There are global variables below:
+#   $lzw_stream;
+#   $inputBuf;
+#   $inputBits;
+#   $inCodeBits;
+
+sub getCode {
+    local($c, $code) = (0, 0);
+    local($d1);
+
+    while ($inputBits < $inCodeBits) {
+	return -1 if length($lzw_stream) == 0;
+
+	$c = substr($lzw_stream, 0, 1);
+	$lzw_stream = substr($lzw_stream, 1);
+
+	$inputBuf = ($inputBuf << 8) | vec($c, 0, 8);
+	$inputBits += 8;
+    }
+    vec($d1, 0, 32) = 1;
+    $d1 = vec($d1, 0, 32) << $inCodeBits;
+    $d1--;
+
+    $code = ($inputBuf >> ($inputBits - $inCodeBits)) & $d1;
+    $inputBits -= $inCodeBits;
+
+    $code;
+}
+
+sub pdf_uncompress {
+    ($lzw_stream) = @_;
+    local($output) = "\x1f\x9d\x8c";
+    local($outCodeBits);
+    local($first);
+    local($nextCode);
+    local($clear);
+    local($i, $j);
+    local($early) = 1;
+    local(@outBuf) = ();
+    local($outData);
+    local($outBits);
+    local($eof);
+    local($d1);
+    local($ff) = "\xff";
+    local($inCode, $outCode);
+
+    for ($i = 0; $i < 8; $i++) {
+	vec($outBuf[$i], 0, 32) = 0;
+    }
+
+    $inCodeBits = 9;
+    vec($inputBuf, 0, 32) = 0;
+    $inputBits = 0;
+    $eof = 0;
+
+    $outCodeBits = 9;
+
+    $first = 1;
+    $nextCode = 258;
+
+    $clear = 0;
+    do {
+	for ($i = 0; $i < 8; $i++) {
+	    if ($nextCode + $early > 0x1001) {
+		$inCode = 256;
+	    } else {
+		do {
+		    $inCode = &getCode();
+		    if ($inCode == -1) {
+			$eof = 1;
+			$inCode = 0;
+		    }
+		} while ($first && $inCode == 256);
+	    }
+
+	    if ($inCode < 256) {
+		$outCode = $inCode;
+	    } elsif ($inCode == 256) {
+		$outCode = 256;
+		$clear = 1;
+	    } elsif ($inCode == 257) {
+		$outCode = 0;
+		$eof = 1;
+	    } else {
+		$outCode = $inCode - 1;
+	    }
+	    $outBuf[$i] = $outCode;
+
+	    if ($first) {
+		$first = 0;
+	    } else {
+		$nextCode++;
+	    }
+
+	    if ($nextCode + $early == 0x200) {
+		$inCodeBits = 10;
+	    } elsif ($nextCode + $early == 0x400) {
+		$inCodeBits = 11;
+	    } elsif ($nextCode + $early == 0x800) {
+		$inCodeBits = 12;
+	    }
+
+	    last if $eof;
+	    if ($clear) {
+		$i = 8;
+		last;
+	    }
+	}
+
+	vec($outData, 0, 32) = 0;
+	$outBits = 0;
+	$j = 0;
+	while ($j < $i || $outBits > 0) {
+	    if ($outBits < 8 && $j < $i) {
+		$outData |= ($outBuf[$j] << $outBits);
+		$j++;
+		$outBits += $outCodeBits;
+	    }
+	    $d1 = $outData & vec($ff, 0, 8);
+	    $output .= pack("C", $d1);
+	    $outData >>= 8;
+	    $outBits -= 8;
+	}
+
+	if ($nextCode - 1 == 512 ||
+	    $nextCode - 1 == 1024 ||
+	    $nextCode - 1 == 2048 ||
+	    $nextCode - 1 == 4096) {
+	    $outCodeBits = $inCodeBits;
+	}
+
+	if ($clear) {
+	    $inCodeBits = 9;
+	    $outCodeBits = 9;
+	    $first = 1;
+	    $nextCode = 258;
+	    $clear = 0;
+	}
+    } while (!$eof);
+
+    if (!open(LZWW, ">$pdf_uncompress_tmpfile")) {
+	warn "Can't open $pdf_uncompress_tmpfile: $!\n";
+	return "";
+    }
+    print LZWW $output;
+    close LZWW;
+
+    if (!open(LZWR, "$UNCOMPRESS $pdf_uncompress_tmpfile |")) {
+	warn "Can't open $pdf_uncompress_tmpfile: $!\n";
+	return "";
+    }
+    $output = "";
+    while (<LZWR>) {
+	$output .= $_;
+    }
+    close LZWR;
+
+    $output;
+}
+
+sub decode_base85 {
+    local($str) = @_;
+    local($unit, $res, $data) = ('', '', '');
+    local($i, $j, $k, $pstr, $f, @C);
+
+    $str =~ tr/\x21-\x75\x7a\x7e//cd;
+    $str =~ s/z/!!!!!/g;
+    $str =~ s/\~\>$//;
+
+    $unit = int length($str)/5;
+
+    if (length($str)%5) {
+	warn "Length of base85 data not a multiple of 5\n";
+	return "" if $force_b85 == 0;
+    }
+
+    for ($i = 0; $i < $unit-1; $i++) {
+	$pstr = substr($str, $i*5, 5);
+	$data = 0;
+	for ($j = 0; $j < 5; $j++) {
+	    $data = 85*$data + ord(substr($pstr, $j, 1)) - 33;
+	}
+	@C = ();
+	for ($k = 0; $k < 4; $k++) {
+	    $C[$k] = $data%256;
+	    $data = int $data/256;
+	}
+	for ($k = 3; $k >= 0; $k--) {
+	    $res .= pack("C", $C[$k]);
+	}
+    }
+
+    $pstr = substr($str, $i*5, 5);
+    $data = 0;
+    for ($j = 0; $j < 5; $j++) {
+	$data = 85*$data + ord(substr($pstr, $j, 1)) - 33;
+    }
+    @C = ();
+    for ($k = 0; $k < 4; $k++) {
+	$C[$k] = $data%256;
+	$data = int $data/256;
+    }
+    $f = 0;
+    for ($k = 3; $k >= 0; $k--) {
+	next if $f == 0 && $C[$k] == 0;
+	$f++;
+	$res .= pack("C", $C[$k]);
+    }
+    return $res;
+}
+
+sub decode_stream {
+    local(*stream, @decodes) = @_;
+    local($unknown_filter, $decode_count) = (0, 0);
+
+    foreach $filter (@decodes) {
+	if ($filter eq "/ASCIIHexDecode") {
+	    $decode_count++;
+	    $stream =~ s/([\dA-F]{2})/pack('C',hex($1))/eig;
+	    last if length($stream) == 0;
+	} elsif ($filter eq "/ASCII85Decode") {
+	    last if $#decodes+1 == 1;
+	    $decode_count++;
+	    $stream = &decode_base85($stream);
+	    last if length($stream) == 0;
+	} elsif ($filter eq "/FlateDecode") {
+	    $decode_count++;
+	    $stream = &inflate($stream);
+	    last if length($stream) == 0;
+	} elsif ($filter eq "/LZWDecode") {
+	    $decode_count++;
+	    $stream = &pdf_uncompress($stream);
+	    last if length($stream) == 0;
+	} else {
+	    if ($decode_count == 0) {
+		$unknown_filter = 1;
+		last;
+	    }
+	}
+    }
+    ($unknown_filter, $decode_count);
+}
+
+sub extract {
+    local($line) = @_;
+    local($data, $n) = ('', '');
+
+    if ($line =~ /\s*T\*\s*/) {
+	$n = "\n";
+    } elsif ($line =~ /([\d\-\+\.]+)\s+([\d\-\+\.]+)\s+T[Dd]\s*/) {
+	if ($2 == 0) {
+	    $n = " ";
+	} else {
+	    $n = "\n";
+	}
+    } elsif ($line =~ /([\d\-\+\.]+)\s+Tw\s*/) {
+	if ($1 <= 0) {
+	    $n = "";
+	} else {
+	    $n = " ";
+	}
+    } else {
+	$n = "";
+    }
+
+    if ($line =~ /\[(.*)\]\s*TJ/) {
+        $line = $1;
+	$line =~ s/\>\s*[\d\-]+\s*\<//g;
+	$line =~ s/\)\s*[\d\-]+\s*\(//g;
+    } elsif ($line =~ /\<(.*)\>\s*Tj/) {
+	$line = "<$1>";
+    } elsif ($line =~ /\((.*)\)\s*Tj/) {
+	$line = "($1)";
+    } else {
+	return $n;
+    }
+
+    if ($line =~ /\<(.*)\>$/) {
+        $data = $1;
+        $data =~ s/([\dA-F]{2})/pack('C',hex($1))/eig;
+    } elsif ($line =~ /\((\\[\d\\]+)\)$/) {
+        $data = $1;
+        $data =~ s/\\(\d{3})/pack('C',oct($1))/eig;
+    } elsif ($line =~ /\((.*)\)$/) {
+        $data = $1;
+    } else {
+        return $n;
+    }
+    $data = &unescape_string($data);
+    $data =~ s/\\\d{3}//g if $omit_oct == 1;
+    $n . $data;
+}

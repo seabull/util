@@ -1,0 +1,23 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  while ( $# > 0 )
+
+    if ( "$1" =~ *@* ) then
+      set ident  = "$1"
+      set host   = "$ident"
+    else
+      set host   = "$1"
+      set ident  = "$USER@$host"
+    endif
+
+#   echo "t:  $destination"
+
+    ( rxvt -title "$host" -name "$host" -e ssh "$ident" & )
+
+    shift
+
+  end
+
+#------------------------------------------------------------------------------
+

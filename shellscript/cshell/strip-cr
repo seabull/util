@@ -1,0 +1,10 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+# Simple filter application - remove carriage returns from file.
+
+  set cmd = ' tr -d "\015" '
+
+  exec apply-filter strip-cr strip-cr "$cmd" $*
+
+#------------------------------------------------------------------------------

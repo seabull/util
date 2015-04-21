@@ -1,0 +1,92 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  if ( $#argv != 1 ) then
+    set msg = "wrong number of arguments"
+    goto usage
+  endif
+
+  set file = "$1"
+
+  if ( "$file" == "" ) then
+    set msg = "Invalid file name specified - empty string"
+    goto usage
+  endif
+
+  if ( ! -f "$file" ) then
+    set msg = "'$file' does not exist or is not a plain file"
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+set filter = /usr/tmp/.layout-sep.$$
+
+cat <<-Done- > $filter
+#
+  BEGIN {
+    field   = 1 ;
+    lead = sprintf("%4d",field) ;
+  }
+#
+  substr(\$0,7,3) == "***" {			# header lines
+    if ( past_first != 0 )
+    {
+      printf "----------------------------------------" ;
+      printf "--------------------------------------\n" ;
+      past_first = 0 ;
+    }
+    printf "%s\n", \$0 ;
+    next ;
+  }
+#
+  NF == 0 {
+    next ;
+  }
+#
+  {
+    if ( past_first == 0 )
+    {
+      printf "----------------------------------------" ;
+      printf "--------------------------------------\n" ;
+      past_first = 1 ;
+    }
+    printf "%4s : %s\n", lead, substr(\$0,8) ;
+    lead = "" ;
+
+    if ( \$NF ~ "^.\].\.\$" )
+    {
+      printf "----------------------------------------" ;
+      printf "--------------------------------------\n" ;
+      lead = sprintf("%4d",++field) ;
+    }
+  }
+#
+-Done-
+
+#------------------------------------------------------------------------------
+
+  awk -f $filter < $file
+
+  rm -f $filter
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  field-variance <file> <field-number>"
+  echo ""
+  echo "Options:"
+  echo ""
+  echo "  - none so far ..."
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------
+

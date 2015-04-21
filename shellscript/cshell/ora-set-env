@@ -1,0 +1,319 @@
+#!/usr/local/bin/perl -w
+#------------------------------------------------------------------------------
+#
+# Command:  ora-set-env <instance>
+#
+#   Generates shell commands to configure the user's environment for an
+#   Oracle instance.
+# 
+#   Sets the executable search path, shared library search path, TWO_TASK or
+#   ORACLE_SID (applies to local instances).
+#
+# ! TWO_TASK not currently support - should be extended to support remote
+# ! instances via TWO_TASK & tnsnames.ora - see DBD::Oracle source.
+#
+#------------------------------------------------------------------------------
+
+use Getopt::Std ;
+
+use POSIX qw( tmpnam ) ;
+
+use IO::File ;
+
+#------------------------------------------------------------------------------
+
+use strict ;
+
+use vars qw ( %options $two_task $oracle_sid $oracle_home @oratabs ) ;
+
+#------------------------------------------------------------------------------
+
+sub main
+{
+  getopts ( 'cs', \%options ) ;
+
+  defined ( $options{c} ) && defined ( $options{s} ) &&
+    usage("Options -s and -c are mutually exclusive - please specify only one.") ;
+
+  ( @ARGV > 1 ) &&
+    usage("too many arguments - expected zero or one after options.") ;
+
+  shell_config() ;
+
+# set_ora_environment ( ( @ARGV == 0 ) ? get_instance() : $ARGV[0] ) ;
+
+  use_oracle_sid ( ( @ARGV <= 0 ) ? $ENV{ORACLE_SID} : $ARGV[0] ) ;
+}
+
+#------------------------------------------------------------------------------
+
+sub shell_config
+{
+  defined ( $options{c} ) &&
+    return ( $options{shell} = 'csh' ) ;
+
+  defined ( $options{s} ) &&
+    return ( $options{shell} = 'sh' ) ;      
+
+  ( ! defined ( $ENV{SHELL} ) ) &&
+    return ( $options{shell} = 'sh' ) ;
+
+  ( $ENV{SHELL} =~ /.*csh/ ) &&
+    return ( $options{shell} = 'csh' ) ;
+
+  ( $options{shell} = 'sh' ) ;
+}
+
+#------------------------------------------------------------------------------
+
+sub shell_setenv
+{
+  my ( $name, $value ) = @_ ;
+
+  ( $options{shell} eq 'csh' ) &&
+    return printf ( "%ssetenv %s %s ;\n", ( $value eq "" ? "un" : "" ), $name, $value ) ;
+
+  ( $options{shell} eq 'sh' ) &&
+    return printf("%s=%s ;\nexport %s ;\n",$name,$value,$name) ;
+
+  usage("shell_setenv() - unrecognized shell '%s'",$options{shell}) ;
+}
+
+#------------------------------------------------------------------------------
+
+sub shell_rehash
+{
+  ( @_ > 0 ) &&
+    usage("shell_rehash() - no arguments expected - found %d.",0+@_) ;
+
+  ( $options{shell} eq 'csh' ) &&
+    return printf("rehash ;\n")  ;
+
+  ( $options{shell} eq 'sh' ) &&
+    return printf("") ;
+
+  usage("shell_rehash() - unrecognized shell '%s'",$options{shell}) ;
+}
+
+#------------------------------------------------------------------------------
+
+sub set_ora_environment
+{
+  printf "instance:  %s\n", $_[0] ;
+}
+
+#------------------------------------------------------------------------------
+
+sub get_instance
+{
+  ( defined ( $ENV{ORACLE_SID} ) && use_oracle_sid ( $ENV{ORACLE_SID} ) )
+    || ( defined ( $ENV{TWO_TASK} ) && use_two_task ( $ENV{TWO_TASK} ) )
+      || usage("<oracle-instance> not specified and neither TWO_TASK nor ORACLE_SID defined.") ;
+}
+
+#------------------------------------------------------------------------------
+
+sub use_oracle_sid
+{
+  my ( $sid, $base, $home, $bin, $lib ) = ( "", "", "", "", "" ) ;
+
+  if ( ( $sid = $_[0] ) ne "" )
+  {
+    $home = ora_home ( $sid ) ;
+
+    ( my $base = $home ) =~ s!/[^/]*/[^/]*$!! ;
+
+    $bin = "$home/bin" ;
+    $lib = "$home/lib" ;
+  }
+
+  my @exec = clear_ora_paths($ENV{PATH}) ;
+  my @libs = clear_ora_paths($ENV{LD_LIBRARY_PATH}) ;
+
+  ( $bin ne "" ) &&
+    unshift @exec, $bin ;
+
+  ( $lib ne "" ) &&
+    unshift @libs, $lib ;
+
+  shell_setenv( "ORACLE_BASE"		, $base ) ;
+  shell_setenv( "ORACLE_HOME"		, $home ) ;
+  shell_setenv( "ORACLE_SID"		, $sid ) ;
+  shell_setenv( "PATH"			, join(':',@exec) ) ;
+  shell_setenv( "LD_LIBRARY_PATH"	, join(':',@libs) ) ;
+  shell_rehash() ;
+}
+
+#------------------------------------------------------------------------------
+
+sub use_two_task
+{
+}
+
+#------------------------------------------------------------------------------
+
+sub clear_ora_paths
+{
+  my $var = $_[0] ;
+
+  my @homes = oratab_get_homes() ;
+
+  my @paths = ( ) ;
+
+PATH:
+  foreach my $path ( split(/:/,$var) )
+  {
+    foreach my $home ( @homes )
+    {
+      next PATH if ( $path =~ m<^$home/.*> ) ;
+    }
+
+    push @paths, $path ;
+  }
+
+  @paths ;
+}
+
+#------------------------------------------------------------------------------
+
+  @oratabs = ( "/etc/oratab", "/var/opt/oracle/oratab" ) ;
+
+#------------------------------------------------------------------------------
+
+sub oratab_get_entries
+{
+  ( @_ > 0 ) &&
+    usage("oratab_get_entries() - no arguments expected - found %d.",0+@_) ;
+
+  my @entries = ( ) ;
+
+  foreach my $oratab ( @oratabs )
+  {
+    my $input ;
+
+    if ( ( -r $oratab ) && defined ( $input = new IO::File ( $oratab, "r" ) ) )
+    {
+      foreach my $line ( <$input> )
+      {
+        chomp $line ;
+
+        $line =~ s/^\s+// ;
+
+        my $expr = "^#" ;
+
+        next if ( $line =~ /$expr/ ) ;
+
+        push @entries, $line ;
+      }
+    }
+  }
+
+  @entries ;
+}
+
+#------------------------------------------------------------------------------
+
+sub oratab_get_entry
+{
+  my $sid = $_[0] ;
+
+  my $found ;
+
+  foreach my $entry ( oratab_get_entries() )
+  {
+    if ( $entry =~ /^$sid:/ )
+    {
+      $found = $entry ;
+      last ;
+    }
+  }
+
+  ( ! defined ( $found ) ) &&
+    usage("no oratab entry found for oracle sid = '%s'",$sid) ;
+
+  $found ;
+}
+
+#------------------------------------------------------------------------------
+
+sub oratab_get_homes
+{
+  ( @_ > 0 ) &&
+    usage("oratab_get_homes() - no arguments expected - found %d.",0+@_) ;
+
+  my %homes = ( ) ;
+
+  foreach my $entry ( oratab_get_entries() )
+  {
+    my ( $sid, $orahome, $boot, @rest ) = split(/:/,$entry) ;
+
+    $homes { $orahome } = 1 ;
+  }
+
+  keys %homes ;
+}
+
+#------------------------------------------------------------------------------
+
+sub ora_home
+{
+  my $sid = $_[0] ;
+
+  my $entry ;
+
+  foreach my $tab ( @oratabs )
+  {
+    last if defined ( $entry = oratab_get_entry ( $sid ) ) ;
+  }
+
+  ! defined ( $entry ) &&
+    usage("no oracle home found for oracle sid = '%s'",$sid) ;
+
+  my ( $xsid, $orahome, $boot, @rest ) = split(/:/,$entry) ;
+
+  ( ! defined ( $orahome ) || ( length($orahome) <= 0 ) ) &&
+    usage("Oracle SID '%s' has no Oracle HOME defined",$sid) ;
+
+  $orahome ;
+}
+
+#------------------------------------------------------------------------------
+
+sub usage
+{
+  *STDOUT = *STDERR ;
+
+  printf "\n" ;
+  printf "Error:  " . shift(@_) . "\n", @_ ;
+  printf "\n" ;
+  printf "Usage:  ora-set-env [ -s | -c ] [ <oracle-instance> ]\n" ;
+  printf "\n" ;
+  printf "- Generate commands to set one's environment for the Oracle instance specified.  Uses\n" ;
+  printf "  \$SHELL to determine whether to generate Bourne/Korn shell or C shell commands.\n" ;
+  printf "\n" ;
+# printf "- Uses tnsnames.ora or oratab to determine instance configuration information.\n" ;
+  printf "- Uses oratab to determine instance configuration information.\n" ;
+  printf "\n" ;
+# printf "- Sets TWO_TASK or ORACLE_SID as appropriate.\n" ;
+  printf "- Sets ORACLE_SID, ORACLE_BASE, and ORACLE_HOME appropriately.\n" ;
+  printf "\n" ;
+  printf "- Adds \$ORACLE_HOME/bin to one's path after clearing previous entries.\n" ;
+  printf "\n" ;
+# printf "- If <oracle-instance> is not provided then TWO_TASK or ORACLE_SID will be used.\n" ;
+  printf "- If <oracle-instance> is not provided then ORACLE_SID will be used.\n" ;
+  printf "\n" ;
+  printf "- Empty string for <oracle-instance> simply removes the Oracle environment variables.\n" ;
+  printf "\n" ;
+  printf "Options:\n" ;
+  printf "\n" ;
+  printf "  -c    Generate C shell commands.\n" ;
+  printf "\n" ;
+  printf "  -s    Generate Bourne/Korn shell commands.\n" ;
+  printf "\n" ;
+
+  exit -1 ;
+}
+
+exit main() ;
+
+#------------------------------------------------------------------------------

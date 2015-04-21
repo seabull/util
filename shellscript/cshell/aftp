@@ -1,0 +1,35 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  if ( $#argv <= 0 || "$1" == "" ) then
+    echo "usage:  aftp <ftp-server>"
+    exit -1
+  endif
+
+  if ( $?internet_gateway != 0 ) then
+    set gateway = $internet_gateway
+  else
+    if ( -f $HOME/.internet.gateway ) then
+      set gateway = "` cat $HOME/.internet.gateway `"
+    endif
+  endif
+
+#------------------------------------------------------------------------------
+
+# ( "$1" =~ 172.* ) || ( "$1" =~ *.cag ) ) then
+
+  if ( $?gateway == 0 ) then
+    aftp-add "$1" ftp "$LOGNAME@`hostname`"
+    if ( $status != 0 ) exit -1
+    exec ftp $1
+  else
+    mv ~/.netrc ~/.netrc.old
+    grep -v "^machine $gateway" < ~/.netrc.old > ~/.netrc
+    echo "machine $gateway login ftp@$1 password $LOGNAME@`net-domain`" >> ~/.netrc
+    if ( $status != 0 ) exit -1
+    chmod 600 ~/.netrc
+    if ( $status != 0 ) exit -1
+    exec ftp $gateway
+  endif
+
+#------------------------------------------------------------------------------

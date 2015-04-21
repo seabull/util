@@ -1,0 +1,70 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  if ( $#argv != 2 ) then
+    set msg = "wrong number of arguments"
+    goto usage
+  endif
+
+  set file = "$1"
+
+  if ( "$file" == "" ) then
+    set msg = "Invalid file name specified - empty string"
+    goto usage
+  endif
+
+  if ( ! -f "$file" ) then
+    set msg = "'$file' does not exist or is not a plain file."
+    goto usage
+  endif
+
+  @ line = 0 + $2
+
+  if ( $line <= 0 ) then
+    set msg = "<line>, $2, must be greater than zero"
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  foreach s ( space start end tail )
+    unsetenv $s ; unset $s
+  end
+
+#------------------------------------------------------------------------------
+
+  @ space	= 10
+
+  @ start	= $line - $space
+
+  @ end		= $line + $space
+
+  @ tail	= 1 + $space * 2
+
+# echo "start:  $start"
+# echo "line:   $line"
+# echo "end:    $end"
+# echo "tail:   $tail"
+
+#------------------------------------------------------------------------------
+
+  cat -n $file    \
+    | head -$end  \
+    | tail -$tail \
+    | sed 's,^[ ]*'"$line"'[	],>>>>>>>\ ,'
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "error:  $msg"
+  echo ""
+  echo "usage:  near <file> <line>"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

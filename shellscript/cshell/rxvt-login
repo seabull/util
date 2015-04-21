@@ -1,0 +1,38 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set path = ( /usr/local/bin /bin /usr/X11R6/bin $path )
+
+  setenv PATH "` clean-exec-path `"
+
+  setenv USER "`whoami`"
+
+  if ( $?USER == 0 || "$USER" == "" ) then
+    set usage = "unable to establish user identity"
+    goto error
+  endif
+
+  set hostname	= "`hostname`"
+  set title	= "` echo $USER @ $hostname | tr A-Z a-z `"
+
+  exec rxvt	-fn '-adobe-courier-medium-r-normal--12-*' \
+		-fg 'light blue' -bg 'black' -tn vt100 \
+		-T "$title" \
+		-e /bin/bash --login -i
+
+#------------------------------------------------------------------------------
+
+error:
+
+  echo ""
+  echo "Error:  $msg"
+
+usage:
+
+  echo ""
+  echo "Usage:  rxvt-login"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

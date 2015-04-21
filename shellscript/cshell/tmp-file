@@ -1,0 +1,26 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+# file:  ~phdye/scripts/tmp-file
+#------------------------------------------------------------------------------
+#
+# Usage:  tmp-file [ <base-name> ]
+#
+  if ( "$*" == "" ) then
+    set base = "tmp-file"
+  else
+    set base = "` echo $* | sed -e 's/[ /]/./g' `"
+  endif
+
+  ( rm -f /usr/tmp/tmp.$$.* >& /dev/null )
+
+  set file = "/usr/tmp/tmp.$$.$base"
+
+  umask 000
+
+  touch $file
+
+  echo $file
+
+  exit 0
+
+#------------------------------------------------------------------------------

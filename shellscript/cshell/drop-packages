@@ -1,0 +1,103 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set lst = "/usr/tmp/.drop-packages.$$.lst"
+  set sql = "/usr/tmp/.drop-packages.$$.sql"
+
+  set def_connect = "/"
+
+  while ( "$1" =~ -* )
+    switch ( "$1" )
+    # Oracle connection string
+      case "-c":
+        if ( $?connect != 0 ) then
+          set msg = "Option '$1' found twice - please only specify one"
+          goto usage
+        endif
+        if ( "$2" == "" ) then
+          set msg = "Option '$1' missing argument"
+          goto usage
+        endif
+        set connect = "$2" ; shift
+        breaksw
+    # Unrecognized option
+      default:
+        set msg = "Unrecognized option '$1'"
+        goto usage
+    endsw
+    shift
+  end
+
+#------------------------------------------------------------------------------
+
+  if ( $#argv != 1 ) then
+    set msg = "Wrong number of arguments - expected one schema name."
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  if ( $?connect == 0 ) then
+    if ( $?CXAPPS != 0 ) then
+      set connect = "$CXAPPS"
+    else
+      set connect = "/"
+    endif
+  endif
+
+#------------------------------------------------------------------------------
+
+# Premature exit is an error
+
+  set rc = -1
+
+#------------------------------------------------------------------------------
+
+  set path = ( /opt/iw/bin $path )
+
+  s-obj -c $connect -pipe -owner "$1" -type package -xcol owner -xcol type % > $lst
+
+  if ( $status != 0 ) then
+    cat $lst
+    echo "drop-packagees: s-obj failed"
+    goto done
+  endif
+
+  foreach package ( ` cat $lst ` )
+    echo "s-drop -c $connect -package $package" | /bin/sh -x
+    if ( $status != 0 ) then
+      echo "drop-packages:  s-drop failed"
+      goto done
+    endif
+  end
+
+  set rc = 0
+
+done:
+
+  rm -f $lst $sql
+
+  exit $rc
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  drop-packages [options] <oracle-schema-name>"
+  echo ""
+  echo "- Drops all packages owned by the specified schema"
+  echo ""
+  echo "Options:"
+  echo ""
+  echo "  -c <string>    Oracle connection string, default '$def_connect'."
+  echo "                 (or taken from 'CXAPPS' if defined)"
+  echo ""
+
+  rm -f $lst $sql
+
+  exit -1
+
+#------------------------------------------------------------------------------

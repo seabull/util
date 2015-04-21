@@ -1,0 +1,14 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+set to_user = $0
+
+set to_user = $to_user:t
+
+echo ""
+echo "Authenticate as $USER.root to become '$to_user'"
+echo ""
+
+exec su $USER.root -c "exec su - $to_user"
+
+#------------------------------------------------------------------------------

@@ -1,0 +1,165 @@
+#!/bin/csh -fv
+#------------------------------------------------------------------------------
+
+# FTP commands
+
+  set cmds = /usr/tmp/.ftp-get.$LOGNAME.$$
+
+# Gateway for external hosts
+
+  set nm_domain		= ( cag conagra.com )
+  set ip_domain		= ( 172 )
+
+  set nm_gateway	= proxy
+  set ip_gateway	= ` awk '$2 == "proxy" { print $1 }' /etc/hosts `
+
+# Required arguments
+
+  if ( $#argv < 2 ) then
+    set msg = "Too few arguments - expected at least two"
+    goto usage
+  endif
+
+  if ( "$1" == "" ) then    
+    set msg = "Empty string found for <ftp-server>"
+    goto usage
+  endif
+
+  set destination = "$1"
+
+  shift
+
+  set cwd = "`pwd`"
+
+  @ cnt = 1
+
+#  $x = dir/file.ext  :  r = dir/file  :  h = dir  :  t = file.ext  :  e = ext  :
+
+  ( echo prompt ; echo hash ; echo pwd ) > $cmds
+
+  while ( $#argv > 0 )
+    #
+    # Change directory option
+    #
+    if ( "$1" == "-cd" ) then
+      if ( "$2" == "" ) then
+        set msg = "Option '-cd' must be followed by a source directory"
+        goto usage
+      endif
+      echo "cd $2" >> $cmds
+      echo "pwd" >> $cmds
+      shift
+      shift
+    endif
+    #
+    # Files
+    #
+    if ( "$1" == "" ) then    
+      set msg = "Empty string found for <file> number $cnt"
+      goto usage
+    endif
+    set fpath = "$1"
+    if ( "$fpath" =~ */* ) then
+      set loc = "$fpath:h"
+      set nam = "$fpath:t"
+    else
+      set loc = "$cwd"
+      set nam = "$fpath"
+    endif
+    if ( "$loc" !~ /* ) then
+      set loc = "$cwd/$loc"
+    endif
+    if ( "`grep $nam:e /dev/null ~/.aftp-text`" == "" ) then
+      echo binary >> $cmds
+    else
+      echo ascii >> $cmds
+    endif
+    ( echo "lcd $loc" ; echo "mget $nam" ) >> $cmds
+    @ cnt = $cnt + 1
+    shift
+  end
+
+  echo "quit" >> $cmds
+
+#------------------------------------------------------------------------------
+
+# While it would be better to resolve the address and extract the domain from
+# /etc, <client> doesn't support DNS.  So I've defined local hosts as those
+# with simple name (ie. w/o '.', 'us-spn13') and those with a name or ip
+# address matching the domain values above.
+
+  if ( "$destination" !~ *.* ) then
+    goto local
+  endif
+
+  foreach domain ( $nm_domain )
+    if ( "$destination" =~ *.$domain ) then
+      goto local
+    endif
+  end
+
+  foreach domain ( $ip_domain )
+    if ( "$destination" =~ $domain.* ) then
+      goto local
+    endif
+  end
+
+#------------------------------------------------------------------------------
+
+gateway:
+
+  set user	= "anonymous@$destination"
+  set pass	= "$LOGNAME@$nm_domain[2]"
+  set portal	= "$ip_gateway"
+
+  goto connect
+
+#------------------------------------------------------------------------------
+
+local:
+
+  set user	= "anonymous"
+  set pass	= "$LOGNAME@invacare.com"
+  set portal	= "$destination"
+
+  goto connect
+
+#------------------------------------------------------------------------------
+
+connect:
+
+  aftp-add $portal $user $pass
+
+  if ( $status != 0 ) then
+    set msg = "aftp-add failed"
+    goto usage
+  endif
+
+  ftp $portal < $cmds
+
+  if ( $status != 0 ) then
+    set msg = "ftp command failed"
+    goto usage
+  endif
+
+  rm -f $cmds
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  aftp-send <ftp-server> <file> [...]"
+  echo ""
+  echo ""
+  echo ""
+
+  rm -f $cmds
+
+  exit -1
+
+#------------------------------------------------------------------------------

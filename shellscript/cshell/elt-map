@@ -1,0 +1,120 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set sep = " "
+
+  while ( "$1" =~ -* )
+    switch ( "$1" )
+      case "-sep":
+        if ( "$2" == "" ) then
+          set msg = "Option '$1' - unrecognized"
+          goto usage
+        endif
+        set sep = "$2" ; shift
+        breaksw
+      case "-pass":
+        set pass = 1
+        breaksw
+      case "-skip":
+        set skip = 1
+        breaksw
+      default:
+        set msg = "Option '$1' - unrecognized"
+        goto usage
+    endsw
+    shift
+  end
+
+#------------------------------------------------------------------------------
+
+  if ( $#argv != 3 ) then
+    set msg = "Wrong number of arguments - expected three."
+    goto usage
+  endif
+
+  if ( "$1" == "" || "$2" == "" || "$3" == "" ) then
+    set msg = "Invalid arguments - empty string(s)"
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  set dst = ( $1 )
+  set src = ( $2 )
+  set lst = ( $3 )
+
+  if ( $#src > $#dst ) then
+    set msg = "<map-in> has more elements than <map-out>"
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  set out = ( )
+
+  foreach elt ( $lst )
+    unset found
+    @ i = 1
+    foreach mem ( $src )
+      if ( "$elt" == "$mem" ) then
+        set out = ( $out $dst[$i] )
+        set found = 1
+        break
+      endif
+      @ i = $i + 1
+    end
+    if ( $?found == 0 ) then
+      if ( $?pass == 1 ) then
+        set out = ( $out $elt )
+        continue
+      endif
+      if ( $?skip == 1 ) then
+        continue
+      endif
+      set msg = "Element '$elt' not found in <map-in>"
+      goto usage
+    endif
+  end
+
+  echo $out | sed "s/ /$sep/g"
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  elt-map [options] <map-out> <map-in> <in-list>"
+  echo ""
+  echo "- Map elements in <in-list> of set <map-in> to the set <map-out>"
+  echo ""
+  echo "Options:"
+  echo ""
+  echo "  -sep <s>    Use string <s> as the field separater instead of ' '."
+  echo ""
+  echo "  -pass       Pass unmappable elements directly w/o error message"
+  echo ""
+  echo "  -skip       Skip unmappable elements w/o error message"
+  echo ""
+  echo "Example:"
+  echo ""
+  echo "  home> elt-map '0 1 2 3 4' 'a b c d e' 'e a a c'"
+  echo "  4 0 0 2"
+  echo "  home>"
+  echo "  home> elt-map -sep , '0 1 2 3 4' 'a b c d e' 'e a a c'"
+  echo "  4,0,0,2"
+  echo "  home> elt-map '0 1 2 3 4' 'a b c d e' 'e a a c'"
+  echo "  4 0 0 2"
+  echo "  home> elt-map -pass '0 1 2 3' 'a b c d' 'e a a c'"
+  echo "  e 0 0 2"
+  echo "  home> elt-map -skip '0 1 2 3' 'a b c d' 'e a a c'"
+  echo "  0 0 2"
+  echo "  home>"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

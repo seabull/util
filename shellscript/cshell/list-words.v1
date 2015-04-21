@@ -1,0 +1,86 @@
+#!/usr/local/bin/perl -w
+#------------------------------------------------------------------------------
+
+use FileHandle ;
+
+use strict ;
+
+use vars qw ( $c_line $c1 $c2 ) ;
+
+#------------------------------------------------------------------------------
+
+main:
+{
+  $/ = undef ;
+
+  if ( @ARGV == 0 )
+  {
+    list_words ( <STDIN> ) ;
+
+    exit ( 0 ) ;
+  }
+
+  foreach my $file ( @ARGV )
+  {
+    my $fh = new FileHandle ( $file, "r" ) ;
+
+    list_words ( <$fh> ) ;
+
+    $fh->close() ;
+  }
+}
+
+#------------------------------------------------------------------------------
+
+sub list_words
+{
+  my $fh = $_[0] ;
+
+  my ( $line, $word ) ;
+
+  while ( $line = <$fh> )
+  {
+    defined ( $c_line ) &&
+      ( $line ~= s/// ) ;
+
+    foreach $word ( split ( /[\W][\W]*/, $line ) )
+    {
+      ( length($word) > 0 ) && ( $word !~ m/[0-9][0-9]*/ ) &&
+        print $word . "\n" ;
+    }
+  }
+}
+ 
+#------------------------------------------------------------------------------
+ 
+sub usage
+{
+  printf STDERR "\n" ;
+  printf STDERR "Error:  " . shift(@_) . "\n", @_ ;
+  printf STDERR "\n" ;
+
+  printf STDERR "Usage:  list-words [options] [ <file> ... ]\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "List all words (identifiers) in the files to standard output,\n" ;
+  printf STDERR "one word per line.\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "If no files specified then standard input is read.\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "Options:\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "  -o <output>       Output to specified file instead of stdout.\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "  -c <s>            Strip comments starting with <s> on each line\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "  -c1 <1> -c2 <2>   Strip comments bounded by <1> and <2>.\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "Examples:\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "- Strip C language comments\n" ;
+  printf STDERR "   list-words -c '//' -c1 '/*' -c2\n" ;
+  printf STDERR "\n" ;
+
+  exit ( -1 ) ;
+}
+
+#------------------------------------------------------------------------------

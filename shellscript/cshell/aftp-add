@@ -1,0 +1,51 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  if ( $#argv != 3 ) then
+    set msg = "Wrong number of arguments - expected three"
+    goto usage
+  endif
+
+  set host	= "$1"
+  set user	= "$2"
+  set pass	= "$3"
+
+#------------------------------------------------------------------------------
+
+  set dst = $HOME/.netrc
+
+  grep "machine $host" $dst >& /dev/null
+
+  if ( $status == 0 ) then
+    exit 0
+  endif
+
+  echo "machine $host login $user password $pass" >> ~/.netrc
+
+  if ( $status != 0 ) then
+    set msg = "'~/.netrc' - write failed"
+    goto usage
+  endif
+
+  chmod 600 ~/.netrc
+
+  if ( $status != 0 ) then
+    set msg = "'~/.netrc' - chmod 600 failed"
+    goto usage
+  endif
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  aftp-add <host> <user> <password>"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

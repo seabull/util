@@ -1,0 +1,10 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  echo "--- removing .exists and perllocal.pod from perl modules"
+
+  cd /usr/local/stow
+
+  find . \( -name .exists -o -name perllocal.pod \) -print | xargs rm
+
+#------------------------------------------------------------------------------

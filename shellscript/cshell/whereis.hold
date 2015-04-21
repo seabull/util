@@ -1,0 +1,121 @@
+#!/usr/local/bin/perl -w
+#------------------------------------------------------------------------------
+
+use FileHandle ;
+
+use Getopt::Std ;
+
+#------------------------------------------------------------------------------
+
+use strict ;
+
+use vars qw ( %options $output $out_fh $c_comments $sql_comments ) ;
+
+#------------------------------------------------------------------------------
+
+main:
+{
+  $/ = undef ;
+
+  getopts ( 'o:cs', \%options ) ;
+
+  if ( defined ( $options{o} ) )
+  {
+    $output = new FileHandle ( $options{o}, "w" ) ;
+
+    *STDOUT = $output ;
+  }
+
+  if ( @ARGV == 0 )
+  {
+    replace_words ( <STDIN> ) ;
+
+    exit ( 0 ) ;
+  }
+
+  foreach my $file ( @ARGV )
+  {
+    ( my $fh = new FileHandle ( $file, "r" ) )
+      or usage("unable to open '%s' - %s",$file,$!) ;
+
+    replace_words ( <$fh> ) ;
+
+    $fh->close() ;
+  }
+
+  defined ( $options{o} ) &&
+    ( $output->close() ) ;
+}
+
+#------------------------------------------------------------------------------
+
+sub replace_words
+{
+  my $text = $_[0] ;
+
+# while ( $text =~ m#("[^"\\]*(\\.[^"\\]*)*")#g )
+# while ( $text =~ m#("[^"\\]*(\\.[^"\\]*)*")|([\w_]+)#g )
+# while ( $text =~ m#("[^"\\]*(\\.[^"\\]*)*")#g )
+# while ( $text =~ m#([/][/][^\n]*)#g )
+# while ( $text =~ m#([/][*].*[*][/])#g )
+
+  while ( $text =~ m#("[^"\\]*(\\.[^"\\]*)*")|([/][*].*[*][/])|([/][/][^\n]*)|([\w_]+)|([^\w_]+)# )
+  {
+    defined($1) &&
+      printf "1:  %s\n", $1 ;
+    defined($2) &&
+      printf "2:  %s\n", $2 ;
+    defined($3) &&
+      printf "3:  %s\n", $3 ;
+    defined($4) &&
+      printf "4:  %s\n", $4 ;
+    defined($5) &&
+      printf "5:  %s\n", $5 ;
+    defined($6) &&
+      printf "6:  %s\n", $6 ;
+#--
+#    ( defined($1) &&	printf $1 ) ||
+#    ( defined($2) &&	printf $2 ) ||
+#    ( defined($3) &&	printf $3 ) ||
+#    ( defined($4) &&	printf $4 ) ||
+#    ( defined($5) &&	printf uc($5) ) ||
+#    ( defined($6) &&	printf $6 ) ;
+  }
+}
+ 
+#------------------------------------------------------------------------------
+ 
+sub usage
+{
+  printf STDERR "\n" ;
+  printf STDERR "Error:  " . shift(@_) . "\n", @_ ;
+  printf STDERR "\n" ;
+
+  printf STDERR "Usage:  word-rep [options] [ <file> ... ]\n" ;
+  printf STDERR "\n" ;
+
+  exit -1 ;
+
+  printf STDERR "List all words (identifiers) in the files to standard output,\n" ;
+  printf STDERR "one word per line.\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "If no files specified then standard input is read.\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "Options:\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "  -o <output>       Output to specified file instead of stdout.\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "  -s                Skips words in SQL comments: '-- ...'\n" ;
+  printf STDERR "\n" ;
+  printf STDERR "  -c                Skips words in C comments:  '/* ... */' & '// ...'\n" ;
+  printf STDERR "\n" ;
+
+  exit ( -1 ) ;
+}
+
+#------------------------------------------------------------------------------
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+
+#------------------------------------------------------------------------------

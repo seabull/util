@@ -1,0 +1,15 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set out = .n-blocks
+
+  cat /dev/null > $out
+
+  foreach x ( `cat targets.lst` )
+    echo "- $x"
+    set stmt = "Select Blocks from All_Tables where table_name = Upper('$x') ;"
+    ( echo "- $x";(echo "Set Pagesize 0";echo "$stmt")|sqlplus -s edw/edw) \
+      >> $out
+  end
+
+#------------------------------------------------------------------------------

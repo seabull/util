@@ -1,0 +1,71 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  unset force
+
+  if ( "$1" == "-f" ) then
+    set force = 1
+    shift
+  endif
+
+  if ( $#argv != 2 ) then
+    set msg = "Wrong number of arguments - expected two."
+    goto usage
+  endif
+
+  if ( "$1" == "" || "$2" == "" ) then
+    set msg = "Invalid arguments - empty string(s)"
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  set elt = "$2" ; set list = ( $1 )
+
+  @ i = 1 ; unset found
+
+  while ( $i <= $#list )
+    if ( "$elt" == "$list[$i]" ) then
+      @ prev = $i - 1
+      @ post = $i + 1
+      set list = ( $list[1-$prev] $list[$post-] )
+      set found = 1
+    else
+      @ i = $i + 1
+    endif
+  end
+
+  if ( $?found == 0 && $?force == 0 ) then
+    set msg = "Element '$elt' not found in list"
+    goto usage
+  endif
+
+  echo $list
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  elt-rm [-f] <list-of-elements> <element-to-remove>"
+  echo ""
+  echo "- Removes duplicate the specified element and outputs the new list"
+  echo ""
+  echo "- Generates an error if the element is missing."
+  echo ""
+  echo "- '-f' supresses the missing error message and returns the list."
+  echo ""
+  echo "Example:"
+  echo ""
+  echo "  home> elt-rm 'a b c d' c"
+  echo "  a b d"
+  echo "  home>"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

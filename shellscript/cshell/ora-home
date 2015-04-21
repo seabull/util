@@ -1,0 +1,34 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  if ( "$1" == "" ) then
+    set msg = "Missing required argument <oracle-sid>."
+    goto usage
+  endif
+
+  set tabs = ( /etc/oratab /var/opt/oracle/oratab )
+
+  foreach tab ( $tabs )
+    if ( -r $tab ) then
+      grep "^$1": $tab | head -1 | awk -F: '{ print $2 }'
+      exit 0
+    endif
+  end
+
+  set msg = "no oratab file not found or accessible ( $tabs )"
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  ora-home <oracle-sid>"
+  echo ""
+  echo "- Outputs the Oracle home directory for the given <oracle-sid>."
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

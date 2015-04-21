@@ -1,0 +1,95 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+# Don't set this too low or it will degrade performance.
+
+  set period		= 60
+
+  set def_connect	= "/"
+
+#------------------------------------------------------------------------------
+
+  while ( "$1" =~ -* )
+    switch ( "$1" )
+    # Oracle connection string
+      case "-c":
+        if ( $?connect != 0 ) then
+          set msg = "Option '$1' found twice - please only specify one"
+          goto usage
+        endif
+        if ( "$2" == "" ) then
+          set msg = "Option '$1' missing argument"
+          goto usage
+        endif
+        set connect = "$2" ; shift
+        breaksw
+    # Unrecognized option
+      default:
+        set msg = "Unrecognized option '$1'"
+        goto usage
+    endsw
+    shift
+  end
+
+#------------------------------------------------------------------------------
+
+  if ( $?connect == 0 ) then
+    if ( $?CXAPPS != 0 ) then
+      set connect = "$CXAPPS"
+    else
+      set connect = "$def_connect"
+    endif
+  endif
+
+#------------------------------------------------------------------------------
+
+  if ( $#argv > 1 ) then
+    set msg = "Too many arguments - expected zero or one"
+    goto usage
+  endif
+
+  if ( "$1" != "" ) then
+    set check = "` echo $1 | sed 's/[0-9]*//g' `"
+    if ( "$check" != "" ) then
+      set msg = "Refresh period contains non-digit characters ($1)"
+      goto usage
+    endif
+    set period = "$1"
+  endif
+  
+#------------------------------------------------------------------------------
+
+  clear
+
+  while ( 1 )
+    clear
+    echo "-------------------------------- `date` ------------------------------"
+    echo ""
+    s-run -c $connect $HOME/sql/sys/watch-db.sql
+    echo ""
+    sleep $period
+    echo ""
+  end
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  watch-db [options] [ <seconds-between-refresh> ]"
+  echo ""
+  echo "- Displays the database status information including sessions, sorts, and locks"
+  echo ""
+  echo "Options:"
+  echo ""
+  echo "  -c <string>           Oracle connection string, default '$def_connect'."
+  echo "                        (or taken from 'CXAPPS' if defined)"
+  echo ""
+
+  exit -1
+
+#------------------------------------------------------------------------------

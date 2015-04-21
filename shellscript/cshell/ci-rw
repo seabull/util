@@ -1,0 +1,212 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set lst	= /usr/tmp/.ci-rw.$$.lst
+  set out	= /usr/tmp/.ci-rw.$$.out
+  set out2	= /usr/tmp/.ci-rw.$$.out2
+
+  unsetenv recursive	; unset recursive
+  unsetenv force	; unset force
+  unsetenv rcs_only	; unset rcs_only
+  unsetenv rcs_init	; unset rcs_init
+  unsetenv rw_opts
+  unsetenv sub_opts
+
+  set sub_opts	= ""
+  set rw_opts	= ""
+  set dir	= .
+
+  while ( "$1" =~ -* )
+    switch ( "$1" )
+      case "-d":
+        if ( ( $#argv <= 1 ) || ( "$1" == "" ) ) then
+          set msg = "Option '$1' should be followed by an argument"
+          goto usage
+        endif
+        if ( ! -d "$2"/. ) then
+          set msg = "Directory '$2' does not exist or is not accessible"
+          goto usage
+        endif
+        set dir = "$2" ; shift
+        breaksw
+      case "-rcs":
+        set sub_opts	= "$sub_opts $1"
+        set rw_opts	= "$rw_opts $1"
+        set rcs_only	= 1
+        breaksw
+      case "-force":
+        set sub_opts	= "$sub_opts $1"
+        set force	= 1
+        breaksw
+      case "-r":
+        set recursive = 1
+        breaksw
+      case "-init":
+        set rcs_init = 1
+        breaksw
+      default:
+        set msg = "Unrecognized option '$1'"
+        goto usage
+    endsw
+    shift
+  end
+
+#------------------------------------------------------------------------------
+
+  if ( $#argv != 1 ) then
+    set msg = "Wrong number of arguments - expected exactly one after options."
+    goto usage
+  endif
+
+  set message = "$1"
+
+#------------------------------------------------------------------------------
+
+  set base = "`pwd`"
+
+  if ( $status != 0 ) then
+    set msg = "Unable to get the current working directory"
+    goto usage
+  endif
+
+  cd "$dir"
+
+  if ( $status != 0 ) then
+    set msg = "Unable to move to directory '$dir'"
+    goto usage
+  endif
+
+#------------------------------------------------------------------------------
+
+  if ( $?recursive == 1 ) then
+    ( echo "$message" ; echo "$sub_opts" ; find . -type d -print ) \
+      | awk 'NR<=1{m=$0;next}NR<=2{o=$0;next}{printf"(echo --- %s;ci-rw -d %s %s %c%s%c)\n",$1,$1,o,39,m,39}' \
+      | /bin/sh
+    exit $status
+  endif
+
+#------------------------------------------------------------------------------
+
+# With '-rcs' ignore directories w/o an RCS directories
+
+  if ( ( $?rcs_only != 0 ) && ( ! -d ./RCS/. ) ) then
+    exit 0
+  endif
+
+#------------------------------------------------------------------------------
+
+  rw $rw_opts | grep "`whoami`" | awk '{ print $9 }' > $lst
+
+  test -s $lst
+
+  if ( $status == 0 ) then
+
+    foreach file ( ` cat $lst ` )
+
+      if ( ( $?rcs_init == 0 ) && ( ! -f RCS/$file,v ) ) then
+        echo "*** '$dir/$file' not checked into RCS."
+        continue
+      endif
+
+      if ( ( -f RCS/$file,v ) && ( ! -r RCS/$file,v ) ) then
+        echo "warning:  can't read RCS file '$dir/RCS/$file"
+      endif
+
+    # move back to the base directory so the error messages include the directory
+
+      ( cd $base ; ci -u -m"$message" $dir/RCS/$file,v $dir/$file ) < /dev/null >& $out
+
+    # Report errors but continue processing
+
+      if ( $status != 0 ) then
+        set lock = "`grep ' no lock' $out`"
+        set unchanged = "`grep 'unchanged' $out`"
+        if ( ( $?force == 0 ) || ( "$lock" == "" ) ) then
+          if ( "$unchanged" == "" ) then
+            cat $out
+          else
+            rcs -u ./$file
+            if ( $status != 0 ) then
+              set msg = "unable to release rcs lock on '$dir/$file'."
+              goto usage
+            endif
+            chmod -w ./$file
+            if ( $status != 0 ) then
+              set msg = "unable to make '$dir/$file' read-only."
+              goto usage
+            endif
+          endif
+        else
+          echo "- no lock on '$dir/$file' - will try to check out, then check in."
+          set save = $file.save
+          mv $file $save
+          if ( $status != 0 ) then
+            cat $out
+            echo "error:  unable to copy '$file' to '$save'"
+            exit -1
+          endif
+          co -l $file >& $out2
+          if ( $status != 0 ) then
+            cat $out $out2
+            mv $save $file
+            if ( $status != 0 ) then
+              echo "error:  unable to restore '$save' to '$file'"
+              exit -1
+            endif
+          endif
+          cp $save $file
+          if ( $status != 0 ) then
+            cat $out
+            echo "error:  unable to copy '$save' to '$file'"
+            exit -1
+          endif
+          rm -f $save
+          if ( $status != 0 ) echo "warning:  unable to remove '$save'"
+          ( cd $base ; ci -f -u -m"$message" $dir/RCS/$file,v $dir/$file ) < /dev/null >& $out
+	  if ( $status != 0 ) then
+            cat $out
+          endif
+        endif
+      endif
+
+    end
+
+  endif
+
+  rm -f $lst $out
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  ci-rw [options] <message>"
+  echo ""
+  echo "- Checks in with <message>, all files writable by the current user."
+  echo ""
+  echo "- Files that have not been checked in initially are skipped with"
+  echo "  a warning message printed."
+  echo ""
+  echo "Options:"
+  echo ""
+  echo "  -d <dir>  Change to this directory before starting work."
+  echo ""
+  echo "  -rcs      Only try to checkin writable files that already exist in RCS."
+  echo ""
+  echo "  -force    Files not locked by the user are attempted to be checked out.  If"
+  echo "            they can be, the new version is checked in."
+  echo ""
+  echo "  -init     Also do initial checkin's of writable files."
+  echo ""
+  echo "  -r        Work recursively for all subdirectories of the current one ..."
+  echo ""
+
+  rm -f $lst $out
+
+  exit -1
+
+#------------------------------------------------------------------------------

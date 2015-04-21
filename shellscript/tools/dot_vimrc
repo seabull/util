@@ -1,0 +1,23 @@
+" show ruler
+set ruler
+set history=50
+set showcmd
+set incsearch
+set background=dark
+syntax on
+:if &term == 'xterm'
+:  exe "set t_Sb=\e[4%dm"
+:  exe "set t_Sf=\e[3%dm"
+":  syntax on
+:endif
+
+"map <F5> I||'<Esc>ea'||<Esc>
+
+" some abbreviations
+:ab #b /************************************************
+:ab #e ************************************************/
+:set sw=4
+:ab #d #define
+:ab #i #include
+:ab hte the
+

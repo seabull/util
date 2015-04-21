@@ -1,0 +1,85 @@
+#!/bin/sh
+#--------------------------------------------------------------------
+# Simple form of applying a sed expression to a set of files.
+#
+#      -v                Verbose - show changes
+#-----------------------------------------------------------------------------
+
+e=1
+#-----------------------------------------------------------------------------
+set -x
+
+# catch 0, SIGHUP(1), SIGINT(2), SIGTERM(15)
+trap 'e=$?; exit' 1 2 15
+trap 'rm -f /tmp/${prog}$$T*; trap 0; exit $e' 0
+
+prog=`basename $0 .sh`
+T="/tmp/${prog}$$T"
+
+#TT="/tmp/${prog}$$TT"
+#cmd ${@+"$@"}
+
+#-----------------------------------------------------------------------------
+usage()
+{
+	echo $2
+	cat << EOF_USAGE
+Usage: ${prog} <sed expression> <file> [<file> <file> ...]
+	Apply a single sed command to multiple files.
+Example:
+	${prog} "'s/Create with//'" foo1 foo2
+EOF_USAGE
+	exit $1
+}
+#------------------------------------------------------------------------------
+CONN=
+VERBOSE=
+USAGE="${prog} <sed expression>"
+APPLY=`dirname $0`/apply-filter
+#------------------------------------------------------------------------------
+
+if [ $# -eq 0 ]; then
+	usage 1 "Empty argument list" 1>&2
+fi
+
+if [ "$OPTIND" = 1 ]; then
+	while getopts vh OPT
+	do
+		case $OPT in
+		v)	VERBOSE=TRUE
+			;;
+		h)	usage 1 "----------" 1>&2
+			;;
+		\?)	usage 1 "Wrong arguments." 1>&2
+			;;
+		esac
+	done
+	shift `expr $OPTIND - 1`
+else
+	while [ $# -gt 0 ]; do
+		case "$1" in 
+		-v)
+			VERBOSE=TRUE
+			shift
+			;;
+		-h)
+			usage 0 "------------" 1>&2
+			;;
+		-*)	usage 1 "Not supported option $1" 1>&2
+			;;
+		*)
+			break
+			;;
+		esac
+	done
+fi
+#------------------------------------------------------------------------------
+CMD='sed '"$1"' '
+shift
+
+if [ x"$VERBOSE" = "xTRUE" ]; then
+	echo "$CMD"
+	echo "${APPLY} ${prog} $USAGE $CMD $@"
+fi
+exec ${APPLY} ${prog} "$USAGE" "$CMD" "$@"
+#------------------------------------------------------------------------------

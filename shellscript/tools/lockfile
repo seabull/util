@@ -1,0 +1,55 @@
+#!/bin/sh
+
+#
+# LOCK=run.lock
+# e.g. lockfile $$ ${LOCK} >/dev/null 2>&1 || { e=10; exit; }
+#
+e=1
+
+prog=`basename $0 .sh`
+
+trap 'e=$?; exit' 1 2 15
+trap 'rm -f ${TLOCK}; trap 0; exit $e' 0
+
+ln=/usr/sbin/link
+test -r ${ln} || ln=ln
+
+ME=${1?}
+LOCK=${2?}
+SLEEP=${3-15}
+
+TLOCK=${LOCK}${ME}
+
+rm=true; break=true; opid=0
+
+while test -r ${LOCK}; do
+    pid=`cat ${LOCK}` || break
+
+    prod=`/bin/kill -CONT ${pid} 2>&1` && break
+
+    test "${prod}" = "kill: ${pid}: no such process" \
+    && \
+    test "${pid}" = "${opid}" \
+    && \
+    echo "${LOCK}: overriding $pid" \
+    && \
+    rm -f ${LOCK} \
+    && \
+    break
+
+    #
+    #  Give up once we've checked the same process twice to avoid an infinite
+    #  loop.
+    #
+    test "${pid}" = "${opid}" && break
+
+    opid=${pid}
+    #
+    #  If the sleep fails for some reason, we give up to avoid a tight loop
+    # 
+    sleep ${SLEEP} || break 
+done
+
+echo ${ME}>${TLOCK} && ${ln} ${TLOCK} ${LOCK} || exit
+
+e=$?

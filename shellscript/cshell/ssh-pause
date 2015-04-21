@@ -1,0 +1,41 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+if ( $# < 1 ) then
+  set err_msg = "missing <userid@host>"
+  goto usage
+endif
+
+if ( $# > 1 ) then
+  set err_msg = "too many arguments"
+  goto usage
+endif
+
+if ( "$1" == "" ) then
+  set err_msg = "<userid@host> is an empty string"
+  goto usage
+endif
+
+#------------------------------------------------------------------------------
+
+ssh "$1"
+
+while ( 1 )
+  sleep 600
+end
+
+exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "error:  $err_msg"
+  echo ""
+  echo "usage:  ssh-pause <userid@host>"
+  echo ""
+
+  exit 1
+
+#------------------------------------------------------------------------------

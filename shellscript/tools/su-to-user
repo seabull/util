@@ -1,0 +1,14 @@
+#!/bin/sh
+#------------------------------------------------------------------------------
+
+TO_USER=$1
+
+TO_USER=`basename $TO_USER`
+
+echo ""
+echo "Authenticate as $USER.root to become '$TO_USER'"
+echo ""
+
+exec su $USER.root -c "exec su - $TO_USER"
+
+#------------------------------------------------------------------------------

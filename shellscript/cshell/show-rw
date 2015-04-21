@@ -1,0 +1,43 @@
+#!/bin/csh -f
+#------------------------------------------------------------------------------
+
+  set out = /usr/tmp/.show-rw.$$
+
+  if ( $#argv <= 0 ) then
+    set msg = "No directories specified."
+    goto usage
+  endif
+
+  foreach dir ( $* )
+    if ( ! -d "$dir/." ) then
+      set msg = "Directory '$dir' - does not exist or is not accessible."
+      goto usage
+    endif
+    ( cd $dir/. ; rw > $out ; if ( ! -z $out ) pwd ; cat $out )
+  end
+
+  rm -f $out
+
+  exit 0
+
+#------------------------------------------------------------------------------
+
+usage:
+
+  echo ""
+  echo "Error:  $msg"
+  echo ""
+  echo "Usage:  show-rw <directory-path> [...]"
+  echo ""
+  echo "- Move to the directory and display an 'ls -l' listing of writable files."
+  echo ""
+  echo "- Use to locate all writable files in a directory tree"
+  echo ""
+  echo "    find . -type d -exec show-rw \{\} \;"
+  echo ""
+
+  rm -f $out
+
+  exit -1
+
+#------------------------------------------------------------------------------
