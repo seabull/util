@@ -1,0 +1,228 @@
+#!/usr/local/bin/perl5
+
+use DirHandle;
+use IO::File;
+
+@My_Items = qw(hris_org afs_users);
+%My_Items = map(($_ => 1), @My_Items);
+
+# Added sqlerror to return error code  --yangl
+$Header = <<'EOF';
+set newpage none
+set feedback off
+set heading off
+set echo off
+set feedback off
+set termout off
+
+whenever sqlerror exit failure rollback
+whenever oserror exit failure rollback
+
+EOF
+
+$CLEAN = 1 if $ARGV[0] eq '-clean';
+
+
+sub do_select ($$$$$) {
+  my($F, $spool, $table, $fields, $cond) = @_;
+  my($x);
+
+  ## HORRID HACK!
+  if ($table =~ /hris_org$/) { $x = qq/'X,' ||/       }
+  else                       { $x = qq/'X' purge,/    }
+  $cond .= "\n" if $cond;
+
+  print $F "\n";
+  print $F "SPOOL $spool\n";
+  print $F "SELECT $x $fields FROM $table\n";
+  print $F "$cond";
+  print $F "ORDER BY $fields\n";
+  print $F ";\n\n";
+}
+
+
+$D = new DirHandle('.') or die ".: $!\n";
+while (defined($Item = $D->read())) {
+  next unless $Item =~ /\.ctl$/;
+  $Item = $`;
+  next if $Item =~ /_UP$/;
+  next unless $My_Items{$Item} || $Item =~ /^valid_/;
+
+  print "Processing $Item\n";
+  if ($CLEAN) {
+    unlink("$Item.sql")      or die "$Item.sql: $!\n";
+    unlink("${Item}_UP.sql") or die "${Item}_UP.sql: $!\n";
+    next;
+  }
+
+  $linesize = 92;
+  $colsep = $table = undef;
+  %width = %noindex = @fields = ();
+  $F = new IO::File("$Item.ctl", O_RDONLY) or die "$Item.ctl: $!\n";
+
+  while (<$F>) {
+    $table    = $1 if /^\s*into\s*table\s*(\S+)_UP/i;
+    $colsep   = $1 if /^\s*fields\s*terminated\s*by\s*'(.)'/i;
+    $linesize = $1 if /^--\s*linesize\s*(\d+)/i;
+    if (/^\s*(\S+)\s*position\((\d+):(\d+)\)/i) {
+      ($field, $start, $end) = ($1, $2, $3);
+      $field =~ tr/A-Z/a-z/;
+      $width{$field} = $end - $start + 1;
+      push(@fields, $field) unless $field eq 'purge';
+      $noindex{$field} = 1 if /--\s*noindex\s*$/;
+    }
+  }
+  $F->close;
+
+  if (!defined($table)) {
+    print "$Item: no table name!\n";
+    next;
+  }
+  if (!defined($colsep)) {
+    print "$Item: no column separator!\n";
+    next;
+  }
+  if (!@fields) {
+    print "$Item: no fields!\n";
+    next;
+  }
+
+  $F = new IO::File("$Item.sql", O_RDWR|O_CREAT|O_TRUNC, 0644)
+        or die "$Item.sql: $!\n";
+
+  print $F $Header;
+  print $F "set linesize $linesize\n";
+  print $F "set colsep '$colsep'\n";
+  print $F "\n";
+
+  foreach (@fields, 'purge') { print $F "column $_ format A$width{$_}\n" }
+  $fields = join(',', @fields);
+
+  do_select($F, "$Item-all",      $table, $fields, '');
+  do_select($F, "$Item-local",    $table, $fields, 'WHERE is_import IS NULL');
+  do_select($F, "$Item-imported", $table, $fields, 'WHERE is_import IS NOT NULL');
+  print $F "DELETE FROM ${table}_UP;\n";
+  print $F "exit\n";
+  $F->close;
+
+  $F = new IO::File("${Item}_UP.sql", O_RDWR|O_CREAT|O_TRUNC, 0644)
+        or die "${Item}_UP.sql: $!\n";
+
+  print $F $Header;
+
+
+######## NEW METHOD ########
+
+
+  @cond  = grep(!$noindex{$_}, @fields);
+  $cond  = join(', ', @cond);
+  $condz = join("\n      AND ", map("x.$_ = z.$_", @cond));
+  $info  = join(', ', grep($noindex{$_},  @fields));
+
+  print $F <<"EOF";
+UPDATE /*+INDEX(x)*/ $table x
+   SET is_import = 'Y'
+ WHERE ($cond) IN
+  (SELECT /*+FULL(y)*/ $cond
+     FROM ${table}_UP y WHERE purge = 'I')
+;
+
+DELETE /*+INDEX(x)*/ FROM $table x
+ WHERE ($cond) IN
+  (SELECT /*+FULL(y)*/ $cond
+     FROM ${table}_UP y WHERE purge = 'D')
+;
+EOF
+
+  print $F <<"EOF" if $info ne '';
+
+UPDATE /*+INDEX(x)*/ $table x
+   SET is_import = 'Y',
+       ($info) =
+       (SELECT /*+INDEX(z)*/ $info
+          FROM ${table}_UP z
+         WHERE $condz
+           AND z.purge = 'A')
+ WHERE ($cond) IN
+  (SELECT /*+FULL(y)*/ $cond
+     FROM ${table}_UP y WHERE purge = 'A')
+;
+EOF
+
+  print $F <<"EOF";
+
+INSERT INTO $table 
+  (is_import, $fields)
+  (SELECT /*+FULL(z)*/ 'Y', $fields
+     FROM ${table}_UP z
+    WHERE z.purge = 'A' AND NOT EXISTS
+      (SELECT /*+INDEX(x)*/ *
+         FROM ${table} x
+        WHERE $condz
+      ));
+
+DELETE FROM ${table}_UP;
+EOF
+
+
+######## OLD METHOD ########
+
+#  @cond  = grep(!$noindex{$_}, @fields);
+#  $cond  = join("\n      AND ", map("x.$_ = y.$_", @cond));
+#  $condz = join("\n      AND ", map("x.$_ = z.$_", @cond));
+#  $info  = join(',', grep($noindex{$_}, @fields));
+#
+#  print $F <<"EOF";
+#
+#UPDATE /*+INDEX(x)*/ $table x SET is_import = 'Y'
+# WHERE EXISTS
+#  (SELECT /*+FULL(y)*/ * FROM ${table}_UP y
+#    WHERE $cond
+#      AND y.purge = 'I')
+#;
+#
+#DELETE /*+INDEX(x)*/ FROM $table x
+# WHERE EXISTS
+#  (SELECT /*+FULL(y)*/ *
+#     FROM ${table}_UP y
+#    WHERE $cond
+#      AND y.purge = 'Y')
+#;
+#EOF
+#
+#  print $F <<"EOF" if $info ne '';
+#
+#UPDATE /*+INDEX(x)*/ $table x SET is_import = 'Y',
+# ($info) =
+#  (SELECT /*+INDEX(z)*/ $info
+#     FROM ${table}_UP z
+#    WHERE $condz
+#      AND z.purge IS NULL)
+# WHERE EXISTS
+#  (SELECT /*+FULL(y)*/ *
+#     FROM ${table}_UP y
+#    WHERE $cond
+#      AND y.purge IS NULL)
+#;
+#EOF
+#
+#  print $F <<"EOF";
+#
+#INSERT INTO $table 
+#  (is_import, $fields)
+#  (SELECT /*+FULL(y)*/ 'Y', $fields
+#     FROM ${table}_UP y
+#    WHERE y.purge IS NULL AND NOT EXISTS
+#      (SELECT /*+INDEX(x)*/ *
+#         FROM ${table} x
+#        WHERE $cond
+#      ));
+#
+#DELETE FROM ${table}_UP;
+#EOF
+
+  print $F "\nexit\n";
+  $F->close
+
+}
+$D->close;

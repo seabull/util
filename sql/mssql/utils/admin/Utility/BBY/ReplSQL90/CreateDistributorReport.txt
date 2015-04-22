@@ -1,0 +1,12 @@
+Configuring...
+
+- Configuring the Distributor (Success)
+
+- Saving Distributor password (Success)
+
+- Enabling Publisher 'dsd4dbai\df01' (Success)
+
+- Generating a script file (Success)
+
+
+

@@ -1,0 +1,68 @@
+/* TPT script
+ *
+ * use SQL Selector Operator to read data from a Teradata table
+ * and the DataConnector Operator to write to a flat file as delimited data
+ * usage example
+ *     tbuild -f sql2csv.tpt -v local.jobvars
+ *
+ */
+
+DEFINE JOB EXPORT_DELIMTED_FILE
+DESCRIPTION 'Export rows from Teradata to a flat file'
+(
+        DEFINE SCHEMA POS_SOURCE_SCHEMA
+        (
+                {  
+			my @cols = ();
+			foreach my $col (@columns) 
+			{
+                                push @cols, $col->{'Name'} . "\t" . $col->{'TPT_Schema_Type'} 
+					. "\t" . '/*' . $col->{'Type'} . '*/';
+                        }
+			$OUT = join ",\n\t", @cols;
+                }
+        );
+
+        DEFINE OPERATOR SQL_SELECTOR
+        TYPE Selector
+        Schema POS_SOURCE_SCHEMA
+        Attributes
+        (
+                VARCHAR PrivateLogName = 'Selector_log',
+                VARCHAR DateForm = 'AnsiDate',
+                VARCHAR TdpId = @MyTdpId,
+                VARCHAR UserName = @MyUserName,
+                VARCHAR UserPassword = @MyPassword,
+                VARCHAR SelectStmt = 'SELECT
+				{
+			my @cols = ();
+			foreach my $col (@columns) 
+			{
+                            push @cols, $col->{'Name'};
+                        }
+			$OUT = join ", ", @cols;
+				}
+                                        from { $table }
+                                       WHERE SLS_BSNS_DT between ''2010-08-29'' and ''2011-08-27'';',
+                VARCHAR QueryBandSessInfo = 'Type=Batch;Dest=NZ;',
+                VARCHAR ReportModeOn = 'Yes'
+        );
+
+        DEFINE Operator FILE_WRITER
+        TYPE DATACONNECTOR CONSUMER
+        SCHEMA *
+        ATTRIBUTES
+        (
+                VARCHAR PrivateLogName = 'dataconnector_log',
+                VARCHAR DirectoryPath = @MyDataDir,
+                VARCHAR FileName = '{uc($table)}_20100829_20110827.dat',
+                VARCHAR Format = 'Delimited',
+                VARCHAR OpenMode = 'Write',
+                VARCHAR TrimTrailingBlanks = 'Yes',
+                VARCHAR TextDelimiter = '|'
+        );
+
+        APPLY TO OPERATOR (FILE_WRITER)
+                SELECT * FROM OPERATOR (SQL_SELECTOR);
+);
+

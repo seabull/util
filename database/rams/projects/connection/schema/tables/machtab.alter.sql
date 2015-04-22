@@ -1,0 +1,14 @@
+ALTER TABLE HOSTDB.MACHTAB
+    ADD 
+    (
+        CONN NUMBER(5)
+    )
+/
+
+ALTER TABLE HOSTDB.MACHTAB 
+    ADD 
+    (
+        CONSTRAINT MACHTAB_CONN_FK FOREIGN KEY(CONN) 
+            REFERENCES HOSTDB.CONNECTIONS(CONN)
+    ) 
+/

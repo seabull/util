@@ -1,0 +1,21 @@
+-- script to check rates data
+missing_cost.sql
+cost_check.sql
+
+-- script to change rates data
+cost_change.sql
+
+-- script to apply new rates to all hosts in host_service
+@./disable_trig.sql
+sync_wsc.sql
+sync_hsc.sql
+
+--select unique amt from (select assetno, sum(amount) amt from hostdb.host_service_charge where service_id=27 group by assetno);
+--select unique service_id, amt from (select assetno, service_id, sum(amount) amt from hostdb.host_service_charge group by assetno, service_id) order by service_id;
+
+
+-- run monthly JE
+...
+
+-- flag some limbo charges
+@./flag_limbo.sql

@@ -1,0 +1,61 @@
+To Record response file:
+./runInstaller -ignoreSysPrereqs -record -destinationFile /usr0/oracle/temp/oraclient10g/MyResponse/10gclient.rsp
+
+To start OUI using response file:
+./runInstaller -responseFile <filename> <optional_parameters>
+e.g.
+./runInstaller -responseFile file1.rsp -nowelcome 
+./runInstaller -responseFile file1.rsp -silent
+./runInstaller -ignoreSysPrereqs -responseFile /usr0/oracle/temp/oraclient10g/MyResponse/10gclient.rsp
+# In complete silent mode, a log file filentInstall<timestamp>.log will be generated either in oraInventory or /tmp.
+
+#-----------------------------------------------------------------
+Comments:
+#-----------------------------------------------------------------
+# Currently for 10g on Linux, those symlinks link to the absolute paths,
+# if installed copy of Oracle software changed, they need to be re-link to the 
+# correct location. (find $ORACLE_HOME -type l | xargs ls -l | grep $OLD_ORACLE_HOME)
+# bin/lbuilder -> nls/lbuilder/lbuilder
+# jdk/man/ja -> jdk/man/ja_JP.eucJP
+# lib/libclntsh.so -> lib/libclntsh.so.10.1
+
+#-----------------------------------------------------------------
+Document:
+#-----------------------------------------------------------------
+By default, the OUI inventory is located in a series of directories within the following directories:
+
+/Program Files/Oracle/Inventory (on Windows)
+<user_home>/oraInventory (on UNIX)
+
+If you attempt to perform a silent installation on a UNIX computer 
+where no Oracle products have been installed, you will get an error message. 
+Before you can perform a silent installation on such a computer, you must 
+first run the script oraInstRoot.sh, which is saved in the /oraInventory 
+directory. You must run this script with root privileges. This enables OUI 
+to set up the central inventory on a clean machine.
+#-----------------------------------------------------------------
+Usage:
+runInstaller [-options] [(<CommandLineVariable=Value>)*]
+
+Where options include:
+	-help  Displays above usage.
+	-silent  For silent mode operations, the inputs can be a response file or a list of command line variable value pairs.
+	-responseFile <Path>  Specifies the response file and path to use.
+	-formCluster  To install the Oracle clusterware in order to form the cluster.
+	-remoteShell <Path>  Used only for cluster installs, specifies the path to the remote shell program on the local cluster node.
+	-remoteCopy <Path>  Used only for cluster installs, specifies the path to the remote copy program on the local cluster cluster.
+	-record -destinationFile <Path>  For record mode operation, information is recorded in the destination file path.
+	-deinstall  For deinstall operations.
+	-debug  For getting the debug information from OUI.
+	-ignoreSysPrereqs  For ignoring the results of the system pre-requisite checks.
+	-executeSysPrereqs  Execute system pre-requisite checks and exit.
+	-paramFile  Specify location of oraparam.ini file to be used by OUI.
+	-clone  For making an Oracle Home copy match its current environment.
+	-force  Allowing silent mode installation into a non-empty directory.
+	-noconsole  For suppressing display of messages to console. Console is not allocated.
+	-addNode  For adding node(s) to the installation.
+	-removeHome  For removing homes from the OUI inventory.
+
+Command Line Variables Usage
+Command line variables are specified using <name=value>; for example:
+[ session: | compName: | compName:version: ]variableName="valueOfVariable"]

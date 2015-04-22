@@ -1,0 +1,102 @@
+       NID    ACCT_ID PRINC         EMP_NUM ROLE                                                                             V
+---------- ---------- ---------- ---------- -------------------------------------------------------------------------------- -
+      2426       1971 maryjob         60894 Report Admin                                                                     Y
+      2427       1971 maryjob         60894 Report Admin                                                                     Y
+      1191       3174 aweitz          57592 Report Admin                                                                     Y
+      1192       3174 aweitz          57592 Report Admin                                                                     Y
+      2500      16488 maryjob         60894 Report Admin                                                                     Y
+      2501      16488 maryjob         60894 Report Admin                                                                     Y
+      3359      19266 katia             345 Report Manager                                                                   Y
+      3360      19266 katia             345 Report Manager                                                                   Y
+        80      19523 srini           47898 Report Manager                                                                   Y
+        81      19523 srini           47898 Report Manager                                                                   Y
+      2505      49155 maryjob         60894 Report Admin                                                                     Y
+      2506      49155 maryjob         60894 Report Admin                                                                     Y
+        82      50386 srini           47898 Report Manager                                                                   Y
+        83      50386 srini           47898 Report Manager                                                                   Y
+      3364      51274 katia             345 Report Manager                                                                   Y
+      3365      51274 katia             345 Report Manager                                                                   Y
+      2562      52076 maryjob         60894 Report Admin                                                                     Y
+      2563      52076 maryjob         60894 Report Admin                                                                     Y
+      2503      55330 maryjob         60894 Report Admin                                                                     Y
+      2504      55330 maryjob         60894 Report Admin                                                                     Y
+      3368      57933 katia             345 Report Manager                                                                   Y
+      3369      57933 katia             345 Report Manager                                                                   Y
+      2978      62474 reiter          51704 Report Manager                                                                   Y
+      2979      62474 reiter          51704 Report Manager                                                                   Y
+      2473      63838 maryjob         60894 Report Admin                                                                     Y
+      2474      63838 maryjob         60894 Report Admin                                                                     Y
+      1241      63954 aweitz          57592 Report Admin                                                                     Y
+      1242      63954 aweitz          57592 Report Admin                                                                     Y
+      3371      64082 katia             345 Report Manager                                                                   Y
+      3372      64082 katia             345 Report Manager                                                                   Y
+       912      67194 lhager          60972 Report Admin                                                                     Y
+       913      67194 lhager          60972 Report Admin                                                                     Y
+       914      67194 lhager          60972 Report Admin                                                                     Y
+      5265      67194 harrisi         64352 Report Admin                                                                     Y
+      5266      67194 harrisi         64352 Report Admin                                                                     Y
+      3104      67194 kmessing        57376 Report Admin                                                                     Y
+      3105      67194 kmessing        57376 Report Admin                                                                     Y
+      2297      67208 maryjob         60894 Report Admin                                                                     Y
+      2298      67208 maryjob         60894 Report Admin                                                                     Y
+      2299      70794 maryjob         60894 Report Admin                                                                     Y
+      2300      70794 maryjob         60894 Report Admin                                                                     Y
+      2624      76193 mcdade          55975 Report Admin                                                                     Y
+      2625      76193 mcdade          55975 Report Admin                                                                     Y
+      2972      77057 reiter          51704 Report Manager                                                                   Y
+      2973      77057 reiter          51704 Report Manager                                                                   Y
+      3539      78747 zoubin          52196 Report Manager                                                                   Y
+      3540      78747 zoubin          52196 Report Manager                                                                   Y
+      2974      80170 reiter          51704 Report Manager                                                                   Y
+      2975      80170 reiter          51704 Report Manager                                                                   Y
+      2976      80171 reiter          51704 Report Manager                                                                   Y
+      2977      80171 reiter          51704 Report Manager                                                                   Y
+      2322      80706 maryjob         60894 Report Admin                                                                     Y
+      2323      80706 maryjob         60894 Report Admin                                                                     Y
+       924      80918 lhager          60972 Report Admin                                                                     Y
+       925      80918 lhager          60972 Report Admin                                                                     Y
+      5276      80918 harrisi         64352 Report Admin                                                                     Y
+      5277      80918 harrisi         64352 Report Admin                                                                     Y
+      3115      80918 kmessing        57376 Report Admin                                                                     Y
+      3116      80918 kmessing        57376 Report Admin                                                                     Y
+      1155      81047 aweitz          57592 Report Admin                                                                     Y
+      1156      81047 aweitz          57592 Report Admin                                                                     Y
+      1160      81110 aweitz          57592 Report Admin                                                                     Y
+      1161      81110 aweitz          57592 Report Admin                                                                     Y
+       929      81142 lhager          60972 Report Admin                                                                     Y
+       930      81142 lhager          60972 Report Admin                                                                     Y
+      5282      81142 harrisi         64352 Report Admin                                                                     Y
+      5283      81142 harrisi         64352 Report Admin                                                                     Y
+      3119      81142 kmessing        57376 Report Admin                                                                     Y
+      3120      81142 kmessing        57376 Report Admin                                                                     Y
+       927      81174 lhager          60972 Report Admin                                                                     Y
+       928      81174 lhager          60972 Report Admin                                                                     Y
+      5280      81174 harrisi         64352 Report Admin                                                                     Y
+      5281      81174 harrisi         64352 Report Admin                                                                     Y
+      2380      81186 maryjob         60894 Report Admin                                                                     Y
+      2381      81186 maryjob         60894 Report Admin                                                                     Y
+      2389      81261 maryjob         60894 Report Admin                                                                     Y
+      2390      81261 maryjob         60894 Report Admin                                                                     Y
+       945      90766 lhager          60972 Report Admin                                                                     Y
+       946      90766 lhager          60972 Report Admin                                                                     Y
+      5295      90766 harrisi         64352 Report Admin                                                                     Y
+      5296      90766 harrisi         64352 Report Admin                                                                     Y
+      1650      92095 cae             10183 Report Admin                                                                     Y
+      1651      92095 cae             10183 Report Admin                                                                     Y
+      2407      92248 maryjob         60894 Report Admin                                                                     Y
+      2408      92248 maryjob         60894 Report Admin                                                                     Y
+      1652      93533 cae             10183 Report Admin                                                                     Y
+      1653      93533 cae             10183 Report Admin                                                                     Y
+
+87 rows selected.
+
+
+43 rows deleted.
+
+       NID    ACCT_ID PRINC         EMP_NUM ROLE                                                                             V
+---------- ---------- ---------- ---------- -------------------------------------------------------------------------------- -
+       912      67194 lhager          60972 Report Admin                                                                     Y
+       913      67194 lhager          60972 Report Admin                                                                     Y
+
+2 rows selected.
+

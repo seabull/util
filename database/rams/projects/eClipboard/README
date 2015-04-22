@@ -1,0 +1,5 @@
+cgi-bin/
+eclip	- the perl script to process web form.
+
+lib/templates/
+eclip.html	- the web page template

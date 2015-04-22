@@ -1,0 +1,189 @@
+Teradata Performance Management Notes:
+
+- Reduce Table Size (Value List Compression VLC) and Number of Columns
+- Altering Tables
+    RI (hard) affect performance and increase both spool and perm space (index).
+- Compressing Columns (VLC) for fixed width columns
+    VLC improves performance as follows:
+        + Reduces the I/O required for scanning tables when the tables have compressible values in their columns.
+        + Reduces disk space because rows are smaller.
+        + Permits joins to look up the tables to be eliminated.
+        + Improves data loading because more rows may fit into one data block after compression is applied.
+- Top N option over Qualify with rank or row_number
+- Recursive Query
+        + Using a recursive query shows a significant performance improvement over using temporary tables with a stored procedures. In most cases, there is a highly significant improvement.
+        + Using the WITH RECURSIVE clause has basically the same or equivalent performance as using the RECURSIVE VIEW
+    
+- CASE expression
+    The CASE expression can provide performance improvements for the following queries:
+        + For multiple aggregates filtering distinct ranges of values. For example, total sales for several time periods.
+        + To create two-dimensional reports directly from Teradata Database. For example, balances in individual accounts held by all bank customers.
+    CASE expressions help increase performance. They return multiple results in a single pass over the data rather than making multiple passes over the data and then using the client application to combine them into a single report.
+    You can see performance improvements using the CASE expression as the following increase:
+        + Number of queries against the same source table(s)
+        + Volume of data in the source table
+
+- Analytical Functions
+    + parition by
+        TD moves all rows that fall into the partition columns into the same AMP, which could cause "SPOOL OUT" errors.
+
+- Optimized INSERT/SELECT
+    An INSERT/SELECT optimizes performance when the target table is empty. If the target table
+        has no data, INSERT/SELECT operates on an efficient block-by-block basis that bypasses journaling
+        The advantages of using optimized INSERT/SELECTs are:
+        + Block-at-a-time processing
+        + Faster insert logic (that eliminates block merge complexity)
+        + Instantaneous rollback for aborted INSERT/SELECTs
+    
+- INSERT/SELECT with Join Index
+    The fastest way of processing inserts into a table with a join index is as follows:
+        + Use FastLoad to load the rows into an empty table with no indexes or join indexes defined.
+        + Do an INSERT/SELECT from the freshly loaded table into the target table with the join index.
+
+    If the target table has multiple join indexes defined, the Optimizer may choose to use reusable
+    spool during join index maintenance, if applicable.
+    Processing for these steps is performed a block at a time and should provide the best
+    throughput.
+
+- Support for Iterated Requests: Array Support
+
+    A data-driven iteration capability, called array support, that allows SQL clients to iterate a parameterized Data Manipulation 
+        Language (DML) statement for multiple sets of parameter values within a single request
+    Data insert performance improves, thus enabling users to load new data into Teradata Database faster.
+    
+- Using the BETWEEN Clause    
+        SELECT H.item_code , SUM(H.items_sold) , SUM(H.sales_revenue)
+          FROM History H 
+             , Calendar C
+        WHERE C.fiscal_quarter = '3Q06'
+          AND C.calendar_date = H.sale_date
+        GROUP BY H.item_code
+        ORDER BY H.item_code ;
+
+        can be re-written as
+
+        SELECT H.item_code , SUM(H.items_sold) , SUM(H.sales_revenue)
+          FROM History H ,
+                (SELECT min(calendar_date) , max(calendar_date)
+                   FROM Calendar
+                  WHERE fiscal_quarter = '3Q06') AS DT (min_date, max_date)
+         WHERE H.sale_date BETWEEN DT.min_date and DT.max_date
+        GROUP BY H.item_code
+        ORDER BY H.item_code ;
+
+        ------------------------------------------------------------
+        From a performance perspective, the former query would:
+        1 Build a spool table with dates from the reference calendar (90 days).
+        2 Duplicate the calendar spool. Either:
+                - Product join the calendar spool with the History table (90 compares/history table
+        row).
+                - Sort both tables to do merge join.
+        Alternatively, redistribute the entire History table. Product join the large table with the
+        calendar spool (~1 row /AMP).
+        
+        ------------------------------------------------------------
+        
+        From a performance perspective, the Optimizer could do the following for the latter:
+        + Build a spool table with a SINGLE ROW containing the first and last dates of fiscal_quarter.
+        + Duplicate one row spool. Product join one row spool with the History table (2 compares/ History table row).
+        
+        ------------------------------------------------------------
+
+        The benefits of using the BETWEEN date comparison are:
+            + Reducing multiple comparisons from as many dates in the date interval down to 2/row, 
+                and saving sort or redistribution of a large table.
+            + Not having to denormalize.
+        Using the BETWEEN data comparison is faster than reading extra denormalized table bytes.
+
+- Merge Join and Performance
+        In large join, MJ requires less CPU/IO over NL joins.    
+        A merge join usually reads each block of the inner table only once, unless a large number of hash collisions occur.
+
+        When large outer tables are being joined, a merge join of a table with a COVERING index of 
+        another table can realize a significant performance improvement
+        
+- HASH Join and Performance
+        Expected performance improvements come from, but are not limited to, the following:
+            + Allowing hash joins and dynamic hash joins to be considered as a join option by costing. (HTMemAlloc = 2, Skew Allowance = 75)
+            + Using dynamic hash joins, which eliminate large table spooling.
+
+- RI and Join Elimination
+        Join elimination eliminates redundant joins based on information from (Hard and Soft) RI.
+        The following conditions eliminate a join:
+            + RI exists between the two tables.
+            + Query conditions are conjunctive.
+            + The query does not contain reference columns from the primary key table, other than the
+                primary key columns, including the SELECT, WHERE, GROUP BY, HAVING, ORDER BY, and so forth.
+            + Primary key columns in the WHERE clause appear only in primary key-foreign key joins
+    
+- Secondary Index (SI)
+
+    Secondary indexes supply alternate access paths. This increases performance. For best results,
+        base secondary indexes on frequently used set selections and on an equality search. The
+        Optimizer may not use a secondary index if it is too weakly selective.
+    Statistics play an important part in optimizing access when NUSIs define conditions for the following:
+        + Joining tables
+        + Satisfying WHERE constraints that specify comparisons, string matching, or complex conditionals
+        + Satisfying a LIKE expression
+        + Processing aggregates
+- NUSI
+
+    The guiding principle for using NUSIs is that there should be fewer rows that satisfy the NUSI
+    qualification condition than there are data blocks in the table. Whether the Optimizer uses a
+    NUSI depends on the percent of rows per NUSI value
+
+- Index Access Guidelines   (TD Uses <...> to <...>)
+    Primary Index (PI)
+        + satisfy an equality on an IN condition in a join.
+    Unique Primary Index (UPI)
+        + ensure fastest access to table data.
+    Nonunique Primary Index (NUPI)
+        + Perform a single-disk row selection or join process
+        + Avoid sorting or redistributing rows.
+    Unique Secondary Index (USI)
+        + process requests that employ equality constraints
+    UPIs to match values in one table with index values in another
+        + ensure optimal join performance
+    information from a single AMP
+        + estimate the cost of using an index when statistics are not available.
+        + This assumes an even distribution of index values (an uneven distribution affects performance).
+    index based on more than one column (a composite index) only
+        + process requests that employ equality constraints for all fields that comprise the index.
+        + You can define an index on a column that is also part of a multicolumn index.
+    bitmapping
+        + process requests only when equality or range constraints involving multiple NUSIs are applied to very large tables
+
+
+        + 
+
+
+
+
+
+- Join Processing Methods
+        + Product Join
+        + Hash Join
+        + Merge Join
+        + Nested Join (local and remote)
+        + Exclusion Join (merge and product)
+        + Inclusion Join (merge and product)
+        + RowID Join
+        + Self-Join
+        + Correlated Join
+        + Minus All Join
+
+    USI/NUSI are used only for Nested Join and RowID join.
+
+- Join Distribution Strategy
+    + Redistribute
+    + Duplicate
+    + Locally Build
+    + Sort
+
+- Partial GROUP BY optimization (doing aggregation as early as possible)
+    In Explain text:
+    + Partial SUM steps
+    + Sort/Group steps
+
+    Collecting Statistics for Partial GROUP BY, you should collect statistics on all join and GROUP BY 
+        columns in your typical requests

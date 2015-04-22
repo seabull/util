@@ -1,0 +1,268 @@
+DB_HOST=facqa.crescent.fac.cs.cmu.edu
+SRC=src/
+CTL=${SRC}ctl/
+TODAY=.today.
+#X_SCP=/usr/local/bin/scp
+X_SCP=cp
+EXTERNAL_DIR=/usr/costing/data/external
+
+X_SORT=sort -T /tmp
+X_MAKE=${MAKE} -f premake.mk.polls -f ${SRC}Makefile
+X_MAKE_JE=${MAKE} -f premake.mk.je -f ${SRC}Makefile
+
+_Run_:
+	#${SRC}oasme.sh sqlplus -s /@${DB_HOST} @${SRC}premake.sql
+	${X_MAKE} _Prerequisites_
+	${X_MAKE} _Daily_
+
+_Run_JE_:
+	#${SRC}oasme.sh sqlplus -s /@${DB_HOST} @${SRC}premake.sql
+	${X_MAKE_JE} _JE_Prerequisites_
+	${X_MAKE_JE} _JE_
+
+#
+#  These prerequisites are always run before the daily productions.
+#
+#  ${TODAY} is used to trigger productions which need fire only once a day, e.g.
+#  polled data files and is set to a constant modification time of
+#  "today at 00:30am".
+#
+_Prerequisites_:
+	touch ${NEEDED:%=.%_touch.} .dummy.
+	touch -t `whenis -f "%02nmonth%02day%02hour00.00" now` ${TODAY}
+
+
+_Daily_: _Polls_ 
+
+_JE_Prerequisites_:
+	touch ${NEEDED:%=.%_touch.} .dummy.
+	#touch -t `whenis -f "%02nmonth%02day0030.00" now` ${TODAY}
+	touch -t `whenis -f "%02nmonth%02day%02hour00.00" now` ${TODAY}
+
+_JE_: .labor. .dist_names. .names_apply. _Journal_Entry_ 
+
+
+#####
+#
+#  Polled data files
+#
+#####
+
+VALIDS=\
+    project task award gms_combo gl_combo
+
+SCP_POLLS=$(VALIDS:%=.valid_%_polled.) .hris_org_polled.
+#SCP_POLLS=$(VALIDS:%=.valid_%_polled.) 
+
+AFS_POLL=.afs_polled.
+
+EMP_MAP=scs_id_ssn
+
+BACKUP_POLL=.backup_polled.
+
+# Remove afs poll. --yangl Dec 2006
+#_Polls_: ${SCP_POLLS} ${AFS_POLL} ${BACKUP_POLL} .unlimbo. .acl_load.
+
+_Polls_: ${SCP_POLLS} .unlimbo. .acl_load.
+
+${SCP_POLLS}: ${TODAY}
+
+valid_award_SYNC=DOT15_
+valid_project_SYNC=DOT15_
+DOT15_SYNC_FIRST=...............
+DOT15_SYNC_EMPTY="               "
+DOT15_SYNC_PREPEND=p
+
+SYNC_FIRST=.
+SYNC_EMPTY=" "
+SYNC_PREPEND=s;^;X,;p
+
+FIRST_COLUMN=${${$*_SYNC}SYNC_FIRST}
+EMPTY_COLUMN=${${$*_SYNC}SYNC_EMPTY}
+PREPEND_COLUMN=${${$*_SYNC}SYNC_PREPEND}
+
+
+	#  #${X_SCP} -q -i ${HOME}/docs-down transfer@superman.as.cmu.edu:$*.dat $*.new
+	#  #sed -n <$*.new -e "${PREPEND_COLUMN}" | \
+	#  #	sed -e "s;${FIRST_COLUMN};"${EMPTY_COLUMN}";" -e 's;^.;X;' \
+	#  #	>$*.tmp
+	#  #@${X_SORT} -o $*.new $*.tmp
+	#  #@rm -f $*.tmp
+	#  #@\
+	#  #set -x;\
+	#  #l_stamp=`whenis -f "%04year%02nmonth%02day" now`;\
+	#  #if [ ! -d Archive/$$l_stamp ]; then	\
+	#  #	mkdir Archive/$$l_stamp;	\
+	#  #fi;	\
+	#  #cp $** Archive/$$l_stamp
+.%_polled.:
+	${SRC}new-table-sync.sh $* ${SRC}ctl \
+	     /@${DB_HOST} "${FIRST_COLUMN}" ${EMPTY_COLUMN} "${SRC}oasme.sh"
+	${SRC}mvcmp.sh $*.new $*.dat
+	>$@
+
+
+#####
+#
+#  Unix backup attribute poll
+#
+#  uudecode and tar are used to obtain a reliable exit status fromn days when
+#  it had to be fetched from Mach.  Could be replaced by a more modern
+#  mechanism now that doesn't need the helper bin/fetch-costing.sh
+#  script on MAST either.
+#
+#####
+
+${BACKUP_POLL}:
+	#rm -f fetch-costing.tar
+	#/usr/costing/bin/asme ${SRC}rsh.sh costing mast \
+	#    bin/fetch-costing.sh > BackupReport.uu
+	#uudecode BackupReport.uu
+	#tar xf fetch-costing.tar
+	#awk '$$1 == "HOST" {print " ," $$5; }' \
+	#     <BackupReport.txt >BackupReport.new
+	#sort -u BackupReport.new -o BackupReport.new
+	#${SRC}table-sync.sh ${CTL}BackupReport.ctl BackupReport.bad log/BackupReport.log BackupReport.dat BackupReport.new /@${DB_HOST} '.' ' ' "${SRC}oasme.sh sqlldr"
+	#${SRC}mvcmp.sh BackupReport.new BackupReport.dat 
+	#rm -f fetch-costing.tar BackupReport.uu BackupReport.txt
+	touch $@
+
+#####
+#
+# Unmark accounts which appear to be valid yet are marked as limbo
+#
+#####
+
+.unlimbo.: ${SCP_POLLS}
+	${SRC}oasme.sh sqlplus -s /@${DB_HOST} @${SRC}unlimbo.sql
+	>$@
+
+#####
+#
+# Pick up the upload file for acl tables from ACIS daily
+#
+#####
+.acl_load.: ${TODAY}
+	#${X_SCP} -i ${HOME}/fmp-down transfer@superman.as.cmu.edu:cs_recharge/logs/scs_outload_pta_status.csv ${HOME}/Run/src/fmp/upload
+	#${X_SCP} -i ${HOME}/fmp-down transfer@superman.as.cmu.edu:cs_recharge/logs/scs_outload_acl_users.csv ${HOME}/Run/src/fmp/upload
+	#${X_SCP} -i ${HOME}/fmp-down transfer@superman.as.cmu.edu:cs_recharge/logs/scs_outload_projects.csv ${HOME}/Run/src/fmp/upload
+	#${X_SCP} -i ${HOME}/fmp-down transfer@superman.as.cmu.edu:cs_recharge/logs/scs_outload_gl_orgs.csv ${HOME}/Run/src/fmp/upload
+	#${X_SCP} -i ${HOME}/fmp-down transfer@superman.as.cmu.edu:cs_recharge/logs/scs_outload_acl_profile_users.csv ${HOME}/Run/src/fmp/upload
+	#@rm -f ${HOME}/Run/src/fmp/log/acl_ldrs.log
+	${HOME}/Run/src/fmp/bin/acl_ldrs.sh > ${HOME}/Run/src/fmp/log/acl_ldrs.log
+	>$@
+	#${SRC}pickup.pl $@.txt
+	
+	
+#####
+#
+#  Full-time payroll labor distribution processing
+#
+#####
+
+	#${SRC}pickup.pl scs_id_ssn.txt
+	#cp -f scs_id_ssn.txt ${EXTERNAL_DIR}
+	#${SRC}oasme.sh sqlplus -s /@${DB_HOST} @${SRC}exec_sqlproc hostdb.names.emp_load
+	#${SRC}oasme.sh sqlldr /@${DB_HOST} ${CTL}emp.ctl \
+	#	LOG=log/scs_id_ssn.log \
+	#	DATA=scs_id_ssn.txt SILENT=feedback,header
+	#${X_SCP} -i ${HOME}/fmp-down transfer@superman.as.cmu.edu:cs_recharge/logs/scs_outload.dat .
+
+.labor.: .labor_touch.
+	${SRC}oasme.sh sqlldr /@${DB_HOST} ${CTL}labor.ctl \
+	     LOG=log/scs_outload.log \
+	     DATA=scs_outload.dat SILENT=feedback,header
+	${SRC}oasme.sh sqlplus -s /@${DB_HOST} @${SRC}run laborRecord
+	cp scs_outload.dat ${HOME}/Run/ld.archive/`date '+%Y%m%d'`scs_outload.dat
+	touch $@
+
+
+#####
+#
+#  Process the labor, ICES and timecard data into new dist_names
+#
+#####
+
+.dist_names.: .dist_names_touch.
+	${SRC}oasme.sh sqlplus -s /@${DB_HOST} @${SRC}run 'peopleDistNames(null)'
+	touch $@
+
+
+#####
+#
+#  Process the tentative dist_names into the production table
+#
+#####
+
+.names_apply.: .names_apply_touch.
+	${SRC}oasme.sh sqlplus -s /@${DB_HOST} @${SRC}run 'peopleDistNamesApply'
+	touch $@
+
+	
+
+#####
+#
+#  Produce a journal entry from currently captured data.
+#
+#####
+
+_Journal_Entry_: .feeder_notify.
+
+.journal_entry.: .journal_entry_touch.
+	${SRC}oasme.sh sqlplus -s /@${DB_HOST} \
+	    @${SRC}run 'journalRecord(true)'
+	touch $@
+
+feeder.je feeder-mesg.body: .journal_entry.
+	${SRC}oasme.sh sqlplus -s /@${DB_HOST} \
+	    @${SRC}je feederT.je feeder-mesgT.body
+	mv feeder-mesgT.body feeder-mesg.body
+	mv feederT.je feeder.je
+
+.feeder_notify.: feeder.je feeder-mesg.body
+	${SRC}feeder-submit.sh feeder.je feeder-mesg.body \
+	    "yangl@cs.cmu.edu"  "yangl+@cs.cmu.edu"
+	touch $@
+
+
+#####
+#
+#  Fetch the report corresponding to the current journal entry
+#
+#####
+
+_Fetch_Report_:
+	#${SRC}fetch_report.sh feeder.je feeder.rpt
+	
+
+#####
+#
+#  Trigger resubmission of rejected journal entry
+#
+#####
+
+_Rejected_:
+	rm -f feeder.je
+
+
+#####
+#
+#  Confirm acceptance of journal entry, perform cleanup operations and
+#  advance the parameters.  Should only be run when a journal entry
+#  has been submitted.
+#
+#####
+
+_Accepted_:
+	${SRC}oasme.sh sqlplus -s /@${DB_HOST} @${SRC}run 'journalAccepted'
+	${SRC}limbo-rpt-ylj.sh
+
+#####
+#
+#  Report rejected charges 
+#
+#####
+
+_Limbo_Report_:
+	${SRC}limbo-rpt.sh 
+		

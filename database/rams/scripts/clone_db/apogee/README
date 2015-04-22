@@ -1,0 +1,342 @@
+--$Id: README,v 1.7 2006/07/14 15:35:09 yangl Exp $
+
+script used after putfiles.sh
+--------------------------------
+env SQLPATH=/usr1/app/oracle/product/9.2/rdbms/admin sqlplus '/ as sysdba' << EOF
+@ccf-2.sql
+alter database rename global_name to facqa.crescent.fac.cs.cmu.edu;
+alter system set service_names='facqa.crescent.fac.cs.cmu.edu';
+EOF
+--------------------------------
+
+General Notes:
+
+1. getfiles - get the cold back up files from sunspot
+2. putfiles - put the database files and some other files into same dir as sunspot.
+3. ?? Can the following ccf-2.sql be replaced by new utility in Oracle 9??
+	see the end for details.
+------------------------------------------------------------------------------
+3. make sure no control files exists.
+   - ccf-2.sql was from trace by running the command
+   ops$tkyte@ORA9IR2> alter database backup controlfile to trace as '/tmp/foo.sql';
+
+   - run ccf-2.sql from sqlplus
+
+ccf-2.sql - modified from result of "alter database backup controlfile to trace"
+	    used when need to re-create redo logs
+    FROM: CREATE CONTROLFILE REUSE DATABASE "olddbname" NORESETLOGS ...  
+      TO: CREATE CONTROLFILE set DATABASE "newdbname"  RESETLOGS ...  
+    FROM:
+    # Recovery is required if any of the datafiles are restored backups,
+    # or if the last shutdown was not normal or immediate.
+    RECOVER DATABASE USING BACKUP CONTROLFILE
+    TO:
+    # Recovery is required if any of the datafiles are restored backups,
+    # or if the last shutdown was not normal or immediate.
+    # RECOVER DATABASE USING BACKUP CONTROLFILE
+
+ccf-1.sql - modified from result of "alter database backup controlfile to trace"
+		used when to reuse the redo logs
+------------------------------------------------------------------------------
+
+4. To change the global database name, run the following command
+
+alter database rename global_name to <newdb_name>.<domain>
+
+5. To change the serice_names, run the following command
+
+alter system set service_names='<newdb_name>.<host>.<domain>';
+
+------------------------------------------------------------------------------
+3. from oracle document
+NOTES: nid utility only changes info in control files, log files, db files. 
+	Other configuration files need to be modified to make it work. --yangl
+   1. Ensure that you have a recoverable whole database backup.
+   2. Ensure that the target database is mounted but not open, and that it was shut down consistently prior to mounting. For example:
+
+SHUTDOWN IMMEDIATE
+STARTUP MOUNT
+
+   3. Invoke the DBNEWID utility on the command line, specifying a valid user with the SYSDBA privilege. For example:
+
+% nid TARGET=SYS/oracle@test_db
+
+      To change the database name in addition to the DBID, specify the DBNAME parameter. This example changes the name to test_db2:
+
+% nid TARGET=SYS/oracle@test DBNAME=test_db2
+
+      The DBNEWID utility performs validations in the headers of the datafiles and control files before attempting I/O to the files. If validation is successful, then DBNEWID prompts you to confirm the operation (unless you specify a log file, in which case it does not prompt), changes the DBID for each datafile (including offline normal and read-only datafiles), and then exits. The database is left mounted but is not yet usable. For example:
+
+DBNEWID: Release 9.2.0.1.0
+
+(c) Copyright 2002 Oracle Corporation.  All rights reserved.
+
+Connected to database TEST_DB (DBID=3942195360)
+
+Control Files in database:
+    /oracle/dbs/cf1.f
+    /oracle/dbs/cf2.f
+
+Change database id of database SOLARIS? (Y/[N]) => y
+
+Proceeding with operation
+    Datafile /oracle/dbs/tbs_01.f - changed
+    Datafile /oracle/dbs/tbs_02.f - changed
+    Datafile /oracle/dbs/tbs_11.f - changed
+    Datafile /oracle/dbs/tbs_12.f - changed
+    Datafile /oracle/dbs/tbs_21.f - changed
+
+New DBID for database TEST_DB is 3942196782.
+All previous backups and archived redo logs for this database are unusable
+Proceed to shutdown database and open with RESETLOGS option.
+DBNEWID - Database changed.
+
+      If validation is not successful, then DBNEWID terminates and leaves the target database intact. You can open the database, fix the error, and then either resume the DBNEWID operation or continue using the database without changing its DBID.
+   4. After DBNEWID successfully changes the DBID, shut down the database:
+
+SHUTDOWN IMMEDIATE
+
+   5. Mount the database. For example:
+
+STARTUP MOUNT
+
+   6. Open the database in RESETLOGS mode and resume normal use. For example:
+
+ALTER DATABASE OPEN RESETLOGS;
+
+      Make a new database backup. Because you reset the online redo logs, the old backups and archived logs are no longer usable in the current incarnation of the database.
+
+------------------------------------------------------------------------------
+From asktom
+
+The SID is a site identifier.  It plus the Oracle_home are hashed together in 
+Unix to create a unique key name for attaching an SGA.  If your Oracle_sid or 
+Oracle_home is not set correctly, you'll get "oracle not available" since we 
+cannot attach to a shared memory segment that is identified by magic key.  On 
+NT, we don't use shared memory but the SID is still important.  We can have more 
+then 1 database on the same oracle home so we need a way to id them.
+
+Changing it harder then it looks.  I know you are on unix, so here are the steps 
+for changing it (or the database name) under Unix - they are different on NT.
+
+How to find the sid -- "select instance from v$thread" will do that.
+
+
+PURPOSE
+  This entry describes how to find and change the "db_name" for a database, or   
+the ORACLE_SID for an instance, without recreating the database.  
+ 
+SCOPE & APPLICATION
+  For DBAs requiring to either find or change the db_name or ORACLE_SID.
+
+
+To find the current DB_NAME and ORACLE_SID:
+===========================================
+
+Query the views v$database and v$thread.
+
+    V$DATABASE gives DB_NAME
+    V$THREAD gives ORACLE_SID
+
+If ORACLE_SID = DB_SID and db_name = DBNAME:
+
+To find the current value of ORACLE_SID:
+
+    SVRMGR> select instance from v$thread;
+
+    INSTANCE
+    ----------------
+    DB_SID
+
+To find the current value of DB_NAME:
+
+    SVRMGR> select name from v$database;
+
+    NAME
+    ---------
+    DBNAME
+  
+
+Modifying a database to run under a new ORACLE_SID:  
+===================================================
+  
+1.  Shutdown the instance  
+ 
+2.  Backup all control, redo, and data files.  
+ 
+3.  Go through the .profile, .cshrc, .login, oratab, tnsnames.ora,  (for SQL*Net 
+version 2), and redefine the ORACLE_SID environment variable to a new value.  
+ 
+ For example, search through disks and do a grep ORACLE_SID *  
+ 
+4.  Change locations to the "dbs" directory 
+ 
+       % cd $ORACLE_HOME/dbs   
+ 
+    and rename the following files:  
+ 
+    o   init<sid>.ora  (or use pfile to point to the init file.)  
+    o   control file(s). This is optional if you do not rename any 
+        of the controlfiles, and the control_files parameter is used.  
+        The "control_files" parameter is set in the "init<SID>.ora" file or in a 
+file it references with the ifile parameter.  Make  sure that the control_files 
+parameter does not point to old file names, if you have renamed them.  
+    o   "crdb<sid>.sql" & "crdb2<sid>.sql",  This is optional.  These are  only 
+used at database creation.  
+ 
+5.  Change locations to the "rdbms/admin" directory 
+ 
+       % cd $ORACLE_HOME/rdbms/admin    
+    
+    and rename the file:  
+ 
+    o   startup<sid>.sql.  This is optional.  On some platforms,  this file may 
+be in the "$ORACLE_HOME/rdbms/install" directory.  Make sure that the contents 
+of this file do not reference old init<SID>.ora files that have been renamed.  
+This file simplifies the "startup exclusive" process to start your database.  
+ 
+6.  To rename the database files and redo log files, you would follow the  
+instructions in <Note:9560.1>. 
+ 
+7.  Change the ORACLE_SID environment variable to the new value. 
+ 
+8.  Check in the "$ORACLE_HOME/dbs" directory to see if the password  file has 
+been enabled.  If enabled, the file "orapw<OLD_SID>" will exist and a new 
+password file for the new SID must be created  (renaming the old file will not 
+work).  If "orapw<OLD_SID>" does not exist, skip to step 9.  To create a new 
+password file, issue the following command as oracle owner: 
+  
+       orapwd file=orapw<NEWSID> password=?? entries=<number of users to be 
+granted permission to start the database instance> 
+ 
+9.  Start up the database and verify that it works.  Once you have done  this, 
+shutdown the database and take a final backup of all control,  redo, and data 
+files.  
+ 
+10. When the instance is started, the control file is updated with the  current 
+ORACLE_SID.  
+   
+
+Changing the "db_name" for a Database:  
+====================================== 
+  
+1.  Login to Server Manager 
+ 
+        % svrmgrl 
+        SVRMGR> connect internal  
+
+2.  Type
+
+        SVRMGR> alter system switch logfile;
+
+    to force a checkpoint.
+  
+3.  Type 
+ 
+        SVRMGR> alter database backup controlfile to trace resetlogs;  
+      
+    This will create a trace file containing the "CREATE CONTROLFILE" 
+    command to recreate the controlfile in its current form.  
+ 
+4.  Shutdown the database and exit SVRMGR 
+ 
+        SVRMGR> shutdown
+
+        SVRMGR> exit 
+
+    The database must be shutdown with SHUTDOWN NORMAL or SHUTDOWN IMMEDIATE. It 
+must not be shutdown abnormally using SHUTDOWN ABORT.
+ 
+5.  Change locations to the directory where your trace files are located.  They 
+are usually in the "$ORACLE_HOME/rdbms/log" directory.  If  "user_dump_dest" is 
+set in the "init<SID>.ora" file, then go to the  directory listed in the 
+"user_dump_dest" variable.  The trace file will have the form "ora_NNNN.trc with 
+NNNN being a number.  
+  
+6.  Get the "CREATE CONTROLFILE" command from the trace file and put it in a  
+new file called something like "ccf.sql".  
+ 
+7.  Edit the "ccf.sql" file   
+ 
+    FROM: CREATE CONTROLFILE REUSE DATABASE "olddbname" NORESETLOGS ...  
+      TO: CREATE CONTROLFILE set DATABASE "newdbname"  RESETLOGS ...  
+
+    FROM:
+    # Recovery is required if any of the datafiles are restored backups,
+    # or if the last shutdown was not normal or immediate.
+    RECOVER DATABASE USING BACKUP CONTROLFILE
+    TO:
+    # Recovery is required if any of the datafiles are restored backups,
+    # or if the last shutdown was not normal or immediate.
+    # RECOVER DATABASE USING BACKUP CONTROLFILE
+
+8.  Save and exit the "ccf.sql" file 
+  
+9.  Rename the old control files for backup purposes and so that they do not 
+exist when creating the new ones.  
+ 
+10. Edit the "init<SID>.ora" file so that db_name="newdb_name" .  
+ 
+11. Login to Server Manager 
+ 
+        % svrmgrl
+        SVRMGR> connect internal
+ 
+12. Run the "ccf.sql" script 
+ 
+        SVRMGR> @ccf  
+
+    This will issue a startup nomount, and then recreate the controlfile.
+
+    If, at this point, you receive the error that a file needs media recovery, 
+the database was not shutdown normally as specified in step 4. You can try 
+recovering the database using the redo in the current logfile, by issuing:
+
+    SVRMGRL>  recover database using backup controlfile;
+
+    This will prompt for an archived redologfile. It may be possible to  open 
+the database after applying the current logfile. BUT this is not guaranteed. If, 
+after applying the current logfile, the database will not open then it is highly 
+likely that the operation must be restarted having shutdown the database 
+normally.
+
+    To apply the necessary redo, you need to check the online logfiles and apply 
+the one with the same sequence number as reported in the message. This usually 
+is the logfile with status=CURRENT. 
+ 
+    To find a list of the online logfiles:
+
+    SVRMGR> select group#, seq#, status from v$log;
+    GROUP#     SEQUENCE#   STATUS
+    ---------- ---------   ----------------
+             1 123         CURRENT     <== this redo needs to be applied
+             2 124         INACTIVE
+             3 125         INACTIVE
+             4 126         INACTIVE
+             5 127         INACTIVE
+             6 128         INACTIVE
+             7 129         INACTIVE
+
+    7 rows selected.
+ 
+    SVRMGR> select member
+              from v$logfile
+             where GROUP# = 1;
+
+    Member
+    ------------------------------------
+    /u02/oradata/V815/redoV81501.log
+
+    The last command in ccf.sql should be:
+ 
+    SVRMGR> alter database open resetlogs;  
+ 
+13. You may also need to change the global database name:
+
+    alter database rename global_name to <newdb_name>.<domain>
+
+    See <Note:1018634.102> for further detail.
+
+14. Make sure the database is working.   
+
+15. Shutdown and backup the database. 

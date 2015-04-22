@@ -1,0 +1,128 @@
+Escape Oracle DB: od01esdb01.world
+
+README                  - This file
+
+ddl_esc_bby.log         - Original DDL File from Escape Oracle DBA.
+
+oraddl                  - Escape Oracle DDL, One table DDL per file. 
+EscapeTableAll_ora.sql  - All Tables in one file.
+Command to generate Graph:
+    sqlt-graph -f Oracle -o foo.png -t png -l neato EscapeTableAll_ora.sql
+
+TableComment.sql        - All Table Comments
+
+ddl_convert.bat         - BAT file to convert oracle ddl in oraddl directory to Teradata DDLs
+fload.tt                - Template file used by ddl_convert.bat to convert to fast load script
+Oracle2TD_DDL.tt        - Template file used by ddl_convert.bat to convert to Teradata DDLs
+fload_convert.bat
+
+
+Oracle2TD_stgDDL.tt     - Generate staging table DDLs. obsolete.
+
+header.bat
+EscapeTableAll.sql
+EscapeTableAll_ora.sql
+
+Obsolete:
+
+EscapeTableAllStg.sql
+LoadEscTable.fld
+TD_EscapeDDL.sql
+TD_EscapeStagingDDL.sql
+
+
+Create table devbbymeadhocdb.ESC_TOST                         
+(                                                             
+    OPR_SIGN_TYP    varchar(1)  not null                      
+     ,CONSTRAINT ESCTOST_PK PRIMARY KEY (OPR_SIGN_TYP)        
+);                                                            
+                                                              
+Create table devbbymeadhocdb.ESC_TPLX                         
+(                                                             
+    ESC_PLAN_XPTN_TYP Varchar(4)    not null                  
+     ,CONSTRAINT ESCTPLX_PK PRIMARY KEY (ESC_PLAN_XPTN_TYP)   
+);                                                            
+                                                              
+Create table devbbymeadhocdb.LANG_LCLE                        
+(                                                             
+    LANG_LCLE_ID    numeric(10,0)    not null                  
+     ,CONSTRAINT ESCLANG_PK PRIMARY KEY (LANG_LCLE_ID)        
+);                                                            
+                                                              
+                                                              
+Create table devbbymeadhocdb.ESC_TFST                         
+(                                                             
+    FISC_TYP_ID Integer not null                              
+     ,CONSTRAINT ESCTFST_PK PRIMARY KEY (FISC_TYP_ID)         
+);                                                            
+                                                              
+                                                              
+Create table devbbymeadhocdb.ESC_TVAP                         
+(                                                             
+    ATRIB_PRFL_ID Integer   not null                          
+     ,CONSTRAINT ESCTVAP_PK PRIMARY KEY (ATRIB_PRFL_ID)       
+);                                                            
+                                                              
+Create table devbbymeadhocdb.ESC_TVAT                         
+(                                                             
+    VNDR_ATRIB_TYP  varchar(10) not null                      
+     ,CONSTRAINT ESCTVAT_PK PRIMARY KEY (VNDR_ATRIB_TYP)      
+);                                                            
+
+alter table esc_tcsi drop constraint ESCRCSI1;
+alter table esc_tvni drop constraint ESCRVNI2;
+alter table esc_tvpt drop constraint ESCRvpt1;
+alter table esc_tvpt drop constraint ESCRvpt2;
+alter table esc_tpln drop constraint ESCRpln1;
+alter table esc_tata drop constraint ESCRata2;
+
+Drop table devbbymeadhocdb.ESC_TOST  ;
+Drop table devbbymeadhocdb.ESC_TPLX  ;
+Drop table devbbymeadhocdb.LANG_LCLE ;
+Drop table devbbymeadhocdb.ESC_TFST  ;
+Drop table devbbymeadhocdb.ESC_TVAP  ;
+Drop table devbbymeadhocdb.ESC_TVAT  ;
+
+Drop Table DEVBBYMEADHOCDB.ESC_CUSTCST
+;Drop Table DEVBBYMEADHOCDB.ESC_TACS
+;Drop Table DEVBBYMEADHOCDB.ESC_TARD
+;Drop Table DEVBBYMEADHOCDB.ESC_TARS
+;Drop Table DEVBBYMEADHOCDB.ESC_TCAT
+;Drop Table DEVBBYMEADHOCDB.ESC_TATA
+;Drop Table DEVBBYMEADHOCDB.ESC_TCAC
+;Drop Table DEVBBYMEADHOCDB.ESC_TCAI
+;Drop Table DEVBBYMEADHOCDB.ESC_TCMD
+;Drop Table DEVBBYMEADHOCDB.ESC_TASC
+;Drop Table DEVBBYMEADHOCDB.ESC_TCSC
+;Drop Table DEVBBYMEADHOCDB.ESC_TBMD
+;Drop Table DEVBBYMEADHOCDB.ESC_TCMH
+;Drop Table DEVBBYMEADHOCDB.ESC_TCPT
+;Drop Table DEVBBYMEADHOCDB.ESC_TCSI
+;Drop Table DEVBBYMEADHOCDB.ESC_TCTP
+;Drop Table DEVBBYMEADHOCDB.ESC_TDPM
+;Drop Table DEVBBYMEADHOCDB.ESC_TDPT
+;Drop Table DEVBBYMEADHOCDB.ESC_TEGT
+;Drop Table DEVBBYMEADHOCDB.ESC_TFAT
+;Drop Table DEVBBYMEADHOCDB.ESC_TLIA
+;Drop Table DEVBBYMEADHOCDB.ESC_TLNI
+;Drop Table DEVBBYMEADHOCDB.ESC_TPAD
+;Drop Table DEVBBYMEADHOCDB.ESC_TPAK
+;Drop Table DEVBBYMEADHOCDB.ESC_TPKP
+;Drop Table DEVBBYMEADHOCDB.ESC_TPKT
+;Drop Table DEVBBYMEADHOCDB.ESC_TPKG
+;Drop Table DEVBBYMEADHOCDB.ESC_TKPG
+;Drop Table DEVBBYMEADHOCDB.ESC_TDVP
+;Drop Table DEVBBYMEADHOCDB.ESC_TPLN
+;Drop Table DEVBBYMEADHOCDB.ESC_TPLC
+;Drop Table DEVBBYMEADHOCDB.ESC_TRMD
+;Drop Table DEVBBYMEADHOCDB.ESC_TSKP
+;Drop Table DEVBBYMEADHOCDB.ESC_TSTD
+;Drop Table DEVBBYMEADHOCDB.ESC_TSLT
+;Drop Table DEVBBYMEADHOCDB.ESC_TVAF
+;Drop Table DEVBBYMEADHOCDB.ESC_TVNI
+;Drop Table DEVBBYMEADHOCDB.ESC_TVPF
+;Drop Table DEVBBYMEADHOCDB.ESC_TVPR
+;Drop Table DEVBBYMEADHOCDB.ESC_TVPT
+;
+
+-- vim: sw=4 ts=4 et ft=txt: 

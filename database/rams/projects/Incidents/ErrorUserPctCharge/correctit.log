@@ -1,0 +1,1351 @@
+BEFORE UPDATE
+PRINC    PCT_CONFIGURED PCT_CHARGED C DIS PROJECT                        SUBPROJECT         DIST
+-------- -------------- ----------- - --- ------------------------------ ------------ ----------
+abelhc              3.5         100   P    NSF-CEA                       *                  7806
+aeow                3.5         100   P    NSF-CEA                       *                  7806
+aphillip             30         100   P   Grad Student                   *                   139
+asangpet            3.5         100 P P   Boltz                          *                    92
+dhousman            3.5         100 P P   NSF-SOCIAL TIES-KRAUT          *                  7229
+djseo                60         100   P   TRESTLE                        none               7491
+drulhe                5         100   P   COGNITIVE COLONIES             *                   724
+ewj                 3.5         100 P P   NSF-ITR-ONLINE                 *                  9048
+eyoon               3.5        4.92 P P   NSF-LG SCALE COLLAB            KIELSER            9052
+fukao                 1         100   P   VASC                           *                   206
+garima               30         100   P   MSE                            *                    33
+guyb                  5        5.01   X                                                    12604
+jeffreyc            3.5          30 P P   Halo-2                         Design             9979
+jiloreta            3.5          30 P P   Multiple Task Performance      *                  9054
+jimi                100          50 P P   AFOSR GrantF49620-01-1-0433    *                  5349
+jkirchho            3.5         100   P   ROB-NSF CAREER ENVELOPING      *                 11260
+kdevale             3.5         100   P   Fluid                          -                  6303
+klibby              3.5          30 P P   Boltz                          *                    92
+kling               3.5          30   P   NSF-SOCIAL TIES-KRAUT          *                  7229
+knw                 3.5         100 P P   NSF-ITR AURA SIEWIOREK         1.1                7478
+kosy                3.5          20   P   E&GOGRAD                       *                    77
+lcp                 3.5          30   P    NSF-CEA                       *                  7806
+lkirtane            3.5          30 P P   Boltz                          *                    92
+lowerre               5          50   P   Speech                         unk                 807
+mecarson            3.5          30 P P   Boltz                          *                    92
+meredyth             60         100   P   BMPI RELEASE RETENTION         *                 10075
+mmonroe             3.5         100   P   ROB-NSF CAREER ENVELOPING      *                 11260
+moldy               3.5         100   P   Argus                          *                  7959
+mseltzer            3.5         100   P    NSF-CEA                       *                  7806
+muralik             3.5         100   P   ISRI ADMIN                     *                  3947
+nancy                 1         100   P   CAPTCHA                        none               6965
+nobori                1         100   P   VASC                           *                   206
+queenie               5          50 P P   HCII-PROGRAM-J                 *                  3980
+rehak               100           0   D   Transition                     per rehak            51
+rowan               3.5         100   P   TRIPLE                         *                  7227
+rsalgado            3.5         100   P    NSF-CEA                       *                  7806
+sdavidof            100          30   P   HCII-PROGRAM-J                 *                  3980
+smau                 30         100   P   RI Graduate Program            *                 12547
+sswarup             3.5          30   P   Amidi                          Fras               7236
+sub                 3.5         100 P P   matous                         charlie           11716
+suprnoop            3.5         100 P P   Boltz                          *                    92
+takuyat             3.5          60 P P   KATAYANAGI-VISITOR             Program A          9505
+thati               3.5         100   P   MODCK                          *                  5186
+tokura              3.5          60   P   VASC                           *                   206
+tomoki              3.5         100 P P   PROSODY GENERATION             *                  7653
+ttwu                3.5         100   P   ROB-NSF CAREER ENVELOPING      *                 11260
+yegna               3.5          30   P    NSF-CEA                       *                  7806
+
+47 rows selected.
+
+Elapsed: 00:00:00.77
+UPDATING
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+abelhc         9576 rms               0                                         NSF-CEA                               7806        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+abelhc          100       6.64       6.64      61407          1
+abelhc          100        6.3        6.3      61407          6
+abelhc          100       4.46       4.46      61407          7
+abelhc          100      40.39      40.39      61407          8
+abelhc          100      12.98      12.98      61407         28
+abelhc          100      20.56      20.56      61407         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.16
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+aeow          10285 rms               0                                         NSF-CEA                               7806        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+aeow            100       6.64       6.64      61407          1
+aeow            100        6.3        6.3      61407          6
+aeow            100       4.46       4.46      61407          7
+aeow            100      40.39      40.39      61407          8
+aeow            100      12.98      12.98      61407         28
+aeow            100      20.56      20.56      61407         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+aphillip      11637 rdr               0                                        Grad Student                            139         30   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+aphillip         30       6.64       1.99       3831          1
+aphillip        100        6.3        6.3       3831          6
+aphillip        100       4.46       4.46       3831          7
+aphillip        100      40.39      40.39       3831          8
+aphillip        100      12.98      12.98       3831         28
+aphillip        100      20.56      20.56       3831         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+asangpet      10970 prs               0                                        Boltz                          P         92        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+asangpet        100       6.64       6.64       2684          1
+asangpet        100        6.3        6.3       2684          6
+asangpet        100       4.46       4.46       2684          7
+asangpet        100      40.39      40.39       2684          8
+asangpet        100      12.98      12.98       2684         28
+asangpet        100      20.56      20.56       2684         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+dhousman      10743 kraut             0                                        NSF-SOCIAL TIES-KRAUT          P       7229        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+dhousman        100       6.64       6.64      57420          1
+dhousman        100        6.3        6.3      57420          6
+dhousman        100       4.46       4.46      57420          7
+dhousman        100      40.39      40.39      57420          8
+dhousman        100      12.98      12.98      57420         28
+dhousman        100      20.56      20.56      57420         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.04
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+djseo         10897 reids             0                                        TRESTLE                                7491         60   none         P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+djseo            60       6.64       3.98      58054          1
+djseo           100        6.3        6.3      58054          6
+djseo           100       4.46       4.46      58054          7
+djseo           100      40.39      40.39      58054          8
+djseo           100      12.98      12.98      58054         28
+djseo           100      20.56      20.56      58054         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+drulhe         9385 hebert            0                                        COGNITIVE COLONIES                      724          5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+drulhe          100       6.64       6.64       3154          1
+drulhe          100        6.3        6.3       3154          6
+drulhe          100       4.46       4.46       3154          7
+drulhe          100      40.39      40.39       3154          8
+drulhe          100      12.98      12.98       3154         28
+drulhe          100      20.56      20.56       3154         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+ewj            9154 kraut             0                                        NSF-ITR-ONLINE                 P       9048        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+ewj             100       6.64       6.64      67065          1
+ewj             100        6.3        6.3      67065          6
+ewj             100       4.46       4.46      67065          7
+ewj             100      40.39      40.39      67065          8
+ewj             100      12.98      12.98      67065         28
+ewj             100      20.56      20.56      67065         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.00
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+eyoon         11030 sfussell          0                                        NSF-LG SCALE COLLAB            P       9052        3.5   KIELSER      P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+eyoon          4.92       6.64        .33      67064          1
+eyoon          4.92        6.3        .31      67064          6
+eyoon          4.92       4.46        .22      67064          7
+eyoon          4.92      40.39       1.99      67064          8
+eyoon          4.92      12.98        .64      67064         28
+eyoon          4.92      20.56       1.01      67064         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.00
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+fukao          9844 tk                0                                        VASC                                    206          1   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+fukao           100       6.64       6.64       2215          1
+fukao           100        6.3        6.3       2215          6
+fukao           100       4.46       4.46       2215          7
+fukao           100      40.39      40.39       2215          8
+fukao           100      12.98      12.98       2215         28
+fukao           100      20.56      20.56       2215         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+garima        11210 droot             0                                        MSE                                      33         30   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+garima           30       6.64       1.99       4122          1
+garima          100        6.3        6.3       4122          6
+garima          100       4.46       4.46       4122          7
+garima          100      40.39      40.39       4122          8
+garima          100      12.98      12.98       4122         28
+garima          100      20.56      20.56       4122         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.04
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+guyb            273 guyb              0 05005 1 Associate Professor                                                  12604          5                X
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+guyb           1.67       6.64        .11      51399          1
+guyb            .42       6.64        .03      56502          1
+guyb           1.67       6.64        .11      80825          1
+guyb           1.25       6.64        .08      80848          1
+guyb           1.67        6.3         .1      51399          6
+guyb            .42        6.3        .03      56502          6
+guyb           1.67        6.3        .11      80825          6
+guyb           1.25        6.3        .08      80848          6
+guyb           1.67       4.46        .07      51399          7
+guyb            .42       4.46        .02      56502          7
+guyb           1.67       4.46        .07      80825          7
+guyb           1.25       4.46        .06      80848          7
+guyb           1.67      40.39        .67      51399          8
+guyb            .42      40.39        .18      56502          8
+guyb           1.67      40.39        .67      80825          8
+guyb           1.25      40.39         .5      80848          8
+guyb           1.67      12.98        .22      51399         28
+guyb            .42      12.98        .05      56502         28
+guyb           1.67      12.98        .22      80825         28
+guyb           1.25      12.98        .16      80848         28
+guyb           1.67      20.56        .34      51399         46
+guyb            .42      20.56        .09      56502         46
+guyb           1.67      20.56        .34      80825         46
+guyb           1.25      20.56        .26      80848         46
+
+24 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.07
+
+1 row updated.
+
+Elapsed: 00:00:00.05
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+jeffreyc      10216 ckoch             0                                        Halo-2                         P       9979        3.5   Design       P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+jeffreyc         30       6.64       1.99      73404          1
+jeffreyc         30        6.3       1.89      73404          6
+jeffreyc         30       4.46       1.34      73404          7
+jeffreyc         30      40.39      12.12      73404          8
+jeffreyc         30      12.98       3.89      73404         28
+jeffreyc         30      20.56       6.17      73404         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+jiloreta      11252 sfussell          0                                        Multiple Task Performance      P       9054        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+jiloreta         30       6.64       1.99      67376          1
+jiloreta         30        6.3       1.89      67376          6
+jiloreta         30       4.46       1.34      67376          7
+jiloreta         30      40.39      12.12      67376          8
+jiloreta         30      12.98       3.89      67376         28
+jiloreta         30      20.56       6.17      67376         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+jimi           9983 burks             0                                        AFOSR GrantF49620-01-1-0433    P       5349        100   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+jimi             50       6.64       3.32      48939          1
+jimi             50        6.3       3.15      48939          6
+jimi             50       4.46       2.23      48939          7
+jimi             50      40.39       20.2      48939          8
+jimi             50      12.98       6.49      48939         28
+jimi             50      20.56      10.28      48939         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+jkirchho      11276 nsp               0                                        ROB-NSF CAREER ENVELOPING             11260        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+jkirchho        100       6.64       6.64      75015          1
+jkirchho        100        6.3        6.3      75015          6
+jkirchho        100       4.46       4.46      75015          7
+jkirchho        100      40.39      40.39      75015          8
+jkirchho        100      12.98      12.98      75015         28
+jkirchho        100      20.56      20.56      75015         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+kdevale        7396 priya             0                                        Fluid                                  6303        3.5   -            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+kdevale         100       6.64       6.64      53790          1
+kdevale         100        6.3        6.3      53790          6
+kdevale         100       4.46       4.46      53790          7
+kdevale         100      40.39      40.39      53790          8
+kdevale         100      12.98      12.98      53790         28
+kdevale         100      20.56      20.56      53790         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+klibby        11055 dst               0                                        Boltz                          P         92        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+klibby           30       6.64       1.99       2684          1
+klibby           30        6.3       1.89       2684          6
+klibby           30       4.46       1.34       2684          7
+klibby           30      40.39      12.12       2684          8
+klibby           30      12.98       3.89       2684         28
+klibby           30      20.56       6.17       2684         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+kling         11063 kraut             0                                        NSF-SOCIAL TIES-KRAUT                  7229        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+kling            30       6.64       1.99      57420          1
+kling            30        6.3       1.89      57420          6
+kling            30       4.46       1.34      57420          7
+kling            30      40.39      12.12      57420          8
+kling            30      12.98       3.89      57420         28
+kling            30      20.56       6.17      57420         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.00
+
+1 row updated.
+
+Elapsed: 00:00:00.04
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+knw           10653 mm                0                                        NSF-ITR AURA SIEWIOREK         P       7478        3.5   1.1          P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+knw             100       6.64       6.64      59341          1
+knw             100        6.3        6.3      59341          6
+knw             100       4.46       4.46      59341          7
+knw             100      40.39      40.39      59341          8
+knw             100      12.98      12.98      59341         28
+knw             100      20.56      20.56      59341         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+kosy           1017 burks             0                                        E&GOGRAD                                 77        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+kosy             20       6.64       1.33       3825          1
+kosy             20        6.3       1.26       3825          6
+kosy             20       4.46        .89       3825          7
+kosy             20      40.39       8.08       3825          8
+kosy             20      12.98        2.6       3825         28
+kosy             20      20.56       4.11       3825         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+lcp           10547 rms               0                                         NSF-CEA                               7806        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+lcp              30       6.64       1.99      61407          1
+lcp              30        6.3       1.89      61407          6
+lcp              30       4.46       1.34      61407          7
+lcp              30      40.39      12.12      61407          8
+lcp              30      12.98       3.89      61407         28
+lcp              30      20.56       6.17      61407         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+lkirtane      11061 dst               0                                        Boltz                          P         92        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+lkirtane         30       6.64       1.99       2684          1
+lkirtane         30        6.3       1.89       2684          6
+lkirtane         30       4.46       1.34       2684          7
+lkirtane         30      40.39      12.12       2684          8
+lkirtane         30      12.98       3.89       2684         28
+lkirtane         30      20.56       6.17       2684         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+lowerre        2516                   0                                        Speech                                  807          5   unk          P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+lowerre          50       6.64       3.32       1986          1
+lowerre          50        6.3       3.15       1986          6
+lowerre          50       4.46       2.23       1986          7
+lowerre          50      40.39       20.2       1986          8
+lowerre          50      12.98       6.49       1986         28
+lowerre          50      20.56      10.28       1986         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+mecarson      11364 dst               0                                        Boltz                          P         92        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+mecarson         30       6.64       1.99       2684          1
+mecarson         30        6.3       1.89       2684          6
+mecarson         30       4.46       1.34       2684          7
+mecarson         30      40.39      12.12       2684          8
+mecarson         30      12.98       3.89       2684         28
+mecarson         30      20.56       6.17       2684         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+meredyth      10933 smw               0                                        BMPI RELEASE RETENTION                10075         60   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+meredyth        100       6.64       6.64      74179          1
+meredyth        100        6.3        6.3      74179          6
+meredyth        100       4.46       4.46      74179          7
+meredyth        100      40.39      40.39      74179          8
+meredyth        100      12.98      12.98      74179         28
+meredyth        100      20.56      20.56      74179         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+mmonroe       11275 nsp               0                                        ROB-NSF CAREER ENVELOPING             11260        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+mmonroe         100       6.64       6.64      75015          1
+mmonroe         100        6.3        6.3      75015          6
+mmonroe         100       4.46       4.46      75015          7
+mmonroe         100      40.39      40.39      75015          8
+mmonroe         100      12.98      12.98      75015         28
+mmonroe         100      20.56      20.56      75015         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+moldy          6146 ref               0                                        Argus                                  7959        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+moldy           100       6.64       6.64      60323          1
+moldy           100        6.3        6.3      60323          6
+moldy           100       4.46       4.46      60323          7
+moldy           100      40.39      40.39      60323          8
+moldy           100      12.98      12.98      60323         28
+moldy           100      20.56      20.56      60323         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.00
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+mseltzer       7904 rms               0                                         NSF-CEA                               7806        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+mseltzer        100       6.64       6.64      61407          1
+mseltzer        100        6.3        6.3      61407          6
+mseltzer        100       4.46       4.46      61407          7
+mseltzer        100      40.39      40.39      61407          8
+mseltzer        100      12.98      12.98      61407         28
+mseltzer        100      20.56      20.56      61407         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+muralik        9342 rajiv             0                                        ISRI ADMIN                             3947        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+muralik         100       6.64       6.64       3833          1
+muralik         100        6.3        6.3       3833          6
+muralik         100       4.46       4.46       3833          7
+muralik         100      40.39      40.39       3833          8
+muralik         100      12.98      12.98       3833         28
+muralik         100      20.56      20.56       3833         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.00
+
+1 row updated.
+
+Elapsed: 00:00:00.04
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+nancy         10115 mblum             0                                        CAPTCHA                                6965          1   none         P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+nancy           100       6.64       6.64      53437          1
+nancy           100        6.3        6.3      53437          6
+nancy           100       4.46       4.46      53437          7
+nancy           100      40.39      40.39      53437          8
+nancy           100      12.98      12.98      53437         28
+nancy           100      20.56      20.56      53437         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+nobori         9419 tk                0                                        VASC                                    206          1   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+nobori          100       6.64       6.64       2215          1
+nobori          100        6.3        6.3       2215          6
+nobori          100       4.46       4.46       2215          7
+nobori          100      40.39      40.39       2215          8
+nobori          100      12.98      12.98       2215         28
+nobori          100      20.56      20.56       2215         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.00
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+queenie        8278 marian            0                                        HCII-PROGRAM-J                 P       3980          5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+queenie          50       6.64       3.32       9964          1
+queenie          50        6.3       3.15       9964          6
+queenie          50       4.46       2.23       9964          7
+queenie          50      40.39       20.2       9964          8
+queenie          50      12.98       6.49       9964         28
+queenie          50      20.56      10.28       9964         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.00
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+rehak          1140 rehak             0                                        Transition                               51        100   per rehak    D
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+rehak             0       6.64          0       4334          1
+rehak             0        6.3          0       4334          6
+rehak             0       4.46          0       4334          7
+rehak             0      40.39          0       4334          8
+rehak             0      12.98          0       4334         28
+rehak             0      20.56          0       4334         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+rowan          1836 burks             0 05005 1 Graduate Student               TRIPLE                                 7227        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+rowan           100       6.64       6.64      58731          1
+rowan           100        6.3        6.3      58731          6
+rowan           100       4.46       4.46      58731          7
+rowan           100      40.39      40.39      58731          8
+rowan           100      12.98      12.98      58731         28
+rowan           100      20.56      20.56      58731         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+rsalgado      10091 rms               0                                         NSF-CEA                               7806        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+rsalgado        100       6.64       6.64      61407          1
+rsalgado        100        6.3        6.3      61407          6
+rsalgado        100       4.46       4.46      61407          7
+rsalgado        100      40.39      40.39      61407          8
+rsalgado        100      12.98      12.98      61407         28
+rsalgado        100      20.56      20.56      61407         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.00
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+sdavidof      10659 mm                0                                        HCII-PROGRAM-J                         3980        100   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+sdavidof         30       6.64       1.99       9964          1
+sdavidof         30        6.3       1.89       9964          6
+sdavidof         30       4.46       1.34       9964          7
+sdavidof         30      40.39      12.12       9964          8
+sdavidof         30      12.98       3.89       9964         28
+sdavidof         30      20.56       6.17       9964         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.05
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+smau          11599 jmd               0                                        RI Graduate Program                   12547         30   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+smau            100       6.64       6.64      80778          1
+smau            100        6.3        6.3      80778          6
+smau            100       4.46       4.46      80778          7
+smau            100      40.39      40.39      80778          8
+smau            100      12.98      12.98      80778         28
+smau            100      20.56      20.56      80778         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+sswarup       11329 amidi             0                                        Amidi                                  7236        3.5   Fras         P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+sswarup          30       6.64       1.99       2322          1
+sswarup          30        6.3       1.89       2322          6
+sswarup          30       4.46       1.34       2322          7
+sswarup          30      40.39      12.12       2322          8
+sswarup          30      12.98       3.89       2322         28
+sswarup          30      20.56       6.17       2322         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+sub            1492 sub               0                                        matous                         P      11716        3.5   charlie      P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+sub             100       6.64       6.64       8213          1
+sub             100        6.3        6.3       8213          6
+sub             100       4.46       4.46       8213          7
+sub             100      40.39      40.39       8213          8
+sub             100      12.98      12.98       8213         28
+sub             100      20.56      20.56       8213         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.04
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+suprnoop      11546 dst               0                                        Boltz                          P         92        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+suprnoop        100       6.64       6.64       2684          1
+suprnoop        100        6.3        6.3       2684          6
+suprnoop        100       4.46       4.46       2684          7
+suprnoop        100      40.39      40.39       2684          8
+suprnoop        100      12.98      12.98       2684         28
+suprnoop        100      20.56      20.56       2684         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+takuyat       10740 prs               0                                        KATAYANAGI-VISITOR             P       9505        3.5   Program A    P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+takuyat          60       6.64       3.98      71937          1
+takuyat          60        6.3       3.78      71937          6
+takuyat          60       4.46       2.68      71937          7
+takuyat          60      40.39      24.23      71937          8
+takuyat          60      12.98       7.79      71937         28
+takuyat          60      20.56      12.34      71937         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+thati         11155 ed                0                                        MODCK                                  5186        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+thati           100       6.64       6.64      48136          1
+thati           100        6.3        6.3      48136          6
+thati           100       4.46       4.46      48136          7
+thati           100      40.39      40.39      48136          8
+thati           100      12.98      12.98      48136         28
+thati           100      20.56      20.56      48136         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+tokura        11050 tk                0                                        VASC                                    206        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+tokura           60       6.64       3.98       2215          1
+tokura           60        6.3       3.78       2215          6
+tokura           60       4.46       2.68       2215          7
+tokura           60      40.39      24.23       2215          8
+tokura           60      12.98       7.79       2215         28
+tokura           60      20.56      12.34       2215         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+tomoki        10769 awb               0                                        PROSODY GENERATION             P       7653        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+tomoki          100       6.64       6.64      60928          1
+tomoki          100        6.3        6.3      60928          6
+tomoki          100       4.46       4.46      60928          7
+tomoki          100      40.39      40.39      60928          8
+tomoki          100      12.98      12.98      60928         28
+tomoki          100      20.56      20.56      60928         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.00
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+ttwu          11273 nsp               0                                        ROB-NSF CAREER ENVELOPING             11260        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.00
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+ttwu            100       6.64       6.64      75015          1
+ttwu            100        6.3        6.3      75015          6
+ttwu            100       4.46       4.46      75015          7
+ttwu            100      40.39      40.39      75015          8
+ttwu            100      12.98      12.98      75015         28
+ttwu            100      20.56      20.56      75015         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+
+1 row updated.
+
+Elapsed: 00:00:00.02
+PRINC            ID SPONSOR        TYPE DEPT  E TITLE                          PROJECT                        C       DIST        PCT O SUBPROJECT   DIS
+-------- ---------- -------- ---------- ----- - ------------------------------ ------------------------------ - ---------- ---------- - ------------ ---
+yegna         10529 rms               0                                         NSF-CEA                               7806        3.5   *            P
+
+1 row selected.
+
+Elapsed: 00:00:00.01
+PRINC           PCT     CHARGE     AMOUNT    ACCOUNT SERVICE_ID
+-------- ---------- ---------- ---------- ---------- ----------
+yegna            30       6.64       1.99      61407          1
+yegna            30        6.3       1.89      61407          6
+yegna            30       4.46       1.34      61407          7
+yegna            30      40.39      12.12      61407          8
+yegna            30      12.98       3.89      61407         28
+yegna            30      20.56       6.17      61407         46
+
+6 rows selected.
+
+Elapsed: 00:00:00.13
+
+1 row updated.
+
+Elapsed: 00:00:00.03
+
+1 row updated.
+
+Elapsed: 00:00:00.05
+SP2-0734: unknown command beginning "Elapsed: 0..." - rest of line ignored.
+AFTER UPDATE
+PRINC    PCT_CONFIGURED PCT_CHARGED C DIS PROJECT                        SUBPROJECT         DIST
+-------- -------------- ----------- - --- ------------------------------ ------------ ----------
+guyb                  5        5.01   X                                                    12604
+
+1 row selected.
+
+Elapsed: 00:00:00.78

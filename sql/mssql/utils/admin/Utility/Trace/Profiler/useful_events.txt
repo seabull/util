@@ -1,0 +1,227 @@
+TIP #5: WHEN CREATING TRACES, YOU CAN ONLY CHANGE THE COLUMN ORDER USING ORGANIZE
+COLUMNS
+TIP #6: THE SPID AND EVENTNAME DATA COLUMNS ARE MANDATORY
+TIP #7: USE THE HELP TIPS!
+TIP #5: EXCLUDING EMPTY ROWS
+TIP #2: DATA IS ONLY AGGREGATED IF YOU GROUP ON A SINGLE COLUMN
+
+- TO IDENTIFY SLOW RUNNING QUERIES
+
+stored procedures can be executed in two different ways:
+1. An RPC event – i.e. as a result of a Remote Procedure Call
+2. A Transact-SQL event – i.e. as a result of a call to the T-SQL EXECUTE statement
+
+When I troubleshoot slow-performing queries, I like to capture the following events:
++ RPC:Completed
++ SP:StmtCompleted
++ SQL:BatchStarting
++ SQL:BatchCompleted
++ Showplan XML
+
+I choose to collect these data columns when identifying slow queries:
++ Duration  (in milliseconds)
++ ObjectName
++ TextData
++ CPU
++ Reads
++ Writes
++ IntegerData
++ DatabaseName
++ ApplicationName
++ StartTime
++ EndTime
++ SPID
++ LoginName
++ EventSequence
++ BinaryData
+
+- To Identify DEADLOCKS
+
+The events you might consider collecting include:
++ Deadlock graph
++ Lock: Deadlock
++ Lock: Deadlock Chain
++ RPC:Completed
++ SP:StmtCompleted
++ SQL:BatchCompleted
++ SQL:BatchStarting
+
+Data columns
++ Events
++ TextData
++ ApplicationName
++ DatabaseName
++ ServerName
++ SessionLoginName
++ SPID
++ LoginName
++ EventSequence
++ BinaryData
+
+I may or may not use column filters when I am tracing deadlocks. If I do, I may consider filters on one
+or more of the following data columns:
++ ApplicationName (if available)
++ DatabaseName
++ ServerName
++ LoginName or SessionLoginName
++ SPID
+
+- HOW TO IDENTIFY BLOCKING ISSUES
+
+In SQL Server 2005, the situation has improved. Besides Management Studio, stored procedures, and
+system tables, we also have DMVs and even the Performance Dashboard. However, most importantly,
+we have a new SQL Server Profiler event, BLOCKED PROCESS REPORT. This event does a great job of
+helping you to identify blocking issues and, at the same time, provides you with much of the information
+you need to help correct the problem
+
+Events
+- The Blocked Process Report Event
+
+if you select this event and run a trace, you will never collect any events. No, this is not a bug in 
+Profiler; it has been designed to run this way.
+
+This is not as big a deal as it may seem, but using the Blocked Process Report event requires you do
+perform an extra, non-Profiler-related task. You just have to keep this in mind, because if you forget
+about it, you will be pounding your head on your desk trying to figure out why this particular event
+doesn't work.
+The fact is that collecting information about blocked processes in SQL Server 2005 is resource-intensive
+and so, by default, the Blocked Process Report event is turned off. This way, if you don't use this event,
+it is not wasting valuable server resources. Ideally, you will turn the feature on when you need it and turn
+it off when you don't.
+
+You turn the Blocked Process Report event on and off using the SP_CONFIGURE 'blocked
+process threshold' command. By default, this option is set to 0, which means that the Blocked
+Process Report event is turned off. The SP_CONFIGURE 'blocked process threshold'
+command is an advanced SP_CONFIGURE command, which means that the SP_CONFIGURE
+'show advanced options' command must be run first in order to be able to turn on the
+SP_CONFIGURE 'blocked process threshold' command, assuming this had not been
+done previously. In addition, as with most SP_CONFIGURE commands, you have to run the
+RECONFIGURE command afterwards to activate them.
+
+--------------------------------------------
+SP_CONFIGURE 'show advanced options', 1 ;
+GO
+RECONFIGURE ;
+GO
+-- Now that the advanced options are on, the Blocked Process Report
+-- can be turned on, using this code:
+SP_CONFIGURE 'blocked process threshold', 10 ;
+GO
+RECONFIGURE ;
+GO
+--------------------------------------------
+
+Data Columns
++ Events
++ TextData
++ Duration
++ IndexID
++ Mode
++ LoginSid
++ DatabaseID
++ ServerName
++ EndTime
+
+
+- HOW TO IDENTIFY EXCESSIVE STATEMENT COMPILATIONS
+
+only need a single event to identify and troubleshoot excessive
+statement compilations, and that is SQL:StmtRecompile. This event fires every time a statementlevel
+recompilation occurs
+
+• SQL:StmtRecompile
+• SQL:StmtStarting
+• SQL:StmtCompleted
+• RPC:Completed
+• SP:Starting
+• SP:Completed
+• SP:StmtCompleted
+• SQL:BatchStarting
+• SQL:BatchStarting
+• Auto Stats
+
+I generally select the following data columns, and order them as they are presented here:
+• EventClass
+• EventSubClass
+• ObjectName
+• ObjectType
+• TextData
+• Duration
+• ApplicationName
+• DatabaseName
+• LoginName
+• ServerName
+• SPID
+• EventSequence
+• StartTime
+• EndTime
+
+
+EventSubClass Values
+• 1 = Schema changed
+• 2 = Statistics changed
+• 3 = Deferred compile
+• 4 = Set option changed
+• 5 = Temp table changed
+• 6 = Remote rowset changed
+• 7 = For Browse permissions changed
+• 8 = Query notification environment changed
+• 9 = Partition view changed
+• 10 = Cursor options changed
+• 11 = Option (recompile) requested
+
+- HOW TO IDENTIFY EXCESSIVE DATABASE FILE GROWTH/SHRINKAGE
+
+DATA AND LOG FILE AUTO GROW/SHRINK EVENTS
+Four Profiler events are used to monitor data and log file Auto Grow or Auto Shrink:
+• Data File Auto Grow
+• Data File Auto Shrink
+• Log File Auto Grow
+• Log File Auto Shrink
+
+I generally select the following data columns, ordered as shown below:
+• DatabaseName
+• EventClass
+• IntegerData
+• Duration
+• FileName
+• ApplicationName
+• SPID
+• LoginName
+• ServerName
+• StartTime
+• EndTime
+
+- HOW TO IDENTIFY EXCESSIVE TABLE/INDEX SCANS
+
+Events
++ SCAN:STARTED
++ RPC:Completed
++ SP:StmtCompleted
++ SQL:BatchStarting
++ SQL:BatchCompleted
++ Showplan XML
+
+Data Columns
+• ObjectID
+• ObjectName
+• Duration
+• EventClass
+• TextData
+• CPU
+• Reads
+• Writes
+• IntegerData
+• DatabaseName
+• ApplicationName
+• StartTime
+• EndTime
+• SPID
+• LoginName
+• EventSequence
+• BinaryData
+
+SELECT name
+FROM sys.objects
+WHERE object_id = 1836025772
+

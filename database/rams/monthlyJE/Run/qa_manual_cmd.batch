@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -x
+
+cd /usr/costing/Run
+
+#
+# prepare polls files
+# - gtar zxvf 20070201/all_valid.gtz 
+#
+
+#
+# make sure premake.mk and acl_ldrs.sh are set up correctly
+#
+make -f Makefile _Run_
+make -f Makefile _Run_JE_
+
+
+#./src/oasme.sh sqlplus /@facqa.crescent.fac.cs.cmu.edu @src/exec_sqlproc hostdb.names.emp_load
+#./src/oasme.sh scp sunspot:/usr/costing/Run/scs_outload.dat .
+#
+#./src/oasme.sh sqlldr /@facqa.crescent.fac.cs.cmu.edu src/ctl/labor.ctl LOG=log/scs_outload.log DATA=scs_outload.dat SILENT=feedback,header
+#
+#./src/oasme.sh sqlplus /@facqa.crescent.fac.cs.cmu.edu @src/run laborRecord
+#./src/oasme.sh sqlplus /@facqa.crescent.fac.cs.cmu.edu @src/run 'peopleDistNames(null)'
+#./src/oasme.sh sqlplus /@facqa.crescent.fac.cs.cmu.edu @src/run 'peopleDistNamesApply'

@@ -1,0 +1,7 @@
+		,wsc_aggr_curr_mv post
+		 *
+ERROR at line 17:
+ORA-00942: table or view does not exist
+
+
+Elapsed: 00:00:00.01

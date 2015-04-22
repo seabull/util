@@ -1,0 +1,6 @@
+@./trunc_all.sql
+@./jnls.sql
+@./acct.sql
+@./investigator.sql
+@./acct_role.sql
+@./charges_byacct.sql

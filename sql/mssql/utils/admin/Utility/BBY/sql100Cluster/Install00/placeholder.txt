@@ -1,0 +1,15 @@
+#******************************************************************************/
+#* Place holder file                                                          */
+#* 		                                                              */
+#* BEST BUY CO, INC.                                                          */
+#******************************************************************************/
+#
+# $Archive:   //cs01pvcs/pvcs/cm/Database/archives/Applications/Utilities/PVCS/placeholder.tvt  $
+# $Author: A645276 $
+# $Date: 2011/02/08 15:37:55 $
+# $Revision: 1.1 $	
+
+# This file is used in empty PVCS projects.
+# when we get files with "Inlude all subprojects" option, empty directories
+# are not created. To ensure existence of all required directories,
+# add placeholder.txt file to required project.

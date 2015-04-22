@@ -1,0 +1,106 @@
+hostdb@FAC.SUNSPOT.SRV.CS.CMU.EDU> @./emp_xt.sql
+
+Table created.
+
+hostdb@FAC.SUNSPOT.SRV.CS.CMU.EDU> !vim emp_xt.sql
+
+hostdb@FAC.SUNSPOT.SRV.CS.CMU.EDU> !ls -lrt
+
+hostdb@FAC.SUNSPOT.SRV.CS.CMU.EDU> !more READ*
+
+hostdb@FAC.SUNSPOT.SRV.CS.CMU.EDU> @./emp_t.sql
+
+Sequence created.
+
+
+Table created.
+
+
+Index created.
+
+
+Index created.
+
+
+Index created.
+
+
+Warning: Trigger created with compilation errors.
+
+
+Trigger created.
+
+
+Table dropped.
+
+
+View created.
+
+
+View created.
+
+
+Sequence created.
+
+
+Table created.
+
+
+View created.
+
+hostdb@FAC.SUNSPOT.SRV.CS.CMU.EDU> @./grants_new.sql
+grant execute on hostdb.names to names_change
+                        *
+ERROR at line 1:
+ORA-04042: procedure, function, package, or package body does not exist
+
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+hostdb@FAC.SUNSPOT.SRV.CS.CMU.EDU> @./names.sql
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+hostdb@FAC.SUNSPOT.SRV.CS.CMU.EDU> quit

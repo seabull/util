@@ -1,0 +1,60 @@
+-- step 1 clean up non-history tables
+-- as hostdb
+@integrity.sql
+@who_pct_trgs.sql
+
+-- As YANGL@CS
+@oct_views.sql
+-- record those users that should be refunded/adjusted.
+@jnl245_user_adjust.sql
+
+-- update who for those in jnl245_user_adj to fire the trigger.
+@update_who.sql
+-- -- update_who.log
+
+-- check after clean up step 1
+@wsc_cleanup_diffs.sql
+--wsc_cleanup_diffs.lst
+
+-- save wsc table after cleanup to be used in step 2
+@post_wsc_cleanup.sql
+
+--
+-- step 2 cleanup charged and journal tables
+--
+grant select on jnl254_who_service_charge to hostdb;
+@jnl245_who_charged_adj.sql
+@jnl245_journal_adj.sql
+
+-- views dependent on tables created above
+@other_views.sql
+
+-- grant select to some views
+-- as DBA
+@dba_grant.sql
+
+-- create package
+-- as hostdb
+@2005oct_je.sql
+
+-- record
+-- as hostdb
+exec oct2005_je.record
+
+--
+-- step 3, generate JE messages and submit to the campus
+--
+
+-- Generate JE file and messages
+je_gen.sh
+
+-- submit to the campus
+je_submit.sh je_one.txt je_two.txt
+
+exec oct2005_je.re_journal(246);
+
+exec oct2005_je.accept(246)
+
+-- 1st run results start with 1.*, failed due to missing trans_date
+-- 2nd run results start with 2.*, failed validation
+-- 3rd run

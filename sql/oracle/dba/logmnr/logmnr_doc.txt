@@ -1,0 +1,150 @@
+Recommendations
+
+Oracle Corporation recommends that you take the following into consideration when you are using LogMiner:
+
+    * All databases should employ an alternate tablespace for LogMiner tables. By default all LogMiner tables are created to use the SYSTEM tablespace. Use the DBMS_LOGMNR_D.SET_TABLESPACE routine to re-create all LogMiner tables in an alternate tablespace. For example, the following statement will re-create all LogMiner tables to use the logmnrts$ tablespace:
+
+SQL> EXECUTE DBMS_LOGMNR_D.SET_TABLESPACE('logmnrts$');
+----------------------------------------------------------------------------------------
+Restrictions
+
+The following restrictions apply when you are using LogMiner:
+
+    * The following are not supported:
+          o Simple and nested abstract datatypes (ADTs)
+          o Collections (nested tables and VARRAYs)
+          o Object Refs
+          o Index organized tables (IOTs)
+          o CREATE TABLE AS SELECT of a table with a clustered key
+    * LogMiner runs only on databases of release 8.1 or higher, but you can use it to analyze redo logs from release 8.0 databases. However, the information that LogMiner is able to retrieve from a redo log depends on the version of the log, not the version of the database in use. For example, redo logs for Oracle9i can be augmented to capture additional information when supplemental logging is enabled. This allows LogMiner functionality to be used to its fullest advantage. Redo logs created with older releases of Oracle will not have that additional data and may therefore have limitations on the operations and datatypes supported by LogMiner.
+
+      For example, the following features require that supplemental logging be turned on. (Note that in Oracle9i release 9.0.1, supplemental logging was always on (it was not available at all in releases prior to 9.0.1). But in release 9.2, you must specifically turn on supplemental logging; otherwise it will not be enabled.)
+          o Support for index clusters, chained rows, and migrated rows (for chained rows, supplemental logging is required, regardless of the compatibility level to which the database is set).
+          o Support for direct-path inserts (also requires that ARCHIVELOG mode be enabled).
+          o Extracting the data dictionary into the redo logs.
+          o DDL tracking.
+          o Generating SQL_REDO and SQL_UNDO with primary key information for updates.
+          o LONG and LOB datatypes are supported only if supplemental logging is enabled.
+----------------------------------------------------------------------------------------
+Steps in a Typical LogMiner Session
+
+This section describes the steps in a typical LogMiner session. Each step is described in its own subsection.
+
+   1. Perform Initial Setup Activities
+   2. Extract a Dictionary (unless you plan to use the online catalog)
+   3. Specify Redo Logs for Analysis
+   4. Start a LogMiner Session
+   5. Query V$LOGMNR_CONTENTS
+   6. End a LogMiner Session
+
+To run LogMiner, you use the DBMS_LOGMNR PL/SQL package. Additionally, you might also use the DBMS_LOGMNR_D package if you choose to extract a dictionary rather than use the online catalog.
+----------------------------------------------------------------------------------------
+Perform Initial Setup Activities
+
+There are initial setup activities that you must perform before using LogMiner for the first time. You only need to perform these activities once, not every time you use LogMiner:
+
+    * Enable the type of supplemental logging you want to use. At the very least, Oracle Corporation recommends that you enable minimal supplemental logging, as follows:
+
+SQL> ALTER DATABASE ADD SUPPLEMENTAL LOG DATA
+
+      See Supplemental Logging for more information.
+    * Use the DBMS_LOGMNR_D.SET_TABLESPACE routine to re-create all LogMiner tables in an alternate tablespace. For example:
+
+SQL> EXECUTE DBMS_LOGMNR_D.SET_TABLESPACE('logmnrts$');
+----------------------------------------------------------------------------------------
+Filtering Data That is Returned
+
+LogMiner can potentially be dealing with large amounts of information. There are several methods you can use to limit the information that is returned to the V$LOGMNR_CONTENTS view, as well as the speed at which it is returned. These options are specified when you start LogMiner.
+
+    * Showing Only Committed Transactions
+    * Skipping Redo Corruptions
+    * Filtering Data By Time
+    * Filtering Data By SCN
+Please see Oracle docs for details.
+----------------------------------------------------------------------------------------
+Supplemental Logging
+
+Redo logs are generally used for instance recovery and media recovery. The data needed for such operations is automatically recorded in the redo logs. However, a redo-based application may require that additional information be logged in the redo logs. The following are examples of situations in which supplemental data may be needed:
+
+    * An application that wanted to apply the reconstructed SQL statements to a different database would need to identify the update statement by its primary key, not by its ROWID which is the usual method used by LogMiner. (Primary keys are not, by default, logged in the redo logs unless the key itself is changed by the update.)
+    * To make tracking of row changes more efficient, an application may require that the before image of the whole row be logged, not just the modified columns.
+
+The default behavior of the Oracle database server is to not provide any supplemental logging at all, which means that certain features will not be supported (see Restrictions). If you want to make full use of LogMiner support, you must enable supplemental logging.
+
+The use of LogMiner with minimal supplemental logging enabled does not have any significant performance impact on the instance generating the redo logs. However, the use of LogMiner with database-wide supplemental logging enabled does impose significant overhead and effects performance.
+
+There are two types of supplemental logging: database supplemental logging and table supplemental logging. Each of these is described in the following sections.
+Database Supplemental Logging
+
+There are two types of database supplemental logging: minimal and identification key logging.
+
+Minimal supplemental logging logs the minimal amount of information needed for LogMiner to identify, group, and merge the REDO operations associated with DML changes. It ensures that LogMiner (and any products building on LogMiner technology) have sufficient information to support chained rows and various storage arrangements such as cluster tables. In most situations, you should at least enable minimal supplemental logging. To do so, execute the following statement:
+
+SQL> ALTER DATABASE ADD SUPPLEMENTAL LOG DATA
+
+Note:
+
+In LogMiner release 9.0.1, minimal supplemental logging was the default behavior. In release 9.2, the default is no supplemental logging. It must be specifically enabled.
+
+Identification key logging enables database-wide before-image logging of primary keys or unique indexes (in the absence of primary keys) for all updates. With this type of logging, an application can identify updated rows logically rather than resorting to ROWIDs.
+
+Identification key logging is necessary when supplemental log data will be the source of change in another database, such as a logical standby.
+
+To enable identification key logging, execute the following statement:
+
+SQL> ALTER DATABASE ADD SUPPLEMENTAL LOG DATA (PRIMARY KEY, UNIQUE INDEX) 
+COLUMNS;
+
+This statement results in all primary key values, database-wide, being logged regardless of whether or not any of them are modified.
+
+If a table does not have a primary key, but has one or more non-null unique key constraints, one of the constraints is chosen arbitrarily for logging as a means of identifying the row getting updated.
+
+If the table has neither a primary key nor a unique index, then all columns except LONG and LOB are supplementally logged. Therefore, Oracle Corporation recommends that when you use supplemental logging, all or most tables be defined to have primary or unique keys.
+
+Regardless of whether or not identification key logging is enabled, the SQL statements returned by LogMiner always contain the ROWID clause. You can filter out the ROWID clause by using the RTRIM function and appropriate arguments on the reconstructed SQL statement.
+
+To disable either minimal or identification key logging, execute the following statement.
+
+SQL> ALTER DATABASE DROP SUPPLEMENTAL LOG DATA;
+
+Usage Notes for Identification Key Logging
+
+Keep the following in mind when you use identification key logging:
+
+    * Identification key logging is not required for delete operations because DELETE statements contain all the column values required to identify a row.
+    * If the database is open when you enable identification key logging, all DML cursors in the cursor cache are invalidated. This can have a performance impact until the cache is repopulated.
+
+Table Supplemental Logging
+
+Table supplemental logging uses log groups to log supplemental information. There are two types of log groups:
+
+    * Unconditional log groups - The before images of specified columns are logged any time the table is updated, regardless of whether the update affected any of the specified columns. This is sometimes referred to as an ALWAYS log group.
+    * Conditional log groups - The before images of all specified columns are logged only if at least one of the columns in the log group is updated.
+
+Unconditional Log Groups
+
+To enable supplemental logging that uses unconditional log groups, use the ALWAYS clause as shown in the following example:
+
+SQL> ALTER TABLE scott.emp
+  2 ADD SUPPLEMENTAL LOG GROUP emp_parttime (empno, ename, deptno) ALWAYS;
+
+These columns will be logged every time an UPDATE statement is executed on scott.emp, regardless of whether or not the update affected them. 
+If you wanted to have the entire row image logged any time an update was made, you could create a log group that contained all the columns in the table.
+
+Conditional Log Groups
+
+To enable supplemental logging that uses conditional log groups, omit the ALWAYS clause from your ALTER TABLE statement, as shown in the following example:
+
+SQL> ALTER TABLE scott.emp
+  2 ADD SUPPLEMENTAL LOG GROUP emp_fulltime (empno, ename, deptno);
+
+Because the ALWAYS clause was omitted, before images of the columns will be logged only if at least one of the columns is updated.
+
+Usage Notes for Log Groups
+
+Keep the following in mind when you use log groups:
+
+    * A column can belong to more than one log group. However, the before image of the columns gets logged only once.
+    * Redo logs do not contain any information about which log group a column is part of or whether a column's before image is being logged because of log group logging or identification key logging.
+    * If you specify the same columns to be logged both conditionally and unconditionally, the columns are logged unconditionally.
+

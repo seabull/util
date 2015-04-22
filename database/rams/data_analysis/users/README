@@ -1,0 +1,49 @@
+
+---------------------------------------------
+ about part timers and residual
+---------------------------------------------
+1. users from payroll (tmcd and labor) are recorded and update/create their dist_names entry as
+<effort>/princ
+2. who.charge_by decides whether a user follow project/subproject or effort/princ distribution in dist_names
+	who.charge_by=null --- follow effort/princ (look up distribution using Integrity.distQuery from Integrity.whoDist)
+	who.charge_by=P    --- follow project/subproject
+
+	if a user's dist_names.pct is null, then use the last known pct (which is who.pct)
+	(Notes: All <effort>/princ entries in dist_names have pct as null)
+	if a user's data does not show up from payroll (i.e. no <effort>/princ found in dist_names)
+	   and his distribution based on who.project/subproject can not be found in dist_names
+	then
+		this princ is marked as 'X' in who.dist_src
+		who.pct is set to 1 if he is part time (dist_src used to be lower letter)
+		who.pct is set to 5 if he is full time (dist_src used to be capital letter)
+
+	Notes: a. monthly process (i.e. Run package) does not touch project/subproject in dist_names
+		It only updates/deletes/creates <effort>/princ entries in dist_names.
+		b. dist_names triggers do not update who_service_charge/who_service tables
+		c. who triggers update who_service/who_service_charge tables
+
+related procedures
+	Run.DistNamesApply  (note that all payroll data are inserted into people_dist, then after some pct and account manipulation, inserted into dist_names_x)
+	Integrity.distsRun
+	Integrity.distsQueueRelatedByProject
+	Integrity.whoDist
+
+---------------------------------------------------------------
+--
+-- services.monthly decides whether who.pct should be used on top of distribution (dist)
+-- or 100% should be used for distribution
+-- e.g.
+-- dist_a account_a 50%
+-- dist_a account_b 50%
+--
+-- if services.monthly is not null, then charges for dist_a will be
+--      50%*who.pct to account_a
+--      50%*who.pct to account_b
+-- if services.monthly is null, then charges for dist_a will be
+--      50% to account_a
+--      50% to account_b
+--
+-- For machines, it totally independent of who.pct even if it follows user (machtab.usrprinc). 
+-- i.e. machtab.dist_src='U'
+--
+---------------------------------------------------------------

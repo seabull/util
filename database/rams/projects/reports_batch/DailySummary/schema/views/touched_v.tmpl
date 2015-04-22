@@ -1,0 +1,55 @@
+--
+-- Make sure ccreport has the following priv granted (not thru roles)
+--
+grant select on {$BaseTableOwner}.{$BaseTableName} to {$ViewOwner} with grant option;
+
+--
+-- prepare touched views
+--
+PROMPT Creating view {$ViewOwner}.{$BaseTableName}_TOUCHED_V
+
+create or replace view {$ViewOwner}.{$BaseTableName}_TOUCHED_V
+as
+select
+	x.*
+  from
+(
+	select
+		b.*
+		,case when row_number() over (partition by aud_urowid order by aud_ts desc)=1 then
+			aud_action
+		end rowflag
+	  from {$BaseTableOwner}.{$BaseTableName} b
+	 where aud_ts >= (	select ts 
+				  from {$ParamTableOwner}.{$ParamTableName}
+				 where id=(select max(id) from {$ParamTableOwner}.{$ParamTableName} where flag='{$ParamFlagValueSince}')
+			)
+	   and aud_ts <= (	select ts 
+				  from {$ParamTableOwner}.asofv_param
+				 where id=(select max(id) from {$ParamTableOwner}.{$ParamTableName} where flag='{$ParamFlagValueUntil}')
+			)
+) x
+ where x.rowflag is not null
+/
+
+PROMPT Creating view {$ViewOwner}.{$BaseTableName}_TOUCHEDBEFORE_V
+
+create or replace view {$ViewOwner}.{$BaseTableName}_TOUCHEDBEFORE_V
+as
+select
+	x.*
+  from
+(
+	select
+		b.*
+		,case when row_number() over (partition by aud_urowid order by aud_ts desc)=1 then
+			aud_action
+		end rowflag
+	  from {$BaseTableOwner}.{$BaseTableName} b
+	 where aud_ts < (	select ts 
+				  from {$ParamTableOwner}.{$ParamTableName}
+				 where id=(select max(id) from {$ParamTableOwner}.{$ParamTableName} where flag='{$ParamFlagValueSince}')
+			)
+) x
+ where x.rowflag is not null
+/

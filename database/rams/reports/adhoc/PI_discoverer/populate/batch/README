@@ -1,0 +1,6 @@
+-- make sure tables are populated with correct data.
+-- see ../README
+-- input of the script is pilist.txt
+-- the script calls report.sql and uses template.xls
+./gen_report.pl
+1st try took 30mins

@@ -1,0 +1,1 @@
+00 5 * * * /usr/costing/ccreport/dailysummary/at/dailysummary_start.sh

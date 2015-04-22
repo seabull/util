@@ -1,0 +1,50 @@
+-- Template file: $Id: Stg2Data.tt,v 1.1 2008/12/30 17:18:10 A645276 Exp $
+-- $Author: A645276 $
+-- $Version$
+----------------------------------------------------------------------------------------
+--  This template file is used to generate Teradata fastload scripts from Oracle/SQLServer/MySQL DDLs.
+--  *This template file is under source control, please do NOT edit directly.
+--  *Please do NOT edit generated scripts directly. 
+--  *Usage: sqlt -f Oracle -t TTSchema --tt-conf EVAL_PERL=1 --template fload.tt EscapeTableAll_ora.sql > fload.fld
+----------------------------------------------------------------------------------------
+--  Revision History:
+--      2008/12/19  LJ Yang     initial development
+----------------------------------------------------------------------------------------
+
+--.LOGON BBY4/RASC_FORT_BCH,fortbch;
+
+--DATABASE DEVBBYMEADHOCDB;
+
+[% FOREACH table IN schema.get_tables %]
+
+[% SET FirstX = 1 -%]
+delete from [% table.name %]
+ where ([% FOREACH field IN table.primary_key.field_names -%] [% IF FirstX == 1 -%] [% SET FirstX = 2 -%] [% ELSE -%],[% END -%][% field -%] [% END -%]) in 
+[% SET FirstX = 1 -%](select [% FOREACH field IN table.primary_key.field_names -%] [% IF FirstX == 1 -%] [% SET FirstX = 2 -%] [% ELSE -%],[% END -%][% field -%] [% END -%] from [% table.name %]_stg)
+
+insert into [% table.name %]
+(
+[% SET FirstFld = 1 -%]
+[% FOREACH field IN table.get_fields -%]
+[% IF FirstFld == 1 -%]
+       [% SET FirstFld = 2 -%]
+[% ELSE -%]
+       ,[% END -%]
+[% field.name %]
+[% END %]
+)
+select
+    [% SET FirstFld = 1 -%]
+    [% FOREACH field IN table.get_fields -%]
+    [% IF FirstFld == 1 -%][% SET FirstFld = 2 -%]
+    [% ELSE -%]
+    ,[% END -%]
+    [% field.name %]
+    [% END %]
+  from [% table.name %]_stg
+;
+
+Collect Stats on [% table.name %];
+
+[% END %]
+--.LOGOFF

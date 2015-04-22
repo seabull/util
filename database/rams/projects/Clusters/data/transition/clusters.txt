@@ -1,0 +1,150 @@
+-- $Id: clusters.txt,v 1.2 2007/02/20 15:07:05 yangl Exp $
+--
+
+--
+-- Assetno          CPUType     CPUModel
+--
+
+-- boston.lti cluster
+--
+
+-- Master
+-- boston.lti.cs.cmu.edu       #138263.00     Dell PE-2850    1PH92B1     128.2.207.9 
+
+-- Rack
+-- 137455.00
+
+-- Slaves (9/9)
+-- boston01.lti.cs.cmu.edu     #138773.00     SunFire X2100   0622fu301a  192.168.1.89
+-- boston02.lti.cs.cmu.edu     #138772.00     SunFire X2100   0622fu3012  192.168.1.90
+-- boston03.lti.cs.cmu.edu     #138771.00     SunFire X2100   0622fu405g  192.168.1.91
+-- boston04.lti.cs.cmu.edu     #138770.00     SunFire X2100   0623fu302q  192.168.1.92
+-- boston05.lti.cs.cmu.edu     #138769.00     SunFire X2100   0622fu406w  192.168.1.93
+-- boston06.lti.cs.cmu.edu     #138768.00     SunFire X2100   0622fu4072  192.168.1.94
+-- boston07.lti.cs.cmu.edu     #138767.00     SunFire X2100   0622fu3018  192.168.1.95
+-- boston08.lti.cs.cmu.edu     #138766.00     SunFire X2100   0622fu406h  192.168.1.96
+-- boston09.lti.cs.cmu.edu     #138765.00     SunFire X2100   0622fu406x  192.168.1.97
+
+--
+-- Fac Cluster
+--
+
+-- Master
+134971.00
+
+-- Rack
+134680.00
+
+-- Slaves (6/6)
+134688.00
+134689.00
+135776.00
+135777.00
+134974.00
+001466.00
+
+--
+-- Cogito Cluster
+--
+
+-- Master
+137849.00 SUN        X4100
+
+-- Rack
+136621.00
+
+-- Slaves (21/21)
+137828.00
+137829.00
+137830.00
+137831.00
+137832.00
+137833.00
+137834.00
+137835.00
+137836.00
+137837.00
+137838.00
+137839.00
+137840.00
+137841.00
+137842.00
+137843.00
+137844.00
+137845.00
+137846.00
+137847.00
+137848.00
+
+--
+-- Malbec Cluster
+--
+
+-- Master
+139354.01   DELL    PowerEdge 1950
+
+-- Rack
+139354.00
+
+-- Slaves (12/12)
+malbec01    139354.03   SUN     SunFire X2200
+malbec02    139354.04   SUN     SunFire X2200
+malbec03    139354.05   SUN     SunFire X2200
+malbec04    139354.06   SUN     SunFire X2200
+-- not in DB currently
+malbec05    139354.07   SUN     SunFire X2200
+malbec06    139354.08   SUN     SunFire X2200
+malbec07    139354.09   SUN     SunFire X2200
+malbec08    139354.10   SUN     SunFire X2200
+malbec09    139354.11   SUN     SunFire X2200
+malbec10    139354.12   SUN     SunFire X2200
+malbec11    139354.13   SUN     SunFire X2200
+malbec12    139354.14   SUN     SunFire X2200
+
+--
+-- Mu.lti Cluster
+--
+
+-- Master
+mu.lti.cs.cmu.edu   138273.00     Dell PE-2850    1d7h3b1     128.2.207.11
+
+-- Rack
+138272.00
+
+-- Slaves (10/10)
+mu01.lti.cs.cmu.edu     138799.00     SunFire X2100   0622fu4067  192.168.1.101
+mu02.lti.cs.cmu.edu     138800.00     SunFire X2100   0622fu406p  192.168.1.102
+mu03.lti.cs.cmu.edu     138801.00     SunFire X2100   0622fu406u  192.168.1.103
+mu04.lti.cs.cmu.edu     138802.00     SunFire X2100   0622fu406q  192.168.1.104
+mu05.lti.cs.cmu.edu     138803.00     SunFire X2100   0622fu4041  192.168.1.105
+mu06.lti.cs.cmu.edu     138804.00     SunFire X2100   0622fu3010  192.168.1.106
+mu07.lti.cs.cmu.edu     001462.00     SunFire X2200   0649qat0fb  192.168.1.107
+mu08.lti.cs.cmu.edu     001463.00     SunFire X2200   0649qat0f0  192.168.1.108
+mu09.lti.cs.cmu.edu     001464.00     SunFire X2200   0649qat100  192.168.1.109
+mu10.lti.cs.cmu.edu     001465.00     SunFire X2200   0649qat0f8  192.168.1.110
+
+
+--
+-- islr Cluster
+--
+
+-- Master
+134647.00 DELL       PowerEdge            1850
+
+-- Rack
+134646.00
+
+-- Slaves (9/9)
+134937.00   DELL    PowerEdge
+134938.00   DELL    PowerEdge
+134941.00   DELL    PowerEdge
+134942.00   DELL    PowerEdge
+134943.00   DELL    PowerEdge
+134944.00   DELL    PowerEdge
+134648.00   DELL    PowerEdge
+134649.00   DELL    PowerEdge
+139356.00   DELL    PowerEdge
+
+
+--------------
+--

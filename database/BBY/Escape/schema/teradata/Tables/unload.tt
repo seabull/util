@@ -1,0 +1,28 @@
+/************************************************************************************
+-- Template file: $Id: unload.tt,v 1.2 2008/12/30 16:04:39 A645276 Exp $
+-- $Author: A645276 $
+-- $Version$
+----------------------------------------------------------------------------------------
+--  This template file is used to generate SQL scripts to export data from Escape DB using Oracle/SQLServer/MySQL DDLs.
+--  *This template file is under source control, please do NOT edit directly.
+--  *Please do NOT edit generated scripts directly. 
+--  *Usage: sqlt -f Oracle -t TTSchema --tt-conf EVAL_PERL=1 --template fload.tt EscapeTableAll_ora.sql > fload.fld
+----------------------------------------------------------------------------------------
+--  Revision History:
+--      2008/12/17  LJ Yang     initial development
+----------------------------------------------------------------------------------------
+************************************************************************************/
+
+[% FOREACH table IN schema.get_tables %]
+[% SET FirstFld = 1 -%]
+[% FOREACH field IN table.get_fields %]
+[% IF FirstFld == 1 -%]
+select 
+       [% SET FirstFld = 2 -%]
+[% ELSE -%]
+       ,[% END -%]
+[% IF field.data_type == 'TIMESTAMP' -%]TO_CHAR([% END -%][% field.name -%][% IF field.data_type == 'TIMESTAMP' -%], 'YYYY-MM-DD HH:MM:SS')[% END -%]
+[% END %]
+  from [% PERL -%]if(uc($stash->get('table')->name) eq 'ESC_CUSTCST') { my $t = $stash->get('table')->name; $t =~ s/^ESC_//; print 'ESC.'.$t;} else { print 'ESC.'.join('', split('_', $stash->get('table')->name));}[% END -%]
+;
+[% END %]

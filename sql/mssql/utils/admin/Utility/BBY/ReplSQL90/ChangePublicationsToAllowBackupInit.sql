@@ -1,0 +1,15 @@
+EXEC sp_changepublication @publication = 'MERDB009-001', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-002', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-003', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-004', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-005', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-006', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-007', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-008', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-009', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-010', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-011', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-012', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-013', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-014', @property = N'allow_initialize_from_backup', @value = 'true';
+EXEC sp_changepublication @publication = 'MERDB009-015', @property = N'allow_initialize_from_backup', @value = 'true';

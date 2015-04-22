@@ -1,0 +1,5 @@
+The script in this directory are those that need to be run daily
+to check the status of DBs. 
+The owner of the files should be oracle:oradba
+The shell scripts will call the sql script to generate reports.
+scripts ending with _csv generate csv reports.

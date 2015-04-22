@@ -1,0 +1,47 @@
+-- Template file: $Id: Oracle2TD_stgDDL.tt,v 1.3 2008/12/17 18:50:50 A645276 Exp $
+-- $Author: A645276 $
+-- $Version$
+----------------------------------------------------------------------------------------
+--  This template file is used to generate Teradata staging DDLs from Oracle/SQLServer/MySQL DDLs.
+--  *This template file is under source control, please do NOT edit directly.
+--  *Please do NOT edit generated DDLs directly. 
+--  *Usage: sqlt -f Oracle -t TTSchema --tt-conf EVAL_PERL=1 --template Oracle2TD_stgDDL.tt EscapeTableAll_ora.sql > td_stg_ddl.sql
+----------------------------------------------------------------------------------------
+--  TODO: Add database/schema name
+--  Revision History:
+--      2008/12/17  LJ Yang     initial development
+----------------------------------------------------------------------------------------
+
+[% FOREACH table IN schema.get_tables %]
+Create SET Table [% table.name %]_stg   ,NO FALLBACK , NO BEFORE JOURNAL, NO AFTER JOURNAL, CHECKSUM = DEFAULT
+(
+[% SET FirstFld = 1 -%]
+[% FOREACH field IN table.get_fields -%]
+[% IF FirstFld == 1 -%]
+       [% SET FirstFld = 2 -%]
+[% ELSE -%]
+       ,[% END -%]
+[% field.name -%]
+       [% IF field.data_type == 'varchar2' -%]VARCHAR[% ELSE -%][% field.data_type -%][% END -%]
+[% SET FirstSz = 1 -%]
+[% IF field.size != '0' -%]([% FOREACH len IN field.size -%]
+[% IF FirstSz == 1 -%][% SET FirstSz = 2 -%][% ELSE -%],[% END -%]
+[% len -%]
+[% END -%])[% END -%]
+[% UNLESS field.is_nullable %] NOT NULL [% END %]
+[% END -%]
+)
+[% SET FirstX = 1 -%]
+UNIQUE PRIMARY INDEX ([% FOREACH field IN table.primary_key.field_names -%] [% IF FirstX == 1 -%] [% SET FirstX = 2 -%] [% ELSE -%],[% END -%][% field -%] [% END -%])
+[% IF table.get_indices -%][% FOREACH index IN table.get_indices -%]
+[% SET FirstX = 1 -%]
+INDEX ([% FOREACH fld IN index.fields -%][% IF FirstX == 1 -%][% SET FirstX = 2 -%][% ELSE -%],[% END -%][% fld -%][% END -%])
+[% END -%]
+[% END -%]
+[% FOREACH constraint IN table.get_constraints -%][% IF constraint.type == 'UNIQUE' -%]
+UNIQUE INDEX [% constraint.name -%] ([% PERL -%] print join(',',$stash->get('constraint')->field_names)
+[% END -%])
+[% END -%]
+[% END -%]
+;
+[% END %]

@@ -1,0 +1,48 @@
+pre-fix
+
+     HR_ID        PCT       HPCT     CHARGE     AMOUNT TRANS_DAT SERVICE_ID    ACCOUNT    JOURNAL NOTES                                              CREATION_ CREATED_BY                                         LAST_UPDA LAST_UPDATED_BY                                    H L J
+---------- ---------- ---------- ---------- ---------- --------- ---------- ---------- ---------- -------------------------------------------------- --------- -------------------------------------------------- --------- -------------------------------------------------- - - -
+    395558        7.5        100      14.02       1.05 30-NOV-05         27       3824            Transfer from 14013-1b-1040555                     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y   A
+    395558        7.5        100     -14.02      -1.05 30-NOV-05         27      81083            Transfer to 000001-001-000-270120-01               24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y A
+    396007        7.5        100      14.02       1.05 31-OCT-05         27       3824            Transfer from 14013-1b-1040555                     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y   A
+    396007        7.5        100     -14.02      -1.05 31-OCT-05         27      81083            Transfer to 000001-001-000-270120-01               24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y A
+    396064        7.5        100      14.02       1.05 30-NOV-05         27       3824            Transfer from 14013-1b-1040555                     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y   A
+    396064        7.5        100     -14.02      -1.05 30-NOV-05         27      81083            Transfer to 000001-001-000-270120-01               24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y A
+    395574        7.5        100      14.02       1.05 31-OCT-05         27       3824            Transfer from 14013-1b-1040555                     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y   A
+    395574        7.5        100     -14.02      -1.05 31-OCT-05         27      81083            Transfer to 000001-001-000-270120-01               24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y A
+    395558        7.5        100      14.02       1.05 31-OCT-05         27       3824            Transfer from 14013-1b-1040555                     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y   A
+    395558        7.5        100     -14.02      -1.05 31-OCT-05         27      81083            Transfer to 000001-001-000-270120-01               24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y A
+    395596        7.5        100      14.02       1.05 30-NOV-05         27       3824            Transfer from 14013-1b-1040555                     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y   A
+    395596        7.5        100     -14.02      -1.05 30-NOV-05         27      81083            Transfer to 000001-001-000-270120-01               24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y A
+    396007        7.5        100      14.02       1.05 30-NOV-05         27       3824            Transfer from 14013-1b-1040555                     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y   A
+    396007        7.5        100     -14.02      -1.05 30-NOV-05         27      81083            Transfer to 000001-001-000-270120-01               24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y A
+    396064        7.5        100      14.02       1.05 31-OCT-05         27       3824            Transfer from 14013-1b-1040555                     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y   A
+    396064        7.5        100     -14.02      -1.05 31-OCT-05         27      81083            Transfer to 000001-001-000-270120-01               24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y A
+    395596        7.5        100      14.02       1.05 31-OCT-05         27       3824            Transfer from 14013-1b-1040555                     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y   A
+    395596        7.5        100     -14.02      -1.05 31-OCT-05         27      81083            Transfer to 000001-001-000-270120-01               24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y A
+    395574        7.5        100      14.02       1.05 30-NOV-05         27       3824            Transfer from 14013-1b-1040555                     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y   A
+    395574        7.5        100     -14.02      -1.05 30-NOV-05         27      81083            Transfer to 000001-001-000-270120-01               24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y A
+
+20 rows selected.
+
+
+no rows selected
+
+
+save duplicated ones
+
+
+20 rows created.
+
+
+0 rows created.
+
+
+purge duplicated ones
+
+
+20 rows deleted.
+
+
+0 rows deleted.
+

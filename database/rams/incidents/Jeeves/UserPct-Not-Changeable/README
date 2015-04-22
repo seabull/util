@@ -1,0 +1,8 @@
+
+change user ksalomat and sgardine to 30% and following payroll thru Jeeves
+the pct will be set back to 100%.
+
+query used in Jeeves
+
+update hostdb.who set project='RADAR-SRI', subproject='SPACE TIME', charge_by=null, pct=30 where princ='ksalomat';
+

@@ -1,0 +1,29 @@
+#!/bin/sh
+#$Header: c:\\Repository/database/rams/scripts/sunspot/db_create,v 1.1 2005/01/06 16:28:06 yangl Exp $
+
+e=1
+#-----------------------------------------------------------------------------
+#set -x
+
+# catch 0, SIGHUP(1), SIGINT(2), SIGTERM(15)
+trap 'e=$?; exit' 1 2 15
+trap 'rm -f /tmp/${prog}$$T*; trap 0; exit $e' 0
+
+prog=`basename $0 .sh`
+T="/tmp/${prog}$$T"
+
+#-----------------------------------------------------------------------------
+usage()
+{
+	echo $2
+	cat << EOF_USAGE
+Usage: ${prog} [options]
+Options:
+
+EOF_USAGE
+	exit $1
+}
+#------------------------------------------------------------------------------
+#./db_createfromtemplate.sh > logs/db_create.log 2>&1
+./db_createfromtemplate.sh > db_create.log 2>&1
+e=$?

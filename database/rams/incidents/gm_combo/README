@@ -1,0 +1,5 @@
+accounting.gms_combo was not correctly update because of trigger failure.
+To fix it, run fix.sql
+
+To make changes in the process so that it reports error on failure,
+use gen-ctl to replace the one in /usr/costing/Run/src/ctl

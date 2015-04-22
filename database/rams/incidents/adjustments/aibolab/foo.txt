@@ -1,0 +1,9 @@
+PTA                                                                  PROJ_NAME                      PROJ_STAR PROJ_COMP PROJ_CLOS PROJ_STATUS_CODE               AWARD_STA AWARD_END AWARD_CLO AWARD_STATUS
+-------------------------------------------------------------------- ------------------------------ --------- --------- --------- ------------------------------ --------- --------- --------- ------------------------------
+13995-1-1040545                                                      L-3com-Irad-Rybski/Veloso      01-SEP-05           23-JAN-06 CLOSED                         06-SEP-05 09-DEC-05 23-JAN-06 CLOSED
+14013-1b-1040555                                                     Sri-Calo-Yr3-Mtg Asst          01-SEP-05                     APPROVED                       19-SEP-05 31-DEC-06 28-FEB-07 ACTIVE
+14013-1c-1040555                                                     Sri-Calo-Yr3-Mtg Asst          01-SEP-05                     APPROVED                       19-SEP-05 31-DEC-06 28-FEB-07 ACTIVE
+9992-6-1040371                                                       Sri-Darpa-Calo-Epca            01-APR-03           08-JUL-06 CLOSED                         01-JUL-04 30-SEP-05 30-NOV-05 CLOSED
+9992-9-1040492                                                       Sri-Darpa-Calo-Epca            01-APR-03           08-JUL-06 CLOSED                         01-JUL-04 30-SEP-05 30-NOV-05 CLOSED
+
+5 rows selected.

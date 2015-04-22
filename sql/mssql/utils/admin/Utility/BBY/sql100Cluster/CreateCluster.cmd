@@ -1,0 +1,1 @@
+perl t38instl100.pl -x icm T38APP80\t38dba.cfg USERDB.cfg

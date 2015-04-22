@@ -1,0 +1,20 @@
+{$header}
+
+{$content}
+Net { 
+      if ($total >= 0) {
+	sprintf "Increase for users : \$ %s", $total_str;
+      } else {
+	sprintf "Reduction for users: \$ %s", $total_str;
+      }
+    }
+
+{sprintf('*'x72);}
+* LEGEND
+* 
+* CSrc    :  Charge Source
+*            Labr = Follow Charge Distribution of Primary User
+*            Hard = Hardcoded to project
+* 
+{sprintf('*'x72);}
+{$footer}

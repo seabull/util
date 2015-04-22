@@ -1,0 +1,870 @@
+#!/usr/local/bin/perl5 -w
+#$Id: eclip,v 1.1 2005/07/28 15:10:27 yangl Exp $
+
+#-----------------------------------
+# cgi for clipboard form
+#-----------------------------------
+
+use strict;
+#use lib qw();
+
+use CGI qw/:standard :html :cgi/;
+use POSIX;
+use Socket;
+$CGI::POST_MAX = 300000;
+
+my $DEBUG = 0;
+
+my $debug_contents = "";
+
+
+####################################
+#  access control checking
+
+my $check_access = 1;
+my @host_access_list = qw(\.FAC\.CS\.CMU\.EDU$ \.NET\.CS\.CMU\.EDU$);
+my @ip_access_list = qw(^141\.158\.115\.217$);
+####################################
+
+####################################
+#  logging
+
+my $do_logging = 1;
+my $logfile = "/usr0/eclip/logs/eclip.log";
+####################################
+
+
+####################################
+# mail handling stuff
+
+my $mailprogram = '/usr/lib/sendmail';
+my $lookup = '/usr/local/bin/lookup';
+
+my @debug_recipients = qw(yangl+@cs.cmu.edu);
+my @recipients = qw(yangl+costing@cs.cmu.edu);
+my @other_recipients = ();
+my @backdoor_recipients = qw(yangl+eclip@cs.cmu.edu);
+
+############################
+
+my $template_file = "/usr0/eclip/lib/templates/eclip.html";
+my $html_space = '&nbsp;';
+
+my $form_action = 
+'<form action="http://www.fac.cs.cmu.edu/eclip-cgi-bin/eclip" method="post">';
+my $form_action_end = 
+' </form>';
+
+my $template_html = "";
+
+my $now = localtime(time());
+
+my %fields;
+my $form = new CGI;
+my ($user, $domain) = get_remoteuser();
+
+
+####################################
+# authentication
+
+my $srvtab = "/usr/costing/etc/srvtab";
+
+sub authenticate {
+	system("/usr/local/bin/ksrvtgt costing www $srvtab");
+	system('/usr/local/bin/aklog');
+}
+
+sub unauthenticate {
+	system('/usr/local/bin/kdestroy/ > /dev/null');
+}
+    
+sub access_denied {
+	my $reason = shift;
+
+	print header;
+	print start_html(-Title=>'Access denied', -BGCOLOR=>'white');
+	print h1('Access denied');
+	print <<END;
+<p>
+
+Access to this form has been denied for the following reason:
+</p>
+<p>
+<b>
+$reason
+</b>
+</p>
+END
+	print end_html;
+	logit($logfile, "Access denied:\n$reason\n") if ($do_logging);
+	exit(0);
+}
+
+# some ip-based access control
+sub access_check {
+	my $ip = $ENV{'REMOTE_ADDR'};
+	access_denied("Unable to find out your IP address.\n") unless ($ip);
+	#my $hname = gethostbyaddr(inet_aton($ip), 'AF_INET');
+	my $hname = gethostbyaddr(inet_aton($ip), AF_INET);
+	my ($ok_host, $ok_ip) = (0,0);
+
+	unless (defined $hname) {
+		access_denied("Unable to resolve your IP address, $ip\n");
+	}
+	$hname = uc($hname);
+	$ok_host = 0;
+	foreach my $h (@host_access_list) {
+		if ($hname =~ m/$h/) {
+			$ok_host = 1;
+			last;
+		}
+	}
+	$ok_ip = 0;
+#	foreach my $i (@ip_access_list) {
+#		if ($ip =~ m/$i/) {
+#			$ok_ip = 1;
+#			last;
+#        	}
+#	}
+	unless ($ok_host or $ok_ip) {
+		access_denied("Access denied for hostname: $hname\n") unless ($ok_host);
+		access_denied("Access denied for ip address: $ip\n") unless ($ok_ip);
+	}        
+	return 1;
+}
+
+#
+# slurp in HTML page template file
+#
+sub slurp_template {
+	my $template_file = shift;
+	my $lines;
+	open(TF, $template_file) or die "Cannot open $template_file\n";
+	while (<TF>) {
+		$lines .= $_;
+	}
+	close TF;
+	return $lines;
+}
+
+# check that logfile is writable right away, so user doesn't enter 
+# all his information and then get an error message
+sub check_log(;$)
+{
+	my $file = @_;
+
+	$file = $logfile unless ($file);
+	# check that logfile is writable right away
+	#if (($do_logging) && ! (-w $logfile)) {
+	if (($do_logging) && ! (-w $file)) {
+		$do_logging = 0;    # internal_error() calls logit()
+		internal_error("Cannot open logfile $file\n");
+	}        
+}
+
+# Get the user name from REMOTE_USER environment.
+sub get_remoteuser
+{
+	my $user = $ENV{REMOTE_USER};
+	my $domain='CS.CMU.EDU';
+
+	if ($user =~ /^\s*([A-Za-z0-9-+]+)@([A-Za-z0-9-\.]+)\s*$/) {
+		#($user,$domain) = split('@', $user, 2);
+		$user = $1;
+		$domain = $2;
+	} elsif ($user =~ /([A-Za-z0-9-+]+)/) {
+		$user = $1;
+	} else {
+		die "bad user name: $user \n", join("\n<br>", map { "$_=".$ENV{$_} } sort keys %ENV), "\n";
+	}
+	($user, $domain);
+}
+
+#####################################################################
+# send mail 
+#
+
+sub notify() {
+	my $hostname = "";
+
+	my $message = construct_message();
+
+	my $user_recip = "$user\@$domain";
+    
+	# send mail to fac people
+	my @fac_recip = (@recipients, @other_recipients);
+	@fac_recip = @debug_recipients	if ($DEBUG);            
+
+	my $fac_message = $message . meta_info(@fac_recip);
+	@fac_recip = (@fac_recip, @backdoor_recipients);
+
+	logit($logfile, "REQUEST:\n\n$fac_message\n\n")	if ($do_logging);
+
+	foreach my $recip (@fac_recip) {
+		send_message($recip, "<$user_recip>", "eClipboard request", $fac_message);
+	}        
+
+	# if that went OK, send confirmation mail to user
+	my $user_confirm_from = "eClipboard Request confirmation help+costing\@cs.cmu.edu>";
+
+	my $preamble = <<'END';
+Thank you for using eClipboard.  A copy of the information below
+has been sent to Facilities Help Desk.  Your requested update will be processed
+within one business day of submission.
+
+END
+	my $user_message = $preamble . $message;
+	send_message($user_recip, $user_confirm_from,
+		"eClipboard confirmation", $user_message);
+
+	$message;
+}    
+        
+
+sub send_message($$$$) {
+	my ($to, $from, $subject, $message) = @_;
+	my $uid = "$user\@$domain";
+
+	logit($logfile, "Request from $uid: sending mail to: $to ... ") 
+		if ($do_logging);
+	open(MAIL,"| $mailprogram -oi -t $to") or mail_send_error($to, $message);
+	print(MAIL "From: $from \n");
+	print(MAIL "To: $to \n");
+	print(MAIL "Subject: $subject\n\n");
+	print(MAIL $message);
+	close(MAIL) or mail_send_error($to, $message);
+	logit($logfile, "Request from $uid: mail sent to: $to\n") 
+		if ($do_logging);
+}    
+
+
+sub mail_send_error($$) {
+	my ($to, $message) = @_;
+	print header;
+	print start_html(-Title=>'Error Sending Mail',
+			-BGCOLOR=>'white');
+	print h1('Error Sending Mail');
+	print <<'END';
+<p>
+<strong>There was problem e-mailing your request to SCS Facilities.</strong>
+</p>
+<p>
+Please notify help+costing@cs.cmu.edu of this error or call the SCS Help Desk at x8-4231 (9-5, M-F).
+</p>
+<p>
+Your request has <strong>not</strong> been sent.
+</p>
+END
+	print end_html;
+
+	#my $uid = $fields{'userid'}->{'value'} if ($fields{'userid'}->{'value'});
+	my $uid = "$user\@$domain";
+	logit($logfile, "Request from $uid: mail send error\nTo:$to\nMessage:\n\n$message\n\n")
+		if ($do_logging);    
+	exit(1)
+}
+
+
+
+
+######################################################################
+## meta information about the mail (IP of host filling out form, etc
+##
+sub meta_info {
+	my @recipients = @_;
+	my $info = "\n========== Form submission information ==========\n";
+	my $ip = $ENV{'REMOTE_ADDR'};
+	$info .= "\nCopies of this mail were sent to:\n";
+	foreach my $r (@recipients) {
+		$info .= "        $r\n";
+	}
+	my $now = localtime(time());
+	$info .= "The form was submitted from $ip on $now.\n";
+}
+
+
+######################################################################
+## create the e-mail that will be sent.
+##
+sub construct_message() {
+	my $message = "";
+	my $maxlength = 0;
+
+	my @allfields = sorted_fields();
+
+	foreach my $f (@allfields) {
+		my $l = length(getName($f));
+		$maxlength = $l if ($l > $maxlength);
+	}
+	my $l = $maxlength + 3;
+	
+	$message .= "eClipboard request:\n\n";
+	$message .= "From User\t:\t$user\@$domain\n";
+	foreach my $f (sorted_fields()) {
+		$message .= sprintf("%s", getName($f).":  ");
+		if (($f eq 'comments') || ($f eq 'Remedy_Detail')) {
+			$message .= "\n\n";
+		}
+		$message .= getValue($f) . "\n";
+	}
+	return $message;
+}    
+
+sub print_html($$$$) {
+	my ($title, $breadcrumb, $h1, $content) = @_;
+	my $template = slurp_template($template_file);
+
+	$template =~ s/!_accttitle_!/$title/;
+	$template =~ s/!_acctbreadcrumb_!/$breadcrumb/;
+	$template =~ s/!_accth1_!/$h1/;
+	$template =~ s/!_acctcontent_!/$content/;
+	print header;
+	print $template;
+	return 1;
+}    
+
+# update hidden html for a field using 'value'
+# this is different from setHiddenValue
+sub update_hidden($) {
+	my $f = shift;
+	setHiddenValue($f, getValue($f) );
+}    
+
+#
+# Return
+#	0	if none
+#	1	if valid
+#	2	if invalid
+#
+sub validate_hostname() {
+	my $hn = getParam('hostname');
+	my $hd = getParam('hostname_domain');
+	
+	return 0 unless ($hn && $hd);
+	my $hostname = $hn.'.'.$hd;
+	$hostname = uc($hostname);
+	setValue('hostname',$hostname);
+	update_hidden('hostname');
+
+	my $rtn = check_hostname_syntax($hostname);
+	if ($rtn) {
+		$rtn = 1
+	} else {
+		$rtn = 2;
+	}
+	setValid('hostname', $rtn);
+	$rtn;
+}
+
+sub validate_assetnumber() {
+	my $asset = getParam('asset_number');
+
+	return 0 unless $asset;
+	setValue('asset_number', $asset);
+	update_hidden('asset_number');
+
+	setValid('asset_number', 1);
+	return 1;
+}
+
+sub validate_ip() {
+	my $ip = getParam('IP');
+
+	return 0 unless $ip;
+	setValue('IP', $ip);
+	update_hidden('IP');
+	my $rtn = 1;
+	unless ($ip =~ /^\s*[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\s*$/) {
+		$rtn = 2;
+	}
+	setValid('IP', $rtn);
+	$rtn;
+}
+
+sub validate_ticket() {
+	my $tkt = getParam('TICKET');
+
+	return 0 unless $tkt;
+	setValue('TICKET', $tkt);
+	update_hidden('TICKET');
+	setValid('TICKET', 1);
+	return 1;
+}
+
+sub validate_remedycontent() {
+	my $remedy = getParam('Remedy_Detail');
+
+	return 0 unless $remedy;
+	setValue('Remedy_Detail', $remedy);
+	update_hidden('Remedy_Detail');
+	setValid('Remedy_Detail',1);
+	1;
+}
+
+sub validate_comments() {
+	my $remedy = getParam('comments');
+
+	return 0 unless $remedy;
+	setValue('comments', $remedy);
+	update_hidden('comments');
+	setValid('comments',1);
+	1;
+}
+
+#
+# Return	
+#	0 if invalid
+# 	1 if valid
+#
+sub check_hostname_syntax {
+	my $hostname = shift;
+
+	$hostname = uc($hostname);
+	return 0 if (length($hostname) > 255);		# 255 or less characters
+	return 0 unless ($hostname =~ m/^[A-Z0-9]/);	# begins with alphanumeric
+	return 0 unless ($hostname =~ m/[A-Z0-9]$/);	# ends with alphanumeric
+	return 0 unless ($hostname =~ m/[A-Z]/);	# at least one letter
+	return 0 
+		unless ($hostname =~ m/^[A-Z0-9\-\.]+$/);	# alphanumerics "-" "." allowed
+	return 0 if ($hostname =~ m/\.\./);       # no two "." in a row
+	return 1;
+}
+
+sub initialize_fields {
+
+	################################################################
+	# hostname_cmu  - hostname if it's a CMU-owned machine.
+	
+	$fields{'hostname'}->{'name'} = 'Hostname';
+	$fields{'hostname'}->{'order'} = 6;
+	$fields{'hostname'}->{'value'} = getParam('hostname');
+	$fields{'hostname'}->{'valid'} = 0;
+	$fields{'hostname'}->{'validate'} = \&validate_hostname;
+	$fields{'hostname'}->{'description'} = << 'END';
+	<p>The host name of the equipment you would like to update.  
+END
+	$fields{'hostname'}->{'hidden'} = '<input type="hidden" name="hostname" value="!_value_!">';
+	$fields{'hostname'}->{'form'} = <<'END';
+	<input type="text" name="hostname" value="!_value_!" size="20">
+	<b>.</b>
+	<select name="hostname_domain">
+		<option value="CS.CMU.EDU" selected>CS.CMU.EDU</option>
+		<option value="RI.CMU.EDU">RI.CMU.EDU</option>
+		<option value="ISRI.CMU.EDU">ISRI.CMU.EDU</option>
+		<option value="ICES.CMU.EDU">ICES.CMU.EDU</option>
+		<option value="BTEC.CMU.EDU">BTEC.CMU.EDU</option>
+		<option value="ECOM.CMU.EDU">ECOM.CMU.EDU</option>
+		<option value="HCII.CMU.EDU">HCII.CMU.EDU</option>
+		<option value="EDRC.CMU.EDU">EDRC.CMU.EDU</option>
+	</select>
+END
+
+#	$fields{'hostname_cmu'}->{'hidden'} = <<'END';
+#	    <input type="hidden" name="hostname_cmu" value="!_value_!">
+#	    <input type="hidden" name="hostname_ok" value="1">
+#END
+
+	################################################################
+	# CMU asset number
+	
+	$fields{'asset_number'}->{'name'} = 'CMU asset number';
+	$fields{'asset_number'}->{'order'} = 1;
+	$fields{'asset_number'}->{'value'} = getParam('asset_number');
+	$fields{'asset_number'}->{'valid'} = 0;
+	$fields{'asset_number'}->{'validate'} = \&validate_assetnumber;;
+	$fields{'asset_number'}->{'description'} = 'The CMU asset number of the equipment. ';
+	$fields{'asset_number'}->{'form'} = '<input type="text" name="asset_number" value="!_value_!" size="10">';
+	$fields{'asset_number'}->{'hidden'} = '<input type="hidden" name="asset_number" value="!_value_!">';
+
+	################################################################
+	# IP address
+	
+	$fields{'IP'}->{'name'} = 'IP Address';
+	$fields{'IP'}->{'order'} = 5;
+	$fields{'IP'}->{'value'} = getParam('IP');
+	$fields{'IP'}->{'valid'} = 0;
+	$fields{'IP'}->{'validate'} = \&validate_ip;
+	$fields{'IP'}->{'description'} = 'The IP address of the machine.';
+	$fields{'IP'}->{'form'} = '<input type="text" name="IP" value="!_value_!" size="20">';
+	
+	$fields{'IP'}->{'hidden'} = '<input type="hidden" name="IP" value="!_value_!">'; 
+
+	#################################################################
+	# Remedy Ticket Number and Details
+
+	$fields{'TICKET'}->{'name'} = 'Remedy Ticket';
+	$fields{'TICKET'}->{'order'} = 2;
+	$fields{'TICKET'}->{'value'} = getParam('TICKET');
+	$fields{'TICKET'}->{'valid'} = 0;
+	$fields{'TICKET'}->{'validate'} = \&validate_ticket;
+	$fields{'TICKET'}->{'description'} = << 'END';
+	Remedy Ticket Number associated with this request. This is typically the Netreg Remedy ticket.
+END
+
+	$fields{'TICKET'}->{'form'} = '<input type="text" name="Ticket" value="!_value_!" size="20">';
+	
+	$fields{'TICKET'}->{'hidden'} = '<input type="hidden" name="Ticket" value="!_value_!">'; 
+
+	$fields{'Remedy_Detail'}->{'name'} = 'Remedy Ticket Content';
+	$fields{'Remedy_Detail'}->{'order'} = 3;
+	$fields{'Remedy_Detail'}->{'value'} = getParam('Remedy_Detail');
+	$fields{'Remedy_Detail'}->{'valid'} = 0;
+	$fields{'Remedy_Detail'}->{'validate'} = \&validate_remedycontent;
+	$fields{'Remedy_Detail'}->{'description'} = << 'END';
+	Remedy Ticket Content associated with this request. You usually <b>Copy & Paste</b> the content of the Netreg Remedy ticket.
+END
+	$fields{'Remedy_Detail'}->{'form'} = '<textarea name="Remedy_Detail" rows=20 cols="80">!_value_!</textarea>';
+	
+	$fields{'Remedy_Detail'}->{'hidden'} = '<input type="hidden" name="Remedy_Detail" value="!_value_!">'; 
+
+	################################################################
+	#  Comments
+	
+	$fields{'comments'}->{'name'} = "Comments or special information";
+	$fields{'comments'}->{'order'} = 4;
+	$fields{'comments'}->{'value'} = getParam('comments');
+	$fields{'comments'}->{'valid'} = 0;
+	$fields{'comments'}->{'validate'} = \&validate_comments;
+	$fields{'comments'}->{'description'} = <<'END';
+	Please enter any comments or special information about this equipment.
+END
+	$fields{'comments'}->{'form'} =
+		'<textarea name="comments" rows="20" cols="80">!_value_!</textarea>';
+	$fields{'comments'}->{'hidden'} = 
+		'<input type="hidden" name="comments" value="!_value_!">';
+	################################################################
+	################################################################
+	################################################################
+}
+
+# return 
+#	0 if all fields empty
+#	1 if no fields invalid
+#	2 if at least one field invalid
+#sub verify_fields {
+#	my $ok = 1;
+#	my $empty = 0;
+#	my @fields = sorted_fields();
+#	foreach my $f (@fields) {
+#		my $field_ok = &{$fields{$f}->{'validate'}};
+#		$empty = ($empty || $field_ok);
+#		$ok = $field_ok if ($field_ok eq 2);
+#	}
+#	$ok = 0 unless $empty;
+#	return $ok;
+#}    
+sub verify_fields {
+        my $ok = 1;
+        my %count = (
+                'EMPTY'         => 0,
+                'VALID'         => 0,
+                'INVALID'       => 0,
+                );
+        my @fields = sorted_fields();
+        foreach my $f (@fields) {
+                my $field_ok = &{$fields{$f}->{'validate'}};
+                if ($field_ok eq "0") {
+                        $count{'EMPTY'}++;
+                } elsif ($field_ok eq "1") {
+                        $count{'VALID'}++;
+                } else {
+                        $count{'INVALID'}++;
+                }
+        }
+        return 2 if $count{'INVALID'} > 0;
+        return 0 if ($count{'INVALID'} == 0 && $count{'VALID'} == 0);
+        return 1;
+}
+
+
+#
+#Views
+#
+sub page_field_html ($) {
+	my ($page_value) = @_;
+	my $html = "";
+
+	$html .= '<input type="hidden"  name="page" id="page" value="'.$page_value.'">';
+}
+
+sub page_submit_html ($;$) {
+	my ($value, $name) = @_;
+	$name = defined($name) ? $name : "Submit";
+	
+	submit(-name=>$name, -value=>$value);
+}
+
+sub page2_html($) {
+	my ($info) = @_;
+	$info = "" unless $info;
+	my $html = "";
+	my $preamble = << 'END';
+<p>
+Thank you for using e-Clipboard application. 
+The following information has been sent to the Help Desk. 
+A copy of the email has been sent to you ($user\@$domain).
+</p>
+END
+
+	$html .= $preamble;
+	$html .= "<pre>";
+	$html .= $info;
+	$html .= "</pre>";
+	$html .= $form_action;
+	$html .= hr.page_submit_html("Okay");
+	$html .= $form_action_end;
+	return $html;
+}
+
+sub page1_html($;$) {
+	my ($clear, $msg) = @_;
+	my $html = "";
+	$msg = "" unless $msg;
+	my $preamble = << 'END';
+<p>
+Use this form to send requests to update machine information in Facility Oracle database. 
+This is the form to replace old <B><I>clipboard</I></B>. 
+</p>
+<p>
+<ol>
+<li>
+All fields in this form will be eMail-ed to <I>Help Desk</I>.
+</li>
+<li>
+Please fill in the information as complete as possible
+even though <I>none of the fields</I> is required.
+</li>
+<li>
+If applicable, you should <strong>Copy and Past</strong>
+the content of the Remedy ticket from Netregister.
+</li>
+</p>
+END
+
+	$html .= $preamble."\n<p>$msg</p>\n";
+	$html .= $form_action;
+	my @fields = sorted_fields();
+	
+	foreach my $f (@fields) {
+		my $indicator = "";
+		if (getValid($f) eq "2") {
+			$indicator = '<font color=#FF0000>*</font>';
+		}
+		$html .= '<hr />' . field_html(undef, $f, $indicator) . "\n";
+	}
+#	if ($clear) {
+#		foreach my $f (@fields) {
+#			my $hidden = getHidden($f);
+#			$hidden = "" unless defined($hidden);
+#			$html .= $hidden;
+#		}
+#	}
+	$html .= page_field_html(1);
+	$html .= hr.page_submit_html("Submit");
+	$html .= $form_action_end;
+	return $html;
+}
+
+# sorted list of field ids for a particular page
+sub sorted_fields() {
+	my @result = ();
+	my @field = keys %fields;
+	foreach my $f (@field) {
+		push(@result, $f);
+	}
+	@result = sort {$fields{$a}->{'order'} <=> $fields{$b}->{'order'}} @result;
+	return @result;
+}    
+
+#convert field into html
+sub field_html($$;$) {
+	my ($blank,$field, $extra_html) = @_;
+	my $html = "";
+	my $opt = "";
+	my $val="";
+	my $ff = getForm($field);	
+
+	$val = getValue($field) if (!defined($blank));
+	$val = "" unless defined($val);
+	$html .= '<h2>' . getName($field) . '</h2>';
+	$html .= '<p>' . getDescription($field) . '</p>';
+	$ff =~ s/!_value_!/$val/;
+	$html .= $ff . $extra_html . '<br />';
+	return $html;
+}
+
+sub blank_field_html($) {
+	my $field = shift;
+	return field_html("blank", $field);
+}
+
+sub getParam($) {
+	my $pname = shift;
+
+	$form->param($pname);
+}
+
+#
+# accessors to the fields
+#
+sub getName($) {
+	my $f = shift;
+	return defined($fields{$f}) ? $fields{$f}->{'name'} : undef;
+}
+
+sub getValue($) {
+	my $f = shift;
+
+	return defined($fields{$f}) ? $fields{$f}->{'value'} : undef;
+}
+sub getValid($) {
+	my $f = shift;
+
+	return defined($fields{$f}) ? $fields{$f}->{'valid'} : undef;
+}
+sub getHidden($) {
+	my $f = shift;
+
+	return defined($fields{$f}) ? $fields{$f}->{'hidden'} : undef;
+}
+sub getForm($) {
+	my $f = shift;
+
+	return defined($fields{$f}) ? $fields{$f}->{'form'} : undef;
+}
+sub getDescription($) {
+	my $f = shift;
+
+	return defined($fields{$f}) ? $fields{$f}->{'description'} : undef;
+}
+sub setName($$) {
+	my ($f,$val) = @_;
+	$fields{$f}->{'name'} = $val;
+}
+
+sub setValue($$) {
+	my ($f,$val) = @_;
+
+	$fields{$f}->{'value'} = $val;
+}
+sub setValid($$) {
+	my ($f,$val) = @_;
+
+	$fields{$f}->{'valid'} = $val;
+}
+sub setValidate($$) {
+	my ($f,$val) = @_;
+
+	$fields{$f}->{'validate'} = $val;
+}
+sub setHiddenValue($$) {
+	my ($f,$val) = @_;
+
+	update_val($f, 'hidden', $val);
+}
+sub setFormValue($$) {
+	my ($f,$val) = @_;
+
+	update_val($f,'form',$val);
+}
+
+sub update_val($$$) {
+	my ($f1, $f2, $val) = @_;
+	my $h;
+
+	if (exists($fields{$f1}->{$f2})) {
+		$h = $fields{$f1}->{$f2};
+		$h =~ s/!_value_!/$val/;
+		$fields{$f1}->{$f2} = $h;
+	} else {
+		$h = undef;
+	}
+	return $h;
+}    
+
+# logging
+# 
+sub logit {
+	return 0 unless ($do_logging);
+
+	my ($logfile, $message) = @_;
+	$message = "logit() called with no message\n" unless ($message);
+
+	unless (open(LOGFILE, ">>$logfile")) {
+		$do_logging = 0;    # internal_error calls logit():
+		internal_error("Cannot open logfile\n");
+	}        
+	my $now = localtime(time());
+	my $host = $ENV{'REMOTE_ADDR'};
+	$host = 'UNKNOWN' unless ($host);
+	my ($user, $domain) = get_remoteuser();
+	print LOGFILE "\n\n+++++ $now - User:$user\@$domain - From: $host - Account Add\n\n";
+	print LOGFILE $message;
+	close LOGFILE;
+}    
+
+sub internal_error($) {
+	my $error = shift;
+	logit($logfile, "INTERNAL ERROR:\n$error\n") if ($do_logging);
+
+	print header;
+	print start_html(-Title=>'Internal error in form',
+			-BGCOLOR=>'white');
+	print h1('Internal error in application');
+	print <<END;
+
+An internal error occurred when processing the account add form:
+<p>
+<strong>$error</strong>
+</p>
+Please report this error to <a href="mailto:yangl+costing\@cs.cmu.edu">Rams team</a>. 
+</p>
+<p>
+<strong>Your information has not been submitted to SCS Facilities.</strong>
+</p>
+END
+	print end_html;
+
+	exit(0);
+}
+
+
+#MAIN
+access_check() if ($check_access);
+initialize_fields();
+
+
+my $page = $form->param('page');
+if (! $page || $page eq "2") {
+	my $title =
+"eClipBoard: Make a Database Change Request (aka ClipBoard) - CMU/SCS Computing Facilities";
+	my $bc = "Clipboard: Request a database change - ";
+	my $h1 = "Clipboard: Request a DB Change - $user\@$domain";
+	my $contents = page1_html(1);
+	print_html($title, $bc, $h1, $contents . $debug_contents);
+} elsif ($page eq "1") {
+	my $title =
+"eClipBoard: Make a Database Change Request (aka ClipBoard) - CMU/SCS Computing Facilities";
+	my $bc = "Clipboard: Request a database change - ";
+	my $h1 = "Clipboard: Request a DB Change - $user\@$domain";
+	my $contents;
+
+	my $ok = verify_fields();
+
+	if ($ok eq "0") {
+		$contents = page1_html(0, '<font color=#FF0000>*<b>You need to specify at least one field.</b></font>');
+	} elsif ($ok eq "2") {
+		$contents = page1_html(0, '<font color=#FF0000>*<b>Some fields are not valid.</b></font>');
+	} else {
+		#send email
+		my $info = notify();
+		$contents = page2_html($info);
+	}
+	print_html($title, $bc, $h1, $contents . $debug_contents);
+} 
+
+1;
+
+__END__
+
+#----------------------------------------------------------------------

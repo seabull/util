@@ -1,0 +1,10 @@
+
+cost_check.sql  - script to check hostdb.cost rates
+cost_change.sql - script to change to new rates
+
+disable_trig.sql
+                - DO NOT USE IT in PRODUCTION. disable audit triggers.
+
+doit.sql        - sync both user and machine services
+who_sync.sql    - script to sync user services (use hostdb.who_attr)
+mach_sync.sql   - script to sync machine services (use hostdb.mach_attr)

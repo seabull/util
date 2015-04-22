@@ -1,0 +1,62 @@
+set pagesize 50000
+
+break on abbrev skip page nodup on assetno on hostname skip 1
+
+select 
+	d.abbrev
+	,m.assetno
+	,h.hostname
+	,s.category
+from hostdb.capequip c
+	,hostdb.machtab m
+	,hostdb.hoststab h
+	,hostdb.depts d
+	,hostdb.host_service hs
+	,hostdb.services s
+where c.assetnum=m.assetno
+and m.assetno=h.assetno(+)
+and h.pri=0
+and d.numb=c.dept
+and hs.assetno(+)=m.assetno
+and hs.service_id=s.id
+and m.dist is not null
+and exists
+(
+	select 
+	'X'
+	--hc.hr_id ID
+	--, hostdb.Account_string(a.funding,a.function,a.activity,a.org,a.entity,a.project,a.task,a.award,null,null) Acct
+	--a.flag LIMBO
+	--,hr.hostname name
+	--,hr.assetno assetno
+	--,SUM(h.CHARGE) CHG, SUM(h.amount) AMT
+	--,to_char(hc.trans_date,'YYYYMMDD') TRANS_DATE
+	--,to_char(j.post_date,'YYYYMMDD') POST_DATE
+	--,j.journal_type_flag
+from hostdb.host_charged hc
+	, hostdb.journals j
+	, hostdb.accounts a
+	, hostdb.host_recorded hr
+where 
+	hc.journal>206
+	and hr.assetno=m.assetno
+	and journal=j.id
+	and a.id=hc.account
+	and hr.id=hc.hr_id
+)
+order by c.dept, h.hostname
+/
+
+-- group by h.hr_id
+-- , hostdb.Account_string(a.funding,a.function,a.activity,a.org,a.entity,a.project,a.task,a.award,null,null)
+-- , a.flag
+-- , hr.hostname
+-- , TRANS_DATE
+-- , POST_DATE
+-- , j.journal_type_flag
+-- ,NOTES 
+--select a.abbrev
+	--,a.assetno
+	--,a.hostname
+	--,a.category
+	----,b.flag

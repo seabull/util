@@ -1,0 +1,20 @@
+--
+-- Make sure asofv_pkg and asofv_util installed first.
+--
+@./aud_change_session.views.sql
+@./dist_str.views.sql
+
+-- who_service and host_service related views
+-- ./gen_sql.pl -l entity_service_list.txt -t entity_service_asofv.tmpl
+@./entity_service_asofv.sql
+@./servicelevel_v.sql
+
+-- other views
+-- ./gen_sql.pl -t touched_v.tmpl
+@./views_from_tmpl.sql
+
+@./users.views.sql
+@./machines.views.sql
+
+@./distnames.views.sql
+@./grants.sql

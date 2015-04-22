@@ -1,0 +1,37 @@
+# This is the mail config file for service charge reports
+# Lines *start* with # are comments
+# The format is VAR_NAME = VAR_VALUE
+# Currently the following configuration variables are supported.
+#	'X-Rams-Mode'	: The flag variable being put in email header to indicate test/production
+#	From            
+#	To              
+#	'Reply-To'      
+#	Subject         
+#	Cc              
+#	Bcc             
+#	Type            
+#	Data           
+#	'X-Rams-From' 	: These variables will replace the above value for testing.
+#	'X-Rams-To'  
+#	'X-Rams-Reply-To'
+#	'X-Rams-Subject'
+#	'X-Rams-Cc'    
+#	'X-Rams-Bcc'  
+#	'X-Rams-Type'
+
+X-Rams-Mode=Test
+#Subject= Test Message
+Sender	= help+costing@cs.cmu.edu
+From	= help+costing@cs.cmu.edu
+To	= '"Longjiang Yang" <yangl+test@cs.cmu.edu>'
+Reply-To= yangl+costing@cs.cmu.edu
+Cc	= 
+#Bcc	= ramscya+@cs.cmu.edu
+Bcc	= 
+Type	= TEXT
+
+AdminTo         = yangl+test@cs.cmu.edu, ylj+@andrew.cmu.edu
+AdminCc         =
+AdminBcc        = ramscya+@cs.cmu.edu
+'Admin-ReplyTo' = help+costing@cs.cmu.edu
+AdminSubject    = Summary Message

@@ -1,0 +1,72 @@
+before purge
+
+     HR_ID     PCT       HPCT     CHARGE     AMOUNT TRANS_DAT  svc    ACCOUNT    JOURNAL NOTES                                    CREATION_ CREATED_BY                                         LAST_UPDA LAST_UPDATED_BY                                    H L
+---------- ------- ---------- ---------- ---------- --------- ---- ---------- ---------- ---------------------------------------- --------- -------------------------------------------------- --------- -------------------------------------------------- - -
+    395558  100.00        100      14.02      14.02 31-AUG-05   27       3824            Transfer from 9992-6-1040371             24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395558  100.00        100     -14.02     -14.02 31-AUG-05   27      78748            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395558   19.32        100      14.02       2.71 30-SEP-05   27       3824            Transfer from 9992-9-1040492             24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395558   19.32        100     -14.02      -2.71 30-SEP-05   27      81071            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395558   43.18        100      14.02       6.05 30-SEP-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395558   43.18        100     -14.02      -6.05 30-SEP-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395558   50.00        100      14.02       7.01 31-OCT-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395558   50.00        100     -14.02      -7.01 31-OCT-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395558   50.00        100      14.02       7.01 30-NOV-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395558   50.00        100     -14.02      -7.01 30-NOV-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395574  100.00        100      14.02      14.02 31-AUG-05   27       3824            Transfer from 9992-6-1040371             24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395574  100.00        100     -14.02     -14.02 31-AUG-05   27      78748            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395574   19.32        100      14.02       2.71 30-SEP-05   27       3824            Transfer from 9992-9-1040492             24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395574   19.32        100     -14.02      -2.71 30-SEP-05   27      81071            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395574   43.18        100      14.02       6.05 30-SEP-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395574   43.18        100     -14.02      -6.05 30-SEP-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395574   50.00        100      14.02       7.01 31-OCT-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395574   50.00        100     -14.02      -7.01 31-OCT-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395574   50.00        100      14.02       7.01 30-NOV-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395574   50.00        100     -14.02      -7.01 30-NOV-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395596  100.00        100      14.02      14.02 31-AUG-05   27       3824            Transfer from 9992-6-1040371             24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395596  100.00        100     -14.02     -14.02 31-AUG-05   27      78748            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395596   19.32        100      14.02       2.71 30-SEP-05   27       3824            Transfer from 9992-9-1040492             24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395596   19.32        100     -14.02      -2.71 30-SEP-05   27      81071            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395596   43.18        100      14.02       6.05 30-SEP-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395596   43.18        100     -14.02      -6.05 30-SEP-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395596   50.00        100      14.02       7.01 31-OCT-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395596   50.00        100     -14.02      -7.01 31-OCT-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    395596   50.00        100      14.02       7.01 30-NOV-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    395596   50.00        100     -14.02      -7.01 30-NOV-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    396007  100.00        100      14.02      14.02 31-AUG-05   27       3824            Transfer from 9992-6-1040371             24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    396007  100.00        100     -14.02     -14.02 31-AUG-05   27      78748            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    396007   19.32        100      14.02       2.71 30-SEP-05   27       3824            Transfer from 9992-9-1040492             24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    396007   19.32        100     -14.02      -2.71 30-SEP-05   27      81071            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    396007   43.18        100      14.02       6.05 30-SEP-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    396007   43.18        100     -14.02      -6.05 30-SEP-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    396007   50.00        100      14.02       7.01 31-OCT-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    396007   50.00        100     -14.02      -7.01 31-OCT-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    396007   50.00        100      14.02       7.01 30-NOV-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    396007   50.00        100     -14.02      -7.01 30-NOV-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    396064  100.00        100      14.02      14.02 31-AUG-05   27       3824            Transfer from 9992-6-1040371             24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    396064  100.00        100     -14.02     -14.02 31-AUG-05   27      78748            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    396064   19.32        100      14.02       2.71 30-SEP-05   27       3824            Transfer from 9992-9-1040492             24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    396064   19.32        100     -14.02      -2.71 30-SEP-05   27      81071            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    396064   43.18        100      14.02       6.05 30-SEP-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    396064   43.18        100     -14.02      -6.05 30-SEP-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    396064   50.00        100      14.02       7.01 31-OCT-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    396064   50.00        100     -14.02      -7.01 31-OCT-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+    396064   50.00        100      14.02       7.01 30-NOV-05   27       3824            Transfer from 13995-1-1040545            24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y
+    396064   50.00        100     -14.02      -7.01 30-NOV-05   27      81054            Transfer to 000001-001-000-270120-01     24-OCT-06 COSTING@CS.CMU.EDU                                 26-OCT-06 SET HOLDS                                          Y Y
+
+50 rows selected.
+
+save purge entries
+
+
+50 rows created.
+
+purge entries
+
+
+50 rows deleted.
+
+check purged entries (should be none)
+
+
+no rows selected
+

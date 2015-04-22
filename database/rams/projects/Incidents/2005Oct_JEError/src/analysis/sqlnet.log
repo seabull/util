@@ -1,0 +1,19 @@
+
+
+***********************************************************************
+Fatal NI connect error 12638, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=hostdb.fac.cs.cmu.edu)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=fac.hostdb.fac.cs.cmu.edu)(CID=(PROGRAM=)(HOST=sunspot.srv.cs.cmu.edu)(USER=yangl))))
+
+  VERSION INFORMATION:
+	TNS for Solaris: Version 9.2.0.5.0 - Production
+	TCP/IP NT Protocol Adapter for Solaris: Version 9.2.0.5.0 - Production
+  Time: 11-NOV-2005 11:03:31
+  Tracing not turned on.
+  Tns error struct:
+    nr err code: 0
+    ns main err code: 12638
+    TNS-12638: Credential retrieval failed
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0

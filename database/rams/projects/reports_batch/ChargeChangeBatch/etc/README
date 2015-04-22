@@ -1,0 +1,8 @@
+The following templates are currently required.
+ccrpt_mail.tmpl
+ccrpt_envelop.tmpl
+
+ccrpt_mreport.tmpl
+ccrpt_ureport.tmpl
+ccrpt_msection.tmpl
+ccrpt_usection.tmpl

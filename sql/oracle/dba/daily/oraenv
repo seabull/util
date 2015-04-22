@@ -1,0 +1,17 @@
+###################################
+# 
+# usage: . oraenv
+#
+# This routine is used to condition a user's environment for access to
+# ORACLE database on sunspot.srv.cs.cmu.edu. 
+
+#HOST=hostdb.fac.cs.cmu.edu
+HOST=sunspot.srv.cs.cmu.edu
+ORACLE_BASE=/usr1/app/oracle
+ORACLE_HOME=${ORACLE_BASE}/product/9.2
+ORACLE_SID=fac
+PATH=${ORACLE_HOME}/bin:/usr/local/opt/SUNWspro/bin:/usr/bin:/usr/ccs/bin:/usr/local/bin:${PATH}
+LD_LIBRARY_PATH=${ORACLE_HOME}/lib:/usr/dt/lib
+export ORACLE_BASE ORACLE_HOME ORACLE_SID PATH LD_LIBRARY_PATH 
+
+

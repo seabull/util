@@ -1,0 +1,3 @@
+/usr/costing/at/acct_expiring.sh			- cron job start script.
+/usr/costing/acct_expiring/bin/report_acctexp.pl	- generate report. 
+/usr/costing/acct_expiring/bin/oascosting.sh		- get kerb ticket and set up environment. 

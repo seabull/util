@@ -1,0 +1,31 @@
+-- $Header: c:\\Repository/database/rams/applications/name_match/match_name/sql/README.new,v 1.4 2006/07/25 20:08:14 costing Exp $
+--
+-- Create the following directories in OS.
+-- mkdir /usr/costing/data/external/
+-- mkdir /usr/oracle/log/ldr
+
+-- Create directory in DB
+@dba.grants.ddl
+@dir_db.sql
+
+-- Create xternal table for feeder
+@emp_xt.sql
+
+-- Create table for empployees
+-- this script will drop hostdb.emp table and
+-- create a view hostdb.emp
+-- use emp.tbl.sql to restore the original emp table if needed.
+@emp_t.sql
+
+@grants_new.sql
+
+-- utility package
+@names.sql
+
+-- Load feeder
+exec names.emp_load
+
+@matchnames_pkg.sql
+
+-- Change the Makefile scs_id_ssn section
+-- copy exec_sqlproc.sql to appropriate location.

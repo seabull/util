@@ -1,0 +1,102 @@
+/************************************************************************************
+-- Template file: $Id: fload.tt,v 1.9 2009/01/07 16:46:46 A645276 Exp $
+-- $Author: A645276 $
+-- $Version$
+----------------------------------------------------------------------------------------
+--  This template file is used to generate Teradata fastload scripts from Oracle/SQLServer/MySQL DDLs.
+--  *This template file is under source control, please do NOT edit directly.
+--  *Please do NOT edit generated scripts directly. 
+--  *Usage: sqlt -f Oracle -t TTSchema --tt-conf EVAL_PERL=1 --template fload.tt EscapeTableAll_ora.sql > fload.fld
+----------------------------------------------------------------------------------------
+--  Revision History:
+--      2008/12/17  LJ Yang     initial development
+----------------------------------------------------------------------------------------
+************************************************************************************/
+
+DATEFORM ANSIDATE;
+
+ERRLIMIT 5;
+TENACITY 4;
+SESSIONS 8;
+SLEEP 6;
+
+.LOGON BBY4/RASC_FORT_BCH,fortbch;
+
+DATABASE DEVBBYMEADHOCWRK;
+
+[% FOREACH table IN schema.get_tables %]
+
+DROP TABLE 	[% table.name %]_Stg_ERR1;
+DROP TABLE	[% table.name %]_Stg_ERR2;
+DROP TABLE	[% table.name %]_Stg;
+
+Create SET Table [% table.name %]_Stg   ,NO FALLBACK , NO BEFORE JOURNAL, NO AFTER JOURNAL, CHECKSUM = DEFAULT
+(
+[% SET FirstFld = 1 -%]
+[% FOREACH field IN table.get_fields -%]
+[% IF FirstFld == 1 -%]
+       [% SET FirstFld = 2 -%]
+[% ELSE -%]
+       ,[% END -%]
+[% field.name -%]
+       [% IF field.data_type == 'varchar2' -%]VARCHAR[% ELSE -%][% IF field.data_type == 'number' -%]NUMERIC[% ELSE -%][% IF field.data_type == 'RAW' -%]VARBYTE[% ELSE -%][% field.data_type -%][% END -%][% END -%][% END -%]
+[% SET FirstSz = 1 -%]
+[% IF field.size != '0' -%]([% FOREACH len IN field.size -%]
+[% IF FirstSz == 1 -%][% SET FirstSz = 2 -%][% ELSE -%],[% END -%]
+[% len -%]
+[% END -%])[% END -%]
+[% UNLESS field.is_nullable %] NOT NULL [% END %]
+[% END -%]
+)
+[% SET FirstX = 1 -%]
+UNIQUE PRIMARY INDEX ([% FOREACH field IN table.primary_key.field_names -%] [% IF FirstX == 1 -%] [% SET FirstX = 2 -%] [% ELSE -%],[% END -%][% field -%] [% END -%])
+;
+
+CLEAR;
+
+set record vartext "|";
+
+DEFINE
+[% SET FirstFld = 1 -%]
+[% FOREACH field IN table.get_fields -%]
+[% IF FirstFld == 1 -%]
+       [% SET FirstFld = 2 -%]
+[% ELSE -%]
+       ,[% END -%]
+[% field.name -%]
+       ([% IF field.data_type == 'TIMESTAMP' -%]Varchar(100)[% ELSE -%][% IF field.data_type == 'varchar2' -%]VARCHAR[% ELSE -%][% IF field.data_type == 'number' -%]DECIMAL[% ELSE -%][% IF field.data_type == 'RAW' -%]VARBYTE[% ELSE -%][% field.data_type -%][% END -%][% END -%][% END -%]
+[% SET FirstSz = 1 -%]
+[% IF field.size != '0' -%]([% FOREACH len IN field.size -%]
+[% IF FirstSz == 1 -%][% SET FirstSz = 2 -%][% ELSE -%],[% END -%]
+[% len -%]
+[% END -%])[% END -%][% END -%])
+[% END -%]
+
+FILE=[% table.name -%].dat;
+SHOW;
+
+BEGIN LOADING 	[% table.name %]_Stg
+ERRORFILES 	[% table.name -%]_Stg_ERR1,
+		[% table.name -%]_Stg_ERR2
+CHECKPOINT 0;
+RECORD 1;
+
+
+INSERT INTO [% table.name %]_Stg
+VALUES( [% SET FirstFld = 1 -%]
+[% FOREACH field IN table.get_fields -%]
+[% IF FirstFld == 1 -%]
+       [% SET FirstFld = 2 -%]
+[% ELSE -%]
+       ,[% END -%]
+:[% field.name -%]
+[% END %]
+);
+
+
+END LOADING;
+
+/*--------------------------------------------------------------------------------*/
+
+[% END %]
+

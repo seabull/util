@@ -1,0 +1,15 @@
+-- connect / as sysdba
+@ramsreport.sql
+@str_aggr.sql
+@traceit.sql
+
+-- connect ramsreport
+@wc_by_services.sql
+@hc_by_services.sql
+@user_hist.sql
+@mach_hist.sql
+@charge_byservices_refresh.sql
+
+-- generate reports
+report_user.sql
+report_machine.sql

@@ -1,0 +1,28 @@
+who_service table is not updated if a user is expired,
+even though who_service_charge is updated.
+
+To fix it, call whoserviceupdates without if statement.
+
+integrity.prod.lst	- From Prod DB before changes
+integrity.qa.lst	- From QA DB before changes
+integrity.new.sql	- With changes ready to go into prod.
+
+More problems:
+
+- who_service_charge should be sync-ed by who_service triggers.
+- host_service_charge should be sync-ed by host_service triggers.
+
+Problem 1
+
+For hosts, when changing assetno, costing.hostServiceChanges fails to
+update host_service_change table since machtab has not been sync-ed with 
+capequip table (where the assetno change initiated) yet.
+
+To solve this problem, make machtab a special case in capequip trigger that handles
+assetno changes, i.e. let it sync machtab first.
+
+Problem 2 
+
+For both hosts and users, the call to host/whoServicesUpdate should not have condition.
+and the subsequent call of Costing.host/whoCharges is useless since the function should be taken
+care of by host/whoServicesUpdate (with condition if statement removed).

@@ -1,0 +1,77 @@
+
+- UPIs and USI:  less need to collect stats if they are not used in range constraints.
+    Optimizer always knows these columns have 1 row per value, 
+    so there is less need to collect stats on UPIs or USIs, particularly if they are not used in range contraints.
+
+- NUPIs: need to collect stat
+    If you a NUPI defined but have not collected stats, the optimizer will assume the NUPI is 75% unique. 
+
+- NUSIs: generally need to collect stats
+    In most cases the optimizer will assume that a column with no stats and no indexes is about 10% of the table's row counts. 
+    With just a NUSI added to that column, the estimate is much more accurate because random AMP samples include collecting 
+    basic demographics on NUSIs (estimated rows/value). 
+
+
+Collect Full Statistics 
+
+    * Non-indexed columns used in predicates
+    * All NUSIs with an uneven distribution of values * 
+    * NUSIs used in join steps
+    * USIs/UPIs if used in non-equality predicates (range constraints)
+    * Most NUPIs (see below for a fuller discussion of NUPI statistic collection)
+    * Full statistics always need to be collected on relevant columns and indexes on small tables (less than 100 rows per AMP)
+
+Can Rely on Random AMP Sampling   
+
+    * USIs or UPIs if only used with equality predicates
+    * NUSIs with an even distribution of values
+    * NUPIs that display even distribution, and if used for joining, 
+        conform to assumed uniqueness (see Point #2 under "Other Considerations" below)
+    * See "Other Considerations" for additional points related to random AMP sampling
+
+Option to use USING SAMPLE
+
+    * Unique index columns
+    * Nearly-unique columns or indexes**
+
+Other Considerations
+
+1. Optimizations such as nested join, partial GROUP BY, and dynamic partition elimination will not be chosen 
+    unless statistics have been collected on the relevant columns.
+
+2. NUPIs that are used in join steps in the absence of collected statistics are assumed to be 75% unique, and 
+    the number of distinct values in the table is derived from that.  A NUPI that is far off from being 75% unique 
+    (for example, it’s 90% unique, or on the other side, it’s 60% unique or less) will benefit from having 
+    statistics collected, including a NUPI composed of multiple columns regardless of the length of the concatenated 
+    values. However, if it is close to being 75% unique, then random AMP samples are adequate. To determine what the 
+    uniqueness of a NUPI is before collecting statistics, you can issue this SQL statement:
+
+    EXPLAIN SELECT DISTINCT [nupi-column] FROM [table];
+
+ 3. For a partitioned primary index table (PPI), it is recommended that you always collect statistics on:
+
+    * PARTITION. This tells the optimizer how many partitions are empty, and how many rows are in each partition. This statistic is used for optimizer costing.
+    * The partitioning column. This provides cardinality estimates to the optimizer when the partitioning column is part of a query’s selection criteria.
+
+4. For a partitioned primary index table (PPI), 
+    consider collecting these statistics if the partitioning column is not part of the table’s primary index (PI):
+
+    * (PARTITION, PI). This statistic is most important when a given PI value may exist in multiple partitions, and can be skipped if a PI value only goes to one partition. It provides the optimizer with the distribution of primary index values across the partitions. It helps in costing the sliding-window and rowkey-based merge join, as well as dynamic partition elimination.
+
+    * (PARTITION, PI, partitioning column). This statistic provides the combined number of distinct values for the combination of PI and partitioning columns after partition elimination. It is used in rowkey join costing.
+
+5. Random AMP sampling has the option of pulling samples from all AMPs, rather than from a single AMP (the default). All-AMP random AMP sampling has these particular advantages:
+
+    * It provides a more accurate row count estimate for a table with a NUPI. This benefit becomes important when NUPI statistics have not been collected (as might be the case if the table is extraordinarily large), and the NUPI has an uneven distribution of values.
+    * Statistics extrapolation for any column in a table will not be attempted for small tables or tables whose primary index is skewed (based on full statistics having been collected on the PI), unless all-AMP random AMP sampling is turned on. Because a random AMP sample is compared against the table row count in the histogram as the first step in the extrapolation process, an accurate random AMP sample row count is critical for determining if collected statistics are stale, or not.
+
+ 
+
+ * Uneven distribution exists when the High Mode Frequency (ModeFrequency column in interval zero) in the histogram is greater than the average rows-per-value (RPV) by a factor of 4 or more.  RPV is calculated as Number of Rows / Number of Uniques.
+
+** Any column which is over 95% unique is considered as a neary-unique column.
+
+*** Correlated columns within a multicolumn statistic are columns where the value in one may influence, or predict the values in the second. For example in a nation table, there is a tight correlation between nationkey and nationname. In a customer table there might be a correlation, but a somewhat looser correlation, between customer zip code and customer income band.
+
+Dependent columns are columns where the value in the one column will tend to directly influence the value in the second column. An example of a dependent column could be customer zip code, which is dependent on the customer state. If they both appeared in a multicolumn statistic they would be a dependency between them. Other columns where there is some dependency might be job title which is sometimes dependent on the industry segment, if they both were in a multicolumn stat. 
+

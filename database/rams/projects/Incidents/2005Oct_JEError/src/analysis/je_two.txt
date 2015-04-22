@@ -1,0 +1,6 @@
+A SCS computer maintenance feeder ADJUST journal entry batch for
+14-Nov-2005 has been submitted with id 20051114102903.
+
+   3414.51 total general ledger charges.
+
+   5018.77 total grants management charges.

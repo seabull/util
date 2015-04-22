@@ -1,0 +1,80 @@
+--
+-- Make sure ccreport has the following priv granted (not thru roles)
+--
+grant select on {$BaseTableOwner}.{$BaseTableName} to {$ViewOwner} with grant option;
+
+--
+-- prepare touched views
+--
+PROMPT Creating view {$ViewOwner}.{$BaseTableName}_ASOFV_1
+
+create or replace view {$ViewOwner}.{$BaseTableName}_ASOFV_1
+as
+select
+	x.*
+  from (
+		select
+			b.*
+			,case when row_number() over (partition by 
+				{
+					if(uc($BaseTableName) eq 'WHO_SERVICE') {
+						'princ, service_id';
+					} elsif (uc($BaseTableName) eq 'HOST_SERVICE') {
+						'assetno, pri, service_id';
+					} else {
+						'aud_urowid';
+					}
+				}
+				order by aud_ts desc)=1 then
+				aud_action
+			end rowflag
+		  from {$BaseTableOwner}.{$BaseTableName} b
+		 where aud_ts <= (
+				select ts 
+				  from {$ParamTableOwner}.asofv_param
+				 where id=(	select max(id)
+						  from {$ParamTableOwner}.{$ParamTableName} 
+						 where flag='{$ParamFlagValueSince}'
+					)
+				)
+	) x
+ where x.rowflag!='D'
+   and x.rowflag is not null
+/
+
+PROMPT Creating view {$ViewOwner}.{$BaseTableName}_ASOFV_2
+
+create or replace view {$ViewOwner}.{$BaseTableName}_ASOFV_2
+as
+select
+	x.*
+  from (
+		select
+			b.*
+			,case when row_number() over (partition by 
+				{
+					if(uc($BaseTableName) eq 'WHO_SERVICE') {
+						'princ, service_id';
+					} elsif (uc($BaseTableName) eq 'HOST_SERVICE') {
+						'assetno, pri, service_id';
+					} else {
+						'aud_urowid';
+					}
+				}
+				order by aud_ts desc)=1 then
+				aud_action
+			end rowflag
+		  from {$BaseTableOwner}.{$BaseTableName} b
+		 where aud_ts <= (
+				select ts 
+				  from {$ParamTableOwner}.asofv_param
+				 where id=(	select max(id)
+						  from {$ParamTableOwner}.{$ParamTableName} 
+						 where flag='{$ParamFlagValueUntil}'
+					)
+				)
+	) x
+ where x.rowflag!='D'
+   and x.rowflag is not null
+/
+

@@ -1,0 +1,7 @@
+mkdir ../lib ../log
+
+# default oasme is here in bin/
+cp ../../../Run/src/oasme.sh .
+
+# MIME::Lite lib path
+(cd ../lib;ln -s ../../ServiceCharge/lib/perl/MIME .)

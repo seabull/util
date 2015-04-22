@@ -1,0 +1,55 @@
+/alias_rm.sql/1.1/Fri Sep 24 15:57:08 2004//
+/arch_history.sql/1.1/Fri Sep 24 15:45:36 2004//
+/become.sql/1.3/Fri Apr 22 19:25:32 2005//
+/blks_dirty.sql/1.1/Tue Mar 29 03:50:30 2005//
+/connect.sql/1.1/Fri Sep 24 15:45:36 2004//
+/cons_report.sql/1.1/Tue Nov 23 19:18:09 2004//
+/cursor_exp.sql/1.1/Thu Jan  5 17:29:53 2006//
+/explainplan_setup.sql/1.1/Fri Sep 24 15:45:36 2004//
+/extended_trace.sql/1.1/Fri Sep 24 15:46:25 2004//
+/find_all_column_withname.sql/1.1/Fri Sep 24 15:45:36 2004//
+/get_function.sql/1.1/Tue Nov 23 19:58:33 2004//
+/get_function_all.sql/1.1/Wed Nov 24 16:14:54 2004//
+/get_m_user_privs.sql/1.4/Mon Dec 13 20:03:00 2004//
+/get_pkg.sql/1.2/Tue Nov 23 19:55:45 2004//
+/get_pkg_all.sql/1.3/Mon Dec 20 19:45:35 2004//
+/get_roles.sql/1.1/Fri Mar  4 16:27:27 2005//
+/get_user_privs.sql/1.3/Mon Dec 13 19:47:00 2004//
+/get_user_roles.sql/1.1/Fri Mar  4 16:27:27 2005//
+/hotbu_rman.sh/1.1/Fri Sep 24 15:56:28 2004//
+/login.sql/1.6/Fri Nov 17 16:33:02 2006//
+/month_aggr.sql/1.4/Tue Mar 14 21:15:25 2006//
+/mydual.sql/1.1/Thu Nov 16 19:23:41 2006//
+/mystat.sql/1.1/Thu Nov 16 19:57:02 2006//
+/mystat2.sql/1.1/Thu Nov 16 19:57:02 2006//
+/no_pk_tables.sql/1.1/Fri Sep 24 15:45:36 2004//
+/pivot_query.sql/1.2/Thu Jun  9 16:49:51 2005//
+/plantable.sql/1.1/Fri Sep 24 15:45:36 2004//
+/print_table.sql/1.1/Fri Sep 24 15:45:36 2004//
+/print_table2.sql/1.1/Fri Sep 24 15:45:36 2004//
+/row_to_col.sql/1.1/Fri Sep 24 15:55:06 2004//
+/setup_autotrace.sh/1.1/Fri Sep 24 15:56:28 2004//
+/sort_string.sql/1.1/Fri Jun 10 16:29:09 2005//
+/str2tbl.sql/1.1/Thu Sep  8 18:21:48 2005//
+/str_aggr.sql/1.3/Thu Nov 17 20:48:36 2005//
+/str_aggr2.sql/1.3/Thu Jun 30 20:39:21 2005//
+/str_aggr_nodup.sql/1.1/Fri Aug 25 17:29:19 2006//
+/str_aggr_sort.sql/1.1/Fri Jun 10 18:01:54 2005//
+/table_def_check.sh/1.1/Fri Sep 24 15:45:36 2004//
+/table_size.sql/1.1/Tue Jul 12 18:29:04 2011//
+/tkprof_gen.sh/1.1/Fri Sep 24 15:56:28 2004//
+/trace.sql/1.1/Fri Sep 24 15:45:36 2004//
+/unindexed_fk.sql/1.1/Fri Sep 24 15:46:25 2004//
+D/OUI////
+D/audit_data_util////
+D/dba////
+D/ddl////
+D/debug_pkg////
+D/debug_pkg_ylj////
+D/perl////
+D/plsql////
+D/plsql_email////
+D/run_stats////
+D/src_c////
+D/unloader////
+D/utils////

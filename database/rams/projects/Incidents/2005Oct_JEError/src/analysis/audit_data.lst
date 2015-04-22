@@ -1,0 +1,1040 @@
+
+AUD_CHANGE_ID A A AUD_TS                         PRINC          DIST        PCT DIS C SPONSOR        TYPE PROJECT                        SUBPROJECT
+------------- - - ------------------------------ -------- ---------- ---------- --- - -------- ---------- ------------------------------ ------------
+      3227562 A U 02-NOV-05 01.51.32.868698 AM   yanxins       13479        100 M     rdr               0 Grad Student                   *
+      3227611 A U 02-NOV-05 01.51.38.047948 AM   rochelle      10504        100 W     mdereno           0 IGERT                          -
+      3227637 A U 02-NOV-05 01.51.41.918942 AM   cprose        13430        100 M     jgc               0 LTIE&GO                        *
+      3227765 A U 02-NOV-05 01.51.53.826831 AM   dack          12047     182.18 r     sthayer           0 RI                             VTI
+      3227835 A U 02-NOV-05 01.51.59.692409 AM   gkusbit       11018      93.27 h     sfussell          0 NSF                            DHS
+      3227874 A U 02-NOV-05 01.52.05.867535 AM   kuffner       13470        100 R     jkh               0 jkh                            -
+      3227968 A U 02-NOV-05 01.52.16.891842 AM   msnider       13472     124.73 e     sfinger           0 KIVA                           *
+      3228017 A U 02-NOV-05 01.52.23.456001 AM   ccasingh      13485      52.22 r     mbdias            0 Boeing                         *
+      3228059 A U 02-NOV-05 01.52.27.844299 AM   houghton      13490        100 R     mostow            0 ROB-GLADIATOR                  SDD PHASE
+      3228144 A U 02-NOV-05 01.52.36.959885 AM   jrollo        12047      22.12 r     sthayer           0 1                              2
+      3228187 A U 02-NOV-05 01.52.43.367091 AM   bsofman       12682        100 R     scrow             0 Robotics                       PhD
+      3228260 A U 02-NOV-05 01.52.53.446623 AM   gholling      11359        100 R     scrow             0 CS                             FAC
+      3228346 A U 02-NOV-05 01.53.05.945263 AM   mgm           10882        100 W     anita             0 CMUWest                        Javatutor
+      3226890 A U 02-NOV-05 01.50.07.766563 AM   mgoodste      13501        100 C     burks             0 CS-Grad                        -
+      3226948 A U 02-NOV-05 01.50.14.901095 AM   mrogati       13440        100 C     burks             0 Transition                     per mrogati
+      3226992 A U 02-NOV-05 01.50.19.761420 AM   narmstro      10757        100 R     scrow             0 CS-Grad                        -
+      3227042 A U 02-NOV-05 01.50.26.325949 AM   ngm             329      73.73 c     seth              0 UGRAD TEACHING                 none
+      3227068 A U 02-NOV-05 01.50.29.531437 AM   pbarnum       12362        100 R     scrow             0 CS-Grad                        -
+      3227105 A U 02-NOV-05 01.50.34.215181 AM   rongz         13416        100 M     ref               0
+      3227161 A U 02-NOV-05 01.50.40.618863 AM   rravicha      11047        100 R     scrow             0 CS                             FAC
+      3227207 A U 02-NOV-05 01.50.47.324140 AM   rys            7246        100 C     burks             0 CS-Grad                        -
+      3227244 A U 02-NOV-05 01.50.52.428006 AM   soniac        13328        100 C     burks             0 CS-Grad                        -
+      3227311 A U 02-NOV-05 01.51.01.385535 AM   szickler      13328        100 C     burks             0 CS-Grad                        -
+      3227357 A U 02-NOV-05 01.51.09.554031 AM   tingliu       13477        100 C     burks             0 E&GOGRAD                       *
+      3227415 A U 02-NOV-05 01.51.15.217753 AM   tisganit      11759        100 M     rdr               0 CS                             FAC
+      3227461 A U 02-NOV-05 01.51.21.435074 AM   vaibhav        4982        100 C     burks             0 CS-Grad                        -
+      3227500 A U 02-NOV-05 01.51.26.237098 AM   vitor         13407        100 M     ckoch             0 CS                             RADAR
+      3217820 A U 02-NOV-05 01.33.23.872248 AM   petel          7277        100 C     petel             0
+      3217974 A U 02-NOV-05 01.33.36.172604 AM   randyw        13446        100 R     amidi             0
+      3218114 A U 02-NOV-05 01.33.54.313148 AM   sms           13379        100 H     dps               0
+      3218016 A U 02-NOV-05 01.33.40.811997 AM   red           13376        100 R                       0
+      3218070 A U 02-NOV-05 01.33.47.674987 AM   shi           13378        100 R                       0
+      3218512 A U 02-NOV-05 01.34.28.628751 AM   sthayer       13476     101.69 r     oz                0
+      3218690 A U 02-NOV-05 01.34.39.328347 AM   wing          13400        100 C     wing              0
+      3218961 A U 02-NOV-05 01.35.06.202019 AM   ojuarez       12293        100 W     katia             0
+      3218975 A U 02-NOV-05 01.35.08.725617 AM   sberecek      13507        100 R     jstanley          0 ANS                            *
+      3218995 A U 02-NOV-05 01.35.12.314372 AM   wls           13381        100 W                       0
+      3219600 A U 02-NOV-05 01.36.16.177302 AM   rander        13445        100 R     copetas           0 ALUMNI                         *
+      3219837 A U 02-NOV-05 01.36.41.801818 AM   schmerl       13475        100 C     garlan            0 Transition                     per schmerl
+      3220141 A U 02-NOV-05 01.37.06.285293 AM   woytek        13452        100 R     shi               0 Transition                     per woytek
+      3220262 A U 02-NOV-05 01.37.15.320614 AM   joonhwan       8354        100 H     mlz               0
+      3220393 A U 02-NOV-05 01.37.28.937526 AM   lafferty      13497        100 C                       0
+      3222046 A U 02-NOV-05 01.40.31.942919 AM   awd           13350        100 R     awm               0 Moore Lab                      *
+      3222146 A U 02-NOV-05 01.40.43.273329 AM   jkomarek      10100        100 R     awm               0 Moore Lab                      *
+      3222168 A U 02-NOV-05 01.40.46.119089 AM   valois         6496        100 R     ps0f              0 PSYCHOGENICS                   *
+      3222186 A U 02-NOV-05 01.40.49.026037 AM   akhurst       13454        100 H     mm                0 HCII-PROGRAM-J                 *
+      3222236 A U 02-NOV-05 01.40.55.538998 AM   anthonyg       8746        100 R     scrow             0 Transition                     per anthonyg
+      3222269 A U 02-NOV-05 01.40.59.628513 AM   cyprus        11818        100 M     rdr               0 LTI-TEACH                      *
+      3222304 A U 02-NOV-05 01.41.04.036636 AM   dbohus        13427        100 C     burks             0 Transition                     per dbohus
+      3222360 A U 02-NOV-05 01.41.10.167280 AM   egolden       13463        100 H     mm                0 HCII-PROGRAM-J                 *
+      3222464 A U 02-NOV-05 01.41.23.249626 AM   kf3cr         13411        100 W     schearer          0 HEINZ-ADAPTIVE ARCHITECTURES   *
+      3222548 A U 02-NOV-05 01.41.33.457171 AM   lkontor       13471        100 A     ckoch             0 UNIV OF PENN-LAFFERTY-NSF ITR  *
+      3222643 A U 02-NOV-05 01.41.43.197551 AM   matts         13414        100 C     burks             0 CS-Grad                        -
+      3222710 A U 02-NOV-05 01.41.50.617314 AM   prybski       13474        100 R     mmv               0 CALO                           *
+      3222981 A U 02-NOV-05 01.42.11.207858 AM   rburcin       12876        100 R     dhz               0 ROBOTICS ADMIN                 *
+      3223002 A U 02-NOV-05 01.42.15.084999 AM   jstanley      13496        100 R     rander            0 AWS                            none
+      3223038 A U 02-NOV-05 01.42.20.822367 AM   mrd           13373        100 R     sfs               0 Ozone                          *
+      3229833 A U 02-NOV-05 01.56.25.827085 AM   chtan         12190        3.5 P     dhuber            0 back                           back
+      3229859 A U 02-NOV-05 01.56.28.856864 AM   crp            5248        100 P     scrow             0 Robotics                       PhD
+      3223578 A U 02-NOV-05 01.43.25.932537 AM   colmstea      13487        100 R     alonzo            0 NREC                           Blitz
+      3221738 A U 02-NOV-05 01.39.53.175878 AM   er1k          11733        100 M     ehn               0 lti                            ---
+      3221769 A U 02-NOV-05 01.39.58.568577 AM   mstilman      13506        100 R     scrow             0 Robotics                       PhD
+      3230277 A U 02-NOV-05 01.57.20.979639 AM   nm10                               P burks             0
+      3221836 A U 02-NOV-05 01.40.07.100340 AM   diesner       13460        100 W     carley            0 IGERT                          -
+      3221891 A U 02-NOV-05 01.40.12.996833 AM   psylum        12047      43.63 r     sthayer           0 5                              6
+      3221921 A U 02-NOV-05 01.40.16.912089 AM   siddiqi       11171        100 R     scrow             0 Robotics                       PhD
+      3221983 A U 02-NOV-05 01.40.25.283741 AM   skhoo         13418        100 R     camr              0 Micron                         *
+      3223059 A U 02-NOV-05 01.42.24.104031 AM   wangt         13421         50 A     diane             0 SRI-DARPA-CALO                 MITCHELL
+      3223076 A U 02-NOV-05 01.42.27.107743 AM   alad          13383        100 M     rdr               0 Grad Student                   *
+      3229922 A U 02-NOV-05 01.56.36.872313 AM   dwilson                            P thrun             0
+      3223134 A U 02-NOV-05 01.42.33.865212 AM   bryon         10391        100 R     red               0 ROB-RED TEAM RACE              Int Loan
+      3229945 A U 02-NOV-05 01.56.39.877892 AM   hemant         4605        100 P     reddy             0 Universal Library              *
+      3223148 A U 02-NOV-05 01.42.36.403731 AM   einat         13407        100 M     ckoch             0 CS                             RADAR
+      3223227 A U 02-NOV-05 01.42.44.609592 AM   tanja         13420        100 M     ahw               0 TIDES                          NONE
+      3229982 A U 02-NOV-05 01.56.44.702114 AM   jamesl         8784        3.5 P     krelth            0 LISTEN                         none
+      3223366 A U 02-NOV-05 01.42.56.679170 AM   ackleygc      13481        100 R     hws               0 VACE                           ---
+      3230008 A U 02-NOV-05 01.56.47.721185 AM   jblocki       12047        3.5 P     sthayer           0 scott                          thayer
+      3223402 A U 02-NOV-05 01.43.01.278938 AM   gmathis       11911     110.91 w                       0
+      3230034 A U 02-NOV-05 01.56.51.339484 AM   jsstylos         77        100 P     burks             0 CS-Grad                        -
+      3230080 A U 02-NOV-05 01.56.57.493837 AM   khlim          8454        3.5 P     ehn               0 Nyberg                         FDC
+      3223447 A U 02-NOV-05 01.43.07.272091 AM   waldbaum      13511        100 R     cop               0 UGCV                           unk
+      3230119 A U 02-NOV-05 01.57.02.732374 AM   lisa           3947        3.5 P     vl                0 ISRI ADMIN                     *
+      3223464 A U 02-NOV-05 01.43.10.643102 AM   ajit          13382        100 A     diane             0 CALD                           NONE
+      3223499 A U 02-NOV-05 01.43.15.501209 AM   alg2          10695        100 R     scrow             0 Robotics                       MS
+      3230145 A U 02-NOV-05 01.57.05.760481 AM   lizpearl       5248        100 P     scrow             0 Robotics                       MS
+      3223513 A U 02-NOV-05 01.43.17.981873 AM   archan        13427        100 C     air               0 CALO-EPCA                      *
+      3223552 A U 02-NOV-05 01.43.22.536448 AM   bjr40         12047      40.55 r     sthayer           0 1                              1
+      3223598 A U 02-NOV-05 01.43.29.545320 AM   achand         9052         47 h     avivis            0 HCIMASTER                      *
+      3230178 A U 02-NOV-05 01.57.09.741552 AM   mfarrell      10854        3.5 P     sfussell          0 calo                           yr2
+      3223624 A U 02-NOV-05 01.43.33.010591 AM   amahmed       13456        100 M     rdr               0 Grad Student                   *
+      3230204 A U 02-NOV-05 01.57.12.976963 AM   mpucevic      10376        3.5 P     rhollis           0 Microdynamic Systems Lab       *
+      3230230 A U 02-NOV-05 01.57.15.970825 AM   mzwang         9324        100 P     burks             0 NSF-ITR-PDL-GANGER             *
+      3215042 A U 02-NOV-05 01.29.14.245176 AM   jdf           13366        100 R                       0
+      3215608 A U 02-NOV-05 01.30.05.759094 AM   jhm            8761        100 H                       0
+      3215069 A U 02-NOV-05 01.29.17.849248 AM   jgc           13367        100 M                       0
+      3215658 A U 02-NOV-05 01.30.10.377789 AM   alavie        13423        100 M                       0
+      3215825 A U 02-NOV-05 01.30.27.906158 AM   ke             8859        100 C                       0
+      3215868 A U 02-NOV-05 01.30.31.845060 AM   kmb           13369        100 C                       0
+      3216540 A U 02-NOV-05 01.31.32.552928 AM   bode          13386        100 R     jorgen            0
+      3216596 A U 02-NOV-05 01.31.37.505509 AM   mriley        13444        100 C                       0
+      3217114 A U 02-NOV-05 01.32.21.003968 AM   dl            13344        100 C                       0
+      3217749 A U 02-NOV-05 01.33.15.013963 AM   ralf          13397        100 M     bryant            0
+      3217780 A U 02-NOV-05 01.33.19.348565 AM   ananlada      13427        100 M     ref               0
+      3220784 A U 02-NOV-05 01.38.04.647476 AM   carley        13429        100 W     md                0
+      3221006 A U 02-NOV-05 01.38.27.123639 AM   banerjee      13482        100 M     mostow            0 listen                         NONE
+      3221104 A U 02-NOV-05 01.38.36.003468 AM   johnz         13410        100 H     dps               0 HCII                           *
+      3221180 A U 02-NOV-05 01.38.45.256154 AM   jreminga      11573        100 W     carley            0 casos                          *
+      3221229 A U 02-NOV-05 01.38.54.099670 AM   msergi        12311        100 R     dod               0 UGCV                           unk
+      3221243 A U 02-NOV-05 01.38.56.698331 AM   sesch         10860        100 H                       0
+      3221300 A U 02-NOV-05 01.39.02.735845 AM   smagill       11427        100 C     burks             0 E&GOGRAD                       *
+      3221346 A U 02-NOV-05 01.39.08.035574 AM   tdudek        12144        100 R     amidi             0 RI                             Helicopter
+      3221360 A U 02-NOV-05 01.39.10.617054 AM   blangner      13483        100 M     ckoch             0 LETSGO                         *
+      3221414 A U 02-NOV-05 01.39.17.628150 AM   wcohen        13451        100 A     diane             0 CALD                           *
+      3221619 A U 02-NOV-05 01.39.37.808132 AM   matth         12627     147.47 e     asim              0 NSF                            AURA
+      3221653 A U 02-NOV-05 01.39.41.569723 AM   zmo           12975        100 R     scrow             0 Robotics                       PhD
+      3221690 A U 02-NOV-05 01.39.46.242713 AM   craigs        13431        100 W     carley            0 CASOS                          *
+      3221711 A U 02-NOV-05 01.39.49.564097 AM   emalloy       13155        100 W     carley            0 ALLADIN-CRA                    *
+      3223661 A U 02-NOV-05 01.43.37.738034 AM   ashishj       13457        100 R     bnk               0 ROB-PENN STATE EOC             *
+      3223696 A U 02-NOV-05 01.43.41.895260 AM   benhdj        11733        100 M                       0
+      3223774 A U 02-NOV-05 01.43.51.125016 AM   coharris        329       7.37 c     gkesden           0 CSD                            Undergrad-Ed
+      3223800 A U 02-NOV-05 01.43.54.642213 AM   daz             195     113.06 c                       0
+      3223834 A U 02-NOV-05 01.43.58.312381 AM   datong        13432        100 C     hdw               0 INF-DLI2                       *
+      3223903 A U 02-NOV-05 01.44.04.757668 AM   jdkim         13409        100 M     ckoch             0
+      3223992 A U 02-NOV-05 01.44.16.160752 AM   thgordon      13509        100 R     jmartin           0 Transition                     per thgordon
+      3224018 A U 02-NOV-05 01.44.20.031594 AM   hyifen        11805        100 M     rdr               0 LTI-TEACH                      *
+      3224055 A U 02-NOV-05 01.44.24.875927 AM   qyj           13375        100 M     rdr               0 LTI-TEACH                      *
+      3224076 A U 02-NOV-05 01.44.28.486551 AM   acw           13346        100 C     burks             0 E&GOGRAD                       *
+      3224195 A U 02-NOV-05 01.44.40.836196 AM   cwc           13358        100 R     sfs               0 ACTIVELETS                     *
+      3224228 A U 02-NOV-05 01.44.45.315081 AM   droot          7153        100 W     jet               0 MSE                            *
+      3224295 A U 02-NOV-05 01.44.54.491395 AM   lkramer       13358        100 R     sfs               0 Ozone                          unk
+      3224366 A U 02-NOV-05 01.45.01.433773 AM   mitchell      13503        100 A     mitchell          0 Transition                     per mitchell
+      3224528 A U 02-NOV-05 01.45.17.917260 AM   pjj           13374        100 M     jgc               0 Transition                     per pjj
+      3224591 A U 02-NOV-05 01.45.23.680393 AM   roseh         13417        100 C     burks             0 Transition                     per roseh
+      3224653 A U 02-NOV-05 01.45.31.965355 AM   rvb           13092        100 C     satya             0 Transition                     per rvb
+      3224821 A U 02-NOV-05 01.45.49.979697 AM   yitao         13331        100 M     air               0 SPEECH                         *
+      3224896 A U 02-NOV-05 01.45.59.291901 AM   woomy         13422        100 A     diane             0 CALD                           NONE
+      3225012 A U 02-NOV-05 01.46.14.599306 AM   dlr           13359        100 R     tk                0 Transition                     per dlr
+      3225059 A U 02-NOV-05 01.46.19.759800 AM   zzhang        13453        100 H     neil              0 heffernan                      -
+      3225076 A U 02-NOV-05 01.46.22.828910 AM   ahw           13347        100 M     ahw               0 LTI                            TIDES
+      3225281 A U 02-NOV-05 01.46.39.838181 AM   barbic        12832        100 C     burks             0 E&GOGRAD                       *
+      3225330 A U 02-NOV-05 01.46.46.504801 AM   dhuggins      13489        100 M     ckoch             0 lti                            ---
+      3225376 A U 02-NOV-05 01.46.51.597109 AM   elissa        13434        100 W     burks             0 Transition                     per elissa
+      3225434 A U 02-NOV-05 01.46.58.435896 AM   elliel        13435        100 R     wehrer            0 Robotics                       PhD
+      3225458 A U 02-NOV-05 01.47.02.595883 AM   amccue         9054      87.86 h     sfussell          0 Multiple Task Performance      *
+      3225484 A U 02-NOV-05 01.47.06.385818 AM   bighead        8784       7.86 r     air               0 SRI-DARPA-CALO                 YR2 Task 7
+      3225510 A U 02-NOV-05 01.47.09.853234 AM   josephad      13494        100 R     wehrer            0 Robotics                       MS
+      3225527 A U 02-NOV-05 01.47.13.016080 AM   bshyu         13405      16.59 c     air               0 calo                           yr2
+      3225562 A U 02-NOV-05 01.47.16.837353 AM   kp            10695        100 R     dsw               0 ASTEP-ATACAMA                  *
+      3225599 A U 02-NOV-05 01.47.22.080519 AM   cdima         13406        100 R     scrow             0
+      3225642 A U 02-NOV-05 01.47.27.046678 AM   leak          13395        100 C     burks             0 E&GOGRAD                       *
+      3225695 A U 02-NOV-05 01.47.33.712871 AM   cwellin       13459        100 R     scrow             0
+      3225799 A U 02-NOV-05 01.47.44.791745 AM   pakyan        12660        100 R     lafferty          0 SRI-DARPA-CALO                 LAFFERTY
+      3225837 A U 02-NOV-05 01.47.51.345878 AM   mazda         13415        100 H     mbett             0 PSLC                           CTAT
+      3225881 A U 02-NOV-05 01.47.57.121079 AM   brig           5829        100 R                       0
+      3226006 A U 02-NOV-05 01.48.09.232165 AM   lmm278        13357        100 R     sthayer           0 NSF                            --
+      3226027 A U 02-NOV-05 01.48.12.547432 AM   maryjob         140       76.8 m     rdr               0 TEMP                           /*
+      3226057 A U 02-NOV-05 01.48.16.419342 AM   rcolon        12918      62.06 r     kzm               0 Purchasing                     None
+      3226104 A U 02-NOV-05 01.48.24.528538 AM   hildum        10751        100 R                       0 Ozone                          *
+      3226137 A U 02-NOV-05 01.48.29.054163 AM   jinghai       13466        100 W     sadeh             0 cylab/ARO Project              *
+      3226170 A U 02-NOV-05 01.48.35.646876 AM   tss           13380        100 R     scrow             0 Robotics                       PhD
+      3226243 A U 02-NOV-05 01.48.44.049222 AM   dbradley      10884        100 R     scrow             0 Robotics                       MS
+      3226261 A U 02-NOV-05 01.48.46.863648 AM   ggweon        11405        100 H     mm                0 HCII-PROGRAM-J                 *
+      3226287 A U 02-NOV-05 01.48.50.119395 AM   hetu          13391        100 C     burks             0 CS-Grad                        -
+      3226333 A U 02-NOV-05 01.48.56.432695 AM   jch1          11148        100 R     scrow             0 CS-Grad                        -
+      3226370 A U 02-NOV-05 01.49.01.194025 AM   jeffreyw       9054      19.54 h     avivis            0 HCIMASTER                      *
+      3226396 A U 02-NOV-05 01.49.04.720177 AM   jelsas        13440        100 M     rdr               0 Grad Student                   *
+      3226433 A U 02-NOV-05 01.49.10.055110 AM   jha           11269        100 C     burks             0 CS-Grad                        -
+      3226482 A U 02-NOV-05 01.49.17.791027 AM   jingruih      11818        100 A     diane             0 CALD                           NONE
+      3226504 A U 02-NOV-05 01.49.21.483598 AM   jkretz         6701      33.49 r     sthayer           0 5                              2
+      3226530 A U 02-NOV-05 01.49.24.648294 AM   jrivera       13468        100 W                       0 ISRI                           PhD
+      3226626 A U 02-NOV-05 01.49.34.774214 AM   kaustav        8452        100 A     diane             0 CALD                           NONE
+      3226667 A U 02-NOV-05 01.49.39.578943 AM   ksohn         10511        100 C     burks             0 CS-Grad                        -
+      3226713 A U 02-NOV-05 01.49.45.819456 AM   llita         13413        100 C     burks             0 E&GOGRAD                       *
+      3226759 A U 02-NOV-05 01.49.50.741074 AM   manjhi        13443        100 C     burks             0 E&GOGRAD                       *
+      3226798 A U 02-NOV-05 01.49.55.688987 AM   mcataldo      13500        100 W     carley            0 Privacy Bird                   *
+      3226822 A U 02-NOV-05 01.49.59.552357 AM   mcmillen      13328        100 C     burks             0 CS-Grad                        -
+      3226851 A U 02-NOV-05 01.50.03.050247 AM   mderosa       11047        100 C     burks             0 CS-Grad                        -
+      3228384 A U 02-NOV-05 01.53.12.128999 AM   rohitk        11571        100 M     cprose            0 Grad Student                   *
+      3228402 A U 02-NOV-05 01.53.15.157160 AM   sfuniak       11047        100 R     wehrer            0 Robotics                       PhD
+      3228439 A U 02-NOV-05 01.53.20.322352 AM   rasconi       12196        100 R     sfs               0 matrix                         rob
+      3228457 A U 02-NOV-05 01.53.23.688776 AM   froseph         329      110.6 c     dsw               0 Life in the Atalama            *
+      3228483 A U 02-NOV-05 01.53.27.404290 AM   jetong         3550       55.3 c     cfrieze           0 CSD                            women
+      3228509 A U 02-NOV-05 01.53.30.716264 AM   bb2              76      36.87 n     pausch            0 HCII                           Intel-Pausch
+      3228535 A U 02-NOV-05 01.53.34.020171 AM   harchol        7277        100 C     burks             0
+      3228739 A U 02-NOV-05 01.53.55.841261 AM   jstolarz      13328        100 R     scrow             0 CS                             FAC
+      3228782 A U 02-NOV-05 01.54.00.782997 AM   eim           12201      53.46 r     jkh               0 ROB-NSF RESEARCH RESOURCES     *
+      3228808 A U 02-NOV-05 01.54.03.964845 AM   kramnath      10908        100 R     scrow             0 Robotics                       PhD
+      3228822 A U 02-NOV-05 01.54.06.623184 AM   thlin         10511        100 M     ckoch             0 lti                            ---
+      3228857 A U 02-NOV-05 01.54.11.307779 AM   dbatra        12190      31.95 r     hebert            0 back                           back
+      3228883 A U 02-NOV-05 01.54.14.726929 AM   jthumma         329      48.23 c     kmb               0 CS                             FAC
+      3228909 A U 02-NOV-05 01.54.18.004137 AM   arkao         10685      21.51 c     guna              0 CSD                            Undergrad-Ed
+      3228935 A U 02-NOV-05 01.54.21.390437 AM   rons          13069        100 H     aleven            0 PSLC                           CTAT
+      3228949 A U 02-NOV-05 01.54.24.137129 AM   ankita        13425      110.6 cw    vl                0 ISRI ADMIN                     *
+      3228984 A U 02-NOV-05 01.54.27.987416 AM   hsaini         3742       76.8 c     kmb               0 CS                             FAC
+      3229010 A U 02-NOV-05 01.54.31.325039 AM   mock            329      11.98 c     air               0 calo                           yr2
+      3229036 A U 02-NOV-05 01.54.34.715941 AM   spalmer         195      28.88 c     air               0 calo                           yr2
+      3229062 A U 02-NOV-05 01.54.38.316185 AM   mnulph         3947       12.9 w     anita             0 DIGITAL LIBRARIES              *
+      3229088 A U 02-NOV-05 01.54.41.595491 AM   dhorbatt      12753      110.6 c     guna              0 CSD                            Undergrad-Ed
+      3229114 A U 02-NOV-05 01.54.44.952077 AM   mscott           23        100 H     marian            0
+      3229152 A U 02-NOV-05 01.54.48.738247 AM   ekratzer      12273      35.64 r     rander            0 NREC                           Blitz
+      3229197 A U 02-NOV-05 01.54.53.723395 AM   luveun        13442        100 C     rms               0 ECE-FDC-STERN                  *
+      3229236 A U 02-NOV-05 01.54.59.633616 AM   siddhart        329      110.6 c     droh              0 CSD-FDF-BRYANT                 *
+      3229275 A U 02-NOV-05 01.55.05.652540 AM   kwada          9054      20.89 h     sfussell          0 Multiple Task Performance      *
+      3229301 A U 02-NOV-05 01.55.09.248882 AM   vvaradha      13510        100 R     scrow             0 CS-Grad                        -
+      3229338 A U 02-NOV-05 01.55.14.480358 AM   awalsh         8729        100 M     roni              0 Computational Bio Seq          Roni
+      3229356 A U 02-NOV-05 01.55.17.634830 AM   terleski      13508      26.11 h     awm               0 MHCI                           /*
+      3229382 A U 02-NOV-05 01.55.21.079095 AM   hcheng         9329        100 H     mbett             0 DOED-WEB COG SYSTEM            *
+      3229396 A U 02-NOV-05 01.55.24.645941 AM   alicez         7122        100 R     awm               0 PITT TOBACCO                   *
+      3229410 A U 02-NOV-05 01.55.27.322758 AM   rgangadh      13409        100 M     rdr               0 lti                            ---
+      3229447 A U 02-NOV-05 01.55.32.297238 AM   sma1            329      21.51 c     teruko            0 javelin                        callan
+      3229473 A U 02-NOV-05 01.55.35.755321 AM   kmy           13328        100 R     scrow             0 CS-Grad                        -
+      3229510 A U 02-NOV-05 01.55.40.504242 AM   nielsp        11263        100 H     aleven            0 ACIS                           ALEVEN
+      3229528 A U 02-NOV-05 01.55.43.568455 AM   thuylinh      12359        100 M     rdr               0 Grad Student                   *
+      3229555 A U 02-NOV-05 01.55.49.057169 AM   ksalomat      11818        100 M     rdr               0 lti                            ---
+      3229592 A U 02-NOV-05 01.55.54.194643 AM   violetta       7693        100 M     ehn               0 LTIVisitors                    NONE
+      3229638 A U 02-NOV-05 01.56.01.039060 AM   yankal          329      98.31 c     droh              0 CSD-FDF-BRYANT                 *
+      3229664 A U 02-NOV-05 01.56.04.238529 AM   mmcnaugh       9144        100 R     scrow             0 CS-Grad                        -
+      3229701 A U 02-NOV-05 01.56.09.652413 AM   gla              61        100 C     burks             0
+      3229750 A U 02-NOV-05 01.56.14.933278 AM   fcalder        8116        100 R     scrow             0 Robotics                       PhD
+      3229768 A U 02-NOV-05 01.56.18.101324 AM   acove         10811        3.5 P     djames            0 Career-Reu                     *
+      3229794 A U 02-NOV-05 01.56.21.208624 AM   bortiz                             P bnk               0
+      3229800 A U 02-NOV-05 01.56.21.610005 AM   broberts       3278        100 D     scrow             0 Transition                     per broberts
+      3230295 A U 02-NOV-05 01.57.21.756203 AM   pdhangwa      11312        3.5 P     brigham           0 SRI                            EPCA
+      3230321 A U 02-NOV-05 01.57.24.759382 AM   pgarimel       9109        100 P     lc2l              0 GENERAL UNRESTRICTED           *
+      3210943 A U 02-NOV-05 01.22.42.601158 AM   ctorrey       13458        100 H     ckoch             0 ONR-CYCLETALK-ROSE/ALEVEN      *
+      3211022 A U 02-NOV-05 01.22.53.377226 AM   temp          13399        100 R                       0
+      3211005 A U 02-NOV-05 01.22.50.395733 AM   paisarn       13473        100 M     rdr               0 LTI                            Avenue
+      3212324 A U 02-NOV-05 01.24.46.514856 AM   awm           13351        100 R                       0
+      3212711 A U 02-NOV-05 01.25.34.268414 AM   bam           13353        100 H                       0
+      3212833 A U 02-NOV-05 01.25.46.217786 AM   ec             2801      68.88 c     bkohler           0
+      3212867 A U 02-NOV-05 01.25.50.523154 AM   fp            11091        100 C     fp                0
+      3213062 A U 02-NOV-05 01.26.08.217740 AM   da0g          13389        100 C                       0
+      3213079 A U 02-NOV-05 01.26.11.162801 AM   wrenwit       13478        100 R     sthayer           0 MRD                            *
+      3213105 A U 02-NOV-05 01.26.15.489431 AM   zensoul       13480        100 W     burks             0 Transition                     per zensoul
+      3213165 A U 02-NOV-05 01.26.21.291082 AM   hebert         8004        100 R                       0 coltech                        alli
+      3213251 A U 02-NOV-05 01.26.29.116799 AM   emc           13363        100 C                       0
+      3213997 A U 02-NOV-05 01.27.32.239021 AM   garlan        13436        100 W                       0
+      3214309 A U 02-NOV-05 01.28.08.080726 AM   hdw           13365        100 C                       0
+      3214505 A U 02-NOV-05 01.28.25.228716 AM   herman        13438        100 R                       0
+      3214688 A U 02-NOV-05 01.28.41.705015 AM   jals          13136        100 H                       0
+      3201434 A U 02-NOV-05 01.07.01.815792 AM   awb           13349        100 M     cbs               0 LIMBO                          *
+      3201249 A U 02-NOV-05 01.06.37.375673 AM   alex          13384        100 C                       0
+      3201502 A U 02-NOV-05 01.07.10.525352 AM   aleven        13424        100 H                       0
+      3201986 A U 02-NOV-05 01.07.52.428574 AM   camr          13387        100 R                       0
+      3202185 A U 02-NOV-05 01.08.09.200471 AM   fhuang        11805        100 M     jgc               0
+      3202210 A U 02-NOV-05 01.08.12.274799 AM   bstancil      13484        100 R     bares             0 UGCV                           unk
+      3202240 A U 02-NOV-05 01.08.16.109377 AM   brigham        7122        100 R     mlz               0 ITR                            NONE
+      3202292 A U 02-NOV-05 01.08.21.362852 AM   jaharkes      13491        100 C     braam             0 CODA                           *
+      3202388 A U 02-NOV-05 01.08.29.724064 AM   djbartz       10695        100 R     scrow             0 Robotics                       PhD
+      3202402 A U 02-NOV-05 01.08.32.208002 AM   roni          13398        100 M                       0
+      3202436 A U 02-NOV-05 01.08.36.366503 AM   sabhnani      10100        100 R     awm               0 ROB-PFIZER                     *
+      3202469 A U 02-NOV-05 01.08.40.499468 AM   mpschnei      13505        100 H     ahw               0
+      3202630 A U 02-NOV-05 01.08.55.937950 AM   col           13357        100 R     sthayer           0 NSF                            --
+      3202647 A U 02-NOV-05 01.08.58.937351 AM   lattanze       2878        100 W                       0
+      3202668 A U 02-NOV-05 01.09.03.353603 AM   michgitt      13502        100 R     dhz               0 ROBOTICS ADMIN                 *
+      3202718 A U 02-NOV-05 01.09.09.476446 AM   jk5n          13393        100 R                       0
+      3202838 A U 02-NOV-05 01.09.22.562312 AM   jmartin       10738        100 R                       0
+      3202889 A U 02-NOV-05 01.09.29.386745 AM   jmce          12144        100 R                       0
+      3202929 A U 02-NOV-05 01.09.35.080298 AM   joy           13368        100 M                       0
+      3202947 A U 02-NOV-05 01.09.37.802812 AM   jko           11733        100 M     teruko            0 LTIE&GO                        *
+      3203023 A U 02-NOV-05 01.09.46.671616 AM   natasha       13155        100 W     ac21              0
+      3203132 A U 02-NOV-05 01.09.57.702548 AM   dbagnell      13488        100 R     scrow             0 ROB-DARPA-UGCV-UPI             *
+      3203232 A U 02-NOV-05 01.10.07.646198 AM   ehn           13362        100 M                       0 javelin                        callan
+      3204616 A U 02-NOV-05 01.12.18.518315 AM   axs           13352        100 R                       0 6                              30
+      3204822 A U 02-NOV-05 01.12.40.372753 AM   bares         13403        100 R                       0
+      3204891 A U 02-NOV-05 01.12.48.698612 AM   bej           13354        100 H                       0
+      3205041 A U 02-NOV-05 01.13.07.166971 AM   svoboda       11733        100 M                       0
+      3205076 A U 02-NOV-05 01.13.11.592029 AM   br            11452        100 R                       0
+      3205132 A U 02-NOV-05 01.13.17.911844 AM   bsm           13355        100 C                       0
+      3205463 A U 02-NOV-05 01.13.50.847569 AM   sfs           13377        100 R                       0
+      3205716 A U 02-NOV-05 01.14.13.241189 AM   simonb        13447        100 R     ianm              0
+      3205760 A U 02-NOV-05 01.14.19.660779 AM   lsl           13371        100 M                       0
+      3205949 A U 02-NOV-05 01.14.41.352342 AM   ccf           13356        100 R                       0
+      3205997 A U 02-NOV-05 01.14.47.039072 AM   christel      13486        100 C                       0
+      3206182 A U 02-NOV-05 01.15.04.696373 AM   cop           12311        100 R                       0
+      3206246 A U 02-NOV-05 01.15.14.027293 AM   da1v          13390        100 R                       0
+      3206313 A U 02-NOV-05 01.15.22.735572 AM   teruko        13449        100 M                       0
+      3206457 A U 02-NOV-05 01.15.34.826389 AM   swasey        13448        100 C                       0
+      3206515 A U 02-NOV-05 01.15.39.961303 AM   tk            13345        100 R                       0
+      3206738 A U 02-NOV-05 01.16.03.295841 AM   air           13348        100 C                       0
+      3208243 A U 02-NOV-05 01.17.57.257719 AM   yang          13401        100 H                       0
+      3208324 A U 02-NOV-05 01.18.06.234646 AM   bkisiel        7652     147.47 m     yiming            0 KDI                            *
+      3208392 A U 02-NOV-05 01.18.12.148960 AM   jtree         10391        100 R     asim              0
+      3208425 A U 02-NOV-05 01.18.16.476694 AM   pto            9229        100 M     rdr               0 LTI-TEACH                      *
+      3208473 A U 02-NOV-05 01.18.23.626694 AM   mgrimm        10781        100 R     dlr               0 PSYCHOGENICS                   *
+      3208510 A U 02-NOV-05 01.18.30.891794 AM   na22          10613        100 W     carley            0 Bioloar/Casos                  *
+      3208579 A U 02-NOV-05 01.18.40.014347 AM   haiyanw       13421         50 A     diane             0 SRI-DARPA-CALO                 MITCHELL
+      3208600 A U 02-NOV-05 01.18.43.292984 AM   janiceb       12756        100 R     dhz               0 ROBOTICS ADMIN                 *
+      3208622 A U 02-NOV-05 01.18.46.317804 AM   jasonh        13439        100 H     dps               0 E&GO                           *
+      3208647 A U 02-NOV-05 01.18.49.763040 AM   jcchu         13408        100 R     ps0f              0 UGCV                           unk
+      3208664 A U 02-NOV-05 01.18.52.792030 AM   jostlund      13495        100 R     awm               0 Auton Lab                      Lab
+      3208685 A U 02-NOV-05 01.18.56.051508 AM   dmv           13360        100 C     seth              0 phoenix                        -
+      3208783 A U 02-NOV-05 01.19.04.606987 AM   ffc           13364        100 R     axs               0 Transition                     per ffc
+      3208810 A U 02-NOV-05 01.19.08.540043 AM   jernst        13441        100 A     diane             0 CALD                           NONE
+      3208862 A U 02-NOV-05 01.19.14.046732 AM   dvail2        13328        100 C     burks             0 E&GOGRAD                       *
+      3208884 A U 02-NOV-05 01.19.17.017355 AM   flerda        11746        100 C     burks             0 E&GOGRAD                       *
+      3208959 A U 02-NOV-05 01.19.23.942793 AM   gtaran         7153        100 W     jet               0 MSE                            *
+      3209051 A U 02-NOV-05 01.19.34.489897 AM   jpsousa       13467        100 C     burks             0 E&GOGRAD                       *
+      3209155 A U 02-NOV-05 01.19.45.891564 AM   jzou          12414        100 M     ckoch             0 lti                            ---
+      3209201 A U 02-NOV-05 01.19.51.408562 AM   rajesh         7438        100 C     burks             0 Transition                     per rajesh
+      3209240 A U 02-NOV-05 01.19.56.059376 AM   cmw2          13388        100 A     wcohen            0 RADAR                          none
+      3209300 A U 02-NOV-05 01.20.02.951473 AM   lew           13370        100 R                       0
+      3209451 A U 02-NOV-05 01.20.18.182623 AM   chance        12647        100 W                       0
+      3209524 A U 02-NOV-05 01.20.27.401177 AM   mmv           13372        100 C     mmv               0
+      3209863 A U 02-NOV-05 01.21.06.179329 AM   jmcm          13394        100 R     cbs               0
+      3209983 A U 02-NOV-05 01.21.18.335674 AM   doebler       13461        100 R                       0
+      3210667 A U 02-NOV-05 01.22.17.404422 AM   dps           13361        100 H                       0 dpe per EKN                    *
+      3230335 A U 02-NOV-05 01.57.27.222683 AM   rcarey        10383        100 P     rdr               0 Calculategy                    *
+      3230386 A U 02-NOV-05 01.57.35.345349 AM   spapadim       3003        100 X     burks             0 CS                             per spapadim
+      3230423 A U 02-NOV-05 01.57.40.379462 AM   sramesh        5617        3.5 P     guyb              0 aladdin                        -
+      3230449 A U 02-NOV-05 01.57.43.556537 AM   stavros        4622        100 P     natassa           0 PDL                            100
+      3230467 A U 02-NOV-05 01.57.46.082279 AM   tacscm         8249        3.5 P     sadeh             0 Supply Chain Mgmt.             *
+      3230493 A U 02-NOV-05 01.57.48.943552 AM   wehrer        12756          5 X                       0
+      3230539 A U 02-NOV-05 01.57.52.438068 AM   worthy          140        100 P     rdr               0 lti                            ---
+
+314 rows selected.
+
+
+AUD_CHANGE_ID A A AUD_TS                               DIST NAME                           SUBNAME      U SRC        PCT
+------------- - - ------------------------------ ---------- ------------------------------ ------------ - --- ----------
+      3201244 A U 02-NOV-05 01.06.35.508603 AM        13384 <Effort>                       alex           C          100
+      3201261 A U 02-NOV-05 01.06.41.082399 AM        13384 <User>                         alex           U
+      3201429 A U 02-NOV-05 01.07.01.504113 AM        13349 <Effort>                       awb            M          100
+      3201458 A U 02-NOV-05 01.07.07.042791 AM        13349 <User>                         awb            U
+      3201497 A U 02-NOV-05 01.07.10.231468 AM        13424 <Effort>                       aleven         H          100
+      3201520 A U 02-NOV-05 01.07.14.405619 AM        13424 <User>                         aleven         U
+      3201944 A U 02-NOV-05 01.07.48.868106 AM        13402 <Effort>                       amidi          R          100
+      3201954 A U 02-NOV-05 01.07.51.038376 AM        12542 <User>                         amidi          U
+      3201981 A U 02-NOV-05 01.07.52.197550 AM        13387 <Effort>                       camr           R          100
+      3201998 A U 02-NOV-05 01.07.55.554501 AM        13387 <User>                         camr           U
+      3202180 A U 02-NOV-05 01.08.08.940059 AM        11805 <Effort>                       fhuang         M          100
+      3202191 A U 02-NOV-05 01.08.11.164038 AM        11805 <User>                         fhuang         U
+      3202205 A U 02-NOV-05 01.08.11.987815 AM        13484 <Effort>                       bstancil       R          100
+      3202222 A U 02-NOV-05 01.08.15.232930 AM        13484 <User>                         bstancil       U
+      3202235 A U 02-NOV-05 01.08.15.860902 AM         7122 <Effort>                       brigham        R          100
+      3202246 A U 02-NOV-05 01.08.18.085426 AM         7122 <User>                         brigham        U
+      3202287 A U 02-NOV-05 01.08.21.090864 AM        13491 <Effort>                       jaharkes       C          100
+      3202301 A U 02-NOV-05 01.08.23.817417 AM        13491 <User>                         jaharkes       U
+      3202383 A U 02-NOV-05 01.08.29.458052 AM        10695 <Effort>                       djbartz        R          100
+      3202394 A U 02-NOV-05 01.08.31.741822 AM        10695 <User>                         djbartz        U
+      3202397 A U 02-NOV-05 01.08.31.946868 AM        13398 <Effort>                       roni           M          100
+      3202414 A U 02-NOV-05 01.08.35.201417 AM        13398 <User>                         roni           U
+      3202431 A U 02-NOV-05 01.08.36.075007 AM        10100 <Effort>                       sabhnani       R          100
+      3202442 A U 02-NOV-05 01.08.38.440903 AM        10100 <User>                         sabhnani       U
+      3202464 A U 02-NOV-05 01.08.40.177768 AM        13505 <Effort>                       mpschnei       H          100
+      3202478 A U 02-NOV-05 01.08.43.002576 AM        13505 <User>                         mpschnei       U
+      3202625 A U 02-NOV-05 01.08.55.660912 AM        13357 <Effort>                       col            R          100
+      3202639 A U 02-NOV-05 01.08.58.440991 AM        13357 <User>                         col            U
+      3202642 A U 02-NOV-05 01.08.58.648457 AM         2878 <Effort>                       lattanze       W          100
+      3202656 A U 02-NOV-05 01.09.02.649061 AM         2878 <User>                         lattanze       U
+      3202663 A U 02-NOV-05 01.09.03.061402 AM        13502 <Effort>                       michgitt       R          100
+      3202677 A U 02-NOV-05 01.09.05.867469 AM        13502 <User>                         michgitt       U
+      3202713 A U 02-NOV-05 01.09.09.198034 AM        13393 <Effort>                       jk5n           R          100
+      3202739 A U 02-NOV-05 01.09.14.245204 AM        13393 <User>                         jk5n           U
+      3202833 A U 02-NOV-05 01.09.22.282177 AM        10738 <Effort>                       jmartin        R          100
+      3202844 A U 02-NOV-05 01.09.24.585582 AM        10738 <User>                         jmartin        U
+      3202884 A U 02-NOV-05 01.09.29.100378 AM        12144 <Effort>                       jmce           R          100
+      3202895 A U 02-NOV-05 01.09.31.427964 AM        12144 <User>                         jmce           U
+      3202924 A U 02-NOV-05 01.09.34.789376 AM        13368 <Effort>                       joy            M          100
+      3202935 A U 02-NOV-05 01.09.37.101016 AM        13368 <User>                         joy            U
+      3202942 A U 02-NOV-05 01.09.37.508661 AM        11733 <Effort>                       jko            M          100
+      3202953 A U 02-NOV-05 01.09.39.921682 AM        11733 <User>                         jko            U
+      3202981 A U 02-NOV-05 01.09.42.548718 AM        13396 <Effort>                       norm           R          100
+      3202991 A U 02-NOV-05 01.09.44.829180 AM        10071 <User>                         norm           U
+      3203018 A U 02-NOV-05 01.09.46.405860 AM        13155 <Effort>                       natasha        W          100
+      3203029 A U 02-NOV-05 01.09.48.744903 AM        13155 <User>                         natasha        U
+      3203082 A U 02-NOV-05 01.09.53.506536 AM        13428 <Effort>                       callan         M          100
+      3203092 A U 02-NOV-05 01.09.55.788815 AM         9229 <User>                         callan         U
+      3203127 A U 02-NOV-05 01.09.57.458957 AM        13488 <Effort>                       dbagnell       R          100
+      3203147 A U 02-NOV-05 01.10.01.167806 AM        13488 <User>                         dbagnell       U
+      3203227 A U 02-NOV-05 01.10.07.358003 AM        13362 <Effort>                       ehn            M          100
+      3203244 A U 02-NOV-05 01.10.10.871891 AM        13362 <User>                         ehn            U
+      3204611 A U 02-NOV-05 01.12.18.269473 AM        13352 <Effort>                       axs            R          100
+      3204646 A U 02-NOV-05 01.12.24.802249 AM        13352 <User>                         axs            U
+      3204817 A U 02-NOV-05 01.12.40.098985 AM        13403 <Effort>                       bares          R          100
+      3204843 A U 02-NOV-05 01.12.44.814785 AM        13403 <User>                         bares          U
+      3204886 A U 02-NOV-05 01.12.48.426530 AM        13354 <Effort>                       bej            H          100
+      3204900 A U 02-NOV-05 01.12.51.154935 AM        13354 <User>                         bej            U
+      3205036 A U 02-NOV-05 01.13.06.875435 AM        11733 <Effort>                       svoboda        M          100
+      3205047 A U 02-NOV-05 01.13.09.179023 AM        11733 <User>                         svoboda        U
+      3205071 A U 02-NOV-05 01.13.11.303114 AM        11452 <Effort>                       br             R          100
+      3205085 A U 02-NOV-05 01.13.14.515093 AM        11452 <User>                         br             U
+      3205127 A U 02-NOV-05 01.13.17.635958 AM        13355 <Effort>                       bsm            C          100
+      3205144 A U 02-NOV-05 01.13.21.119129 AM        13355 <User>                         bsm            U
+      3205458 A U 02-NOV-05 01.13.50.597137 AM        13377 <Effort>                       sfs            R          100
+      3205478 A U 02-NOV-05 01.13.54.284759 AM        13377 <User>                         sfs            U
+      3205711 A U 02-NOV-05 01.14.12.953299 AM        13447 <Effort>                       simonb         R          100
+      3205725 A U 02-NOV-05 01.14.16.172660 AM        13447 <User>                         simonb         U
+      3205755 A U 02-NOV-05 01.14.19.375449 AM        13371 <Effort>                       lsl            M          100
+      3205772 A U 02-NOV-05 01.14.22.674832 AM        13371 <User>                         lsl            U
+      3205944 A U 02-NOV-05 01.14.41.072578 AM        13356 <Effort>                       ccf            R          100
+      3205958 A U 02-NOV-05 01.14.43.963494 AM        13356 <User>                         ccf            U
+      3205992 A U 02-NOV-05 01.14.46.764280 AM        13486 <Effort>                       christel       C          100
+      3206012 A U 02-NOV-05 01.14.50.466263 AM        13486 <User>                         christel       U
+      3206177 A U 02-NOV-05 01.15.04.402637 AM        12311 <Effort>                       cop            R          100
+      3206188 A U 02-NOV-05 01.15.06.810733 AM        12311 <User>                         cop            U
+      3206241 A U 02-NOV-05 01.15.13.631835 AM        13390 <Effort>                       da1v           R          100
+      3206255 A U 02-NOV-05 01.15.16.573667 AM        13390 <User>                         da1v           U
+      3206308 A U 02-NOV-05 01.15.22.433436 AM        13449 <Effort>                       teruko         M          100
+      3206328 A U 02-NOV-05 01.15.26.569976 AM        13449 <User>                         teruko         U
+      3206452 A U 02-NOV-05 01.15.34.557568 AM        13448 <Effort>                       swasey         C          100
+      3206469 A U 02-NOV-05 01.15.37.780195 AM        13448 <User>                         swasey         U
+      3206510 A U 02-NOV-05 01.15.39.665518 AM        13345 <Effort>                       tk             R          100
+      3206539 A U 02-NOV-05 01.15.45.008506 AM        13345 <User>                         tk             U
+      3206733 A U 02-NOV-05 01.16.03.041957 AM        13348 <Effort>                       air            C          100
+      3206756 A U 02-NOV-05 01.16.07.223578 AM        13348 <User>                         air            U
+      3208238 A U 02-NOV-05 01.17.56.978722 AM        13401 <Effort>                       yang           H          100
+      3208258 A U 02-NOV-05 01.18.00.908545 AM        13401 <User>                         yang           U
+      3208319 A U 02-NOV-05 01.18.05.933013 AM         7652 <Effort>                       bkisiel        m       147.47
+      3208342 A U 02-NOV-05 01.18.09.769513 AM         7652 <User>                         bkisiel        U
+      3208387 A U 02-NOV-05 01.18.11.872185 AM        10391 <Effort>                       jtree          R          100
+      3208398 A U 02-NOV-05 01.18.14.218728 AM        10391 <User>                         jtree          U
+      3208420 A U 02-NOV-05 01.18.16.153572 AM         9229 <Effort>                       pto            M          100
+      3208431 A U 02-NOV-05 01.18.18.543645 AM         9229 <User>                         pto            U
+      3208455 A U 02-NOV-05 01.18.20.747366 AM        10100 <Effort>                       tengli         R          100
+      3208465 A U 02-NOV-05 01.18.23.118420 AM        10195 <User>                         tengli         U
+      3208468 A U 02-NOV-05 01.18.23.320181 AM        10781 <Effort>                       mgrimm         R          100
+      3208482 A U 02-NOV-05 01.18.26.930586 AM        10781 <User>                         mgrimm         U
+      3208485 A U 02-NOV-05 01.18.27.142487 AM        12818 <Effort>                       rhoff          E          100
+      3208498 A U 02-NOV-05 01.18.30.184047 AM        12733 <User>                         rhoff          U
+      3208505 A U 02-NOV-05 01.18.30.597221 AM        10613 <Effort>                       na22           W          100
+      3208516 A U 02-NOV-05 01.18.32.921799 AM        10613 <User>                         na22           U
+      3208574 A U 02-NOV-05 01.18.39.724715 AM        13421 <Effort>                       haiyanw        A           50
+      3208588 A U 02-NOV-05 01.18.42.533792 AM        13421 <User>                         haiyanw        U
+      3208595 A U 02-NOV-05 01.18.42.934413 AM        12756 <Effort>                       janiceb        R          100
+      3208606 A U 02-NOV-05 01.18.45.439478 AM        12756 <User>                         janiceb        U
+      3208617 A U 02-NOV-05 01.18.46.029120 AM        13439 <Effort>                       jasonh         H          100
+      3208631 A U 02-NOV-05 01.18.48.874297 AM        13439 <User>                         jasonh         U
+      3208642 A U 02-NOV-05 01.18.49.477614 AM        13408 <Effort>                       jcchu          R          100
+      3208656 A U 02-NOV-05 01.18.52.300734 AM        13408 <User>                         jcchu          U
+      3208659 A U 02-NOV-05 01.18.52.486651 AM        13495 <Effort>                       jostlund       R          100
+      3208673 A U 02-NOV-05 01.18.55.338790 AM        13495 <User>                         jostlund       U
+      3208680 A U 02-NOV-05 01.18.55.753413 AM        13360 <Effort>                       dmv            C          100
+      3208694 A U 02-NOV-05 01.18.58.635943 AM        13360 <User>                         dmv            U
+      3208778 A U 02-NOV-05 01.19.04.267395 AM        13364 <Effort>                       ffc            R          100
+      3208792 A U 02-NOV-05 01.19.07.137748 AM        13364 <User>                         ffc            U
+      3208805 A U 02-NOV-05 01.19.08.244896 AM        13441 <Effort>                       jernst         A          100
+      3208819 A U 02-NOV-05 01.19.11.078652 AM        13441 <User>                         jernst         U
+      3208857 A U 02-NOV-05 01.19.13.733817 AM        13328 <Effort>                       dvail2         C          100
+      3208868 A U 02-NOV-05 01.19.16.070205 AM        13328 <User>                         dvail2         U
+      3208879 A U 02-NOV-05 01.19.16.731456 AM        11746 <Effort>                       flerda         C          100
+      3208893 A U 02-NOV-05 01.19.19.601102 AM        11746 <User>                         flerda         U
+      3208954 A U 02-NOV-05 01.19.23.654217 AM         7153 <Effort>                       gtaran         W          100
+      3208968 A U 02-NOV-05 01.19.26.827668 AM         7153 <User>                         gtaran         U
+      3209046 A U 02-NOV-05 01.19.34.182081 AM        13467 <Effort>                       jpsousa        C          100
+      3209060 A U 02-NOV-05 01.19.36.999874 AM        13467 <User>                         jpsousa        U
+      3209150 A U 02-NOV-05 01.19.45.610664 AM        12414 <Effort>                       jzou           M          100
+      3209161 A U 02-NOV-05 01.19.47.891066 AM        12414 <User>                         jzou           U
+      3209196 A U 02-NOV-05 01.19.51.110666 AM         7438 <Effort>                       rajesh         C          100
+      3209207 A U 02-NOV-05 01.19.53.471802 AM         7438 <User>                         rajesh         U
+      3209235 A U 02-NOV-05 01.19.55.764450 AM        13388 <Effort>                       cmw2           A          100
+      3209252 A U 02-NOV-05 01.19.59.086190 AM        13388 <User>                         cmw2           U
+      3209295 A U 02-NOV-05 01.20.02.633971 AM        13370 <Effort>                       lew            R          100
+      3209318 A U 02-NOV-05 01.20.06.927182 AM        13370 <User>                         lew            U
+      3209446 A U 02-NOV-05 01.20.17.890115 AM        12647 <Effort>                       chance         W          100
+      3209457 A U 02-NOV-05 01.20.20.951345 AM        12647 <User>                         chance         U
+      3209519 A U 02-NOV-05 01.20.27.113964 AM        13372 <Effort>                       mmv            C          100
+      3209551 A U 02-NOV-05 01.20.33.156668 AM        13372 <User>                         mmv            U
+      3209858 A U 02-NOV-05 01.21.05.888951 AM        13394 <Effort>                       jmcm           R          100
+      3209881 A U 02-NOV-05 01.21.10.247248 AM        13394 <User>                         jmcm           U
+      3209978 A U 02-NOV-05 01.21.18.081572 AM        13461 <Effort>                       doebler        R          100
+      3210010 A U 02-NOV-05 01.21.23.599584 AM        13461 <User>                         doebler        U
+      3210662 A U 02-NOV-05 01.22.17.146967 AM        13361 <Effort>                       dps            H          100
+      3210682 A U 02-NOV-05 01.22.20.855280 AM        13361 <User>                         dps            U
+      3210889 A U 02-NOV-05 01.22.37.294740 AM        13462 <Effort>                       duggins        R          100
+      3210911 A U 02-NOV-05 01.22.41.320504 AM        11274 <User>                         duggins        U
+      3210938 A U 02-NOV-05 01.22.42.262312 AM        13458 <Effort>                       ctorrey        H          100
+      3210952 A U 02-NOV-05 01.22.45.657360 AM        13458 <User>                         ctorrey        U
+      3211000 A U 02-NOV-05 01.22.50.121575 AM        13473 <Effort>                       paisarn        M          100
+      3211014 A U 02-NOV-05 01.22.52.942635 AM        13473 <User>                         paisarn        U
+      3211017 A U 02-NOV-05 01.22.53.117079 AM        13399 <Effort>                       temp           R          100
+      3211046 A U 02-NOV-05 01.22.58.816622 AM        13399 <User>                         temp           U
+      3212319 A U 02-NOV-05 01.24.46.291349 AM        13351 <Effort>                       awm            R          100
+      3212342 A U 02-NOV-05 01.24.50.368145 AM        13351 <User>                         awm            U
+      3212706 A U 02-NOV-05 01.25.34.004892 AM        13353 <Effort>                       bam            H          100
+      3212723 A U 02-NOV-05 01.25.37.277891 AM        13353 <User>                         bam            U
+      3212784 A U 02-NOV-05 01.25.40.142426 AM        13404 <Effort>                       bnagy          R          100
+      3212803 A U 02-NOV-05 01.25.44.820018 AM        11272 <User>                         bnagy          U
+      3212828 A U 02-NOV-05 01.25.45.935824 AM         2801 <Effort>                       ec             c        68.88
+      3212851 A U 02-NOV-05 01.25.49.288463 AM         2801 <User>                         ec             U
+      3212862 A U 02-NOV-05 01.25.50.104355 AM        11091 <Effort>                       fp             C          100
+      3212879 A U 02-NOV-05 01.25.54.129644 AM        11091 <User>                         fp             U
+      3213057 A U 02-NOV-05 01.26.07.926116 AM        13389 <Effort>                       da0g           C          100
+      3213071 A U 02-NOV-05 01.26.10.712918 AM        13389 <User>                         da0g           U
+      3213074 A U 02-NOV-05 01.26.10.895253 AM        13478 <Effort>                       wrenwit        R          100
+      3213097 A U 02-NOV-05 01.26.15.035349 AM        13478 <User>                         wrenwit        U
+      3213100 A U 02-NOV-05 01.26.15.220128 AM        13480 <Effort>                       zensoul        W          100
+      3213111 A U 02-NOV-05 01.26.17.468576 AM        13480 <User>                         zensoul        U
+      3213160 A U 02-NOV-05 01.26.21.039123 AM         8004 <Effort>                       hebert         R          100
+      3213174 A U 02-NOV-05 01.26.24.810700 AM         8004 <User>                         hebert         U
+      3213246 A U 02-NOV-05 01.26.28.865507 AM        13363 <Effort>                       emc            C          100
+      3213269 A U 02-NOV-05 01.26.33.322838 AM        13363 <User>                         emc            U
+      3213992 A U 02-NOV-05 01.27.32.007463 AM        13436 <Effort>                       garlan         W          100
+      3214006 A U 02-NOV-05 01.27.34.768357 AM        13436 <User>                         garlan         U
+      3214304 A U 02-NOV-05 01.28.07.804858 AM        13365 <Effort>                       hdw            C          100
+      3214321 A U 02-NOV-05 01.28.11.130290 AM        13365 <User>                         hdw            U
+      3214500 A U 02-NOV-05 01.28.24.959449 AM        13438 <Effort>                       herman         R          100
+      3214541 A U 02-NOV-05 01.28.31.944922 AM        13438 <User>                         herman         U
+      3214683 A U 02-NOV-05 01.28.41.458197 AM        13136 <Effort>                       jals           H          100
+      3214724 A U 02-NOV-05 01.28.48.517069 AM        13136 <User>                         jals           U
+      3215037 A U 02-NOV-05 01.29.14.006320 AM        13366 <Effort>                       jdf            R          100
+      3215051 A U 02-NOV-05 01.29.16.677678 AM        13366 <User>                         jdf            U
+      3215064 A U 02-NOV-05 01.29.17.585829 AM        13367 <Effort>                       jgc            M          100
+      3215093 A U 02-NOV-05 01.29.22.703452 AM        13367 <User>                         jgc            U
+      3215603 A U 02-NOV-05 01.30.05.397495 AM         8761 <Effort>                       jhm            H          100
+      3215614 A U 02-NOV-05 01.30.08.083184 AM         8761 <User>                         jhm            U
+      3215653 A U 02-NOV-05 01.30.10.097810 AM        13423 <Effort>                       alavie         M          100
+      3215670 A U 02-NOV-05 01.30.14.662738 AM        13423 <User>                         alavie         U
+      3215820 A U 02-NOV-05 01.30.27.634493 AM         8859 <Effort>                       ke             C          100
+      3215831 A U 02-NOV-05 01.30.29.976650 AM         8859 <User>                         ke             U
+      3215863 A U 02-NOV-05 01.30.31.547080 AM        13369 <Effort>                       kmb            C          100
+      3215895 A U 02-NOV-05 01.30.37.676393 AM        13369 <User>                         kmb            U
+      3216535 A U 02-NOV-05 01.31.32.304990 AM        13386 <Effort>                       bode           R          100
+      3216546 A U 02-NOV-05 01.31.34.625426 AM        13386 <User>                         bode           U
+      3216591 A U 02-NOV-05 01.31.37.249688 AM        13444 <Effort>                       mriley         C          100
+      3216623 A U 02-NOV-05 01.31.42.786600 AM        13444 <User>                         mriley         U
+      3217109 A U 02-NOV-05 01.32.20.774342 AM        13344 <Effort>                       dl             C          100
+      3217141 A U 02-NOV-05 01.32.26.337420 AM        13344 <User>                         dl             U
+      3217744 A U 02-NOV-05 01.33.14.761336 AM        13397 <Effort>                       ralf           M          100
+      3217761 A U 02-NOV-05 01.33.18.002294 AM        13397 <User>                         ralf           U
+      3217775 A U 02-NOV-05 01.33.19.038656 AM        13427 <Effort>                       ananlada       M          100
+      3217786 A U 02-NOV-05 01.33.21.391324 AM        13427 <User>                         ananlada       U
+      3217815 A U 02-NOV-05 01.33.23.587645 AM         7277 <Effort>                       petel          C          100
+      3217826 A U 02-NOV-05 01.33.25.941791 AM         7277 <User>                         petel          U
+      3217969 A U 02-NOV-05 01.33.35.930658 AM        13446 <Effort>                       randyw         R          100
+      3217983 A U 02-NOV-05 01.33.38.736884 AM        13446 <User>                         randyw         U
+      3218011 A U 02-NOV-05 01.33.40.529531 AM        13376 <Effort>                       red            R          100
+      3218028 A U 02-NOV-05 01.33.44.048022 AM        13376 <User>                         red            U
+      3218065 A U 02-NOV-05 01.33.47.368640 AM        13378 <Effort>                       shi            R          100
+      3218094 A U 02-NOV-05 01.33.52.671630 AM        13378 <User>                         shi            U
+      3218109 A U 02-NOV-05 01.33.54.008235 AM        13379 <Effort>                       sms            H          100
+      3218126 A U 02-NOV-05 01.33.57.346602 AM        13379 <User>                         sms            U
+      3218507 A U 02-NOV-05 01.34.28.390635 AM        13476 <Effort>                       sthayer        r       101.69
+      3218540 A U 02-NOV-05 01.34.31.955445 AM        13512 <User>                         sthayer        U
+      3218685 A U 02-NOV-05 01.34.39.073945 AM        13400 <Effort>                       wing           C          100
+      3218708 A U 02-NOV-05 01.34.43.402704 AM        13400 <User>                         wing           U
+      3218956 A U 02-NOV-05 01.35.05.909436 AM        12293 <Effort>                       ojuarez        W          100
+      3218967 A U 02-NOV-05 01.35.08.227015 AM        12293 <User>                         ojuarez        U
+      3218970 A U 02-NOV-05 01.35.08.423003 AM        13507 <Effort>                       sberecek       R          100
+      3218987 A U 02-NOV-05 01.35.11.799372 AM        13507 <User>                         sberecek       U
+      3218990 A U 02-NOV-05 01.35.12.007739 AM        13381 <Effort>                       wls            W          100
+      3219010 A U 02-NOV-05 01.35.15.906056 AM        13381 <User>                         wls            U
+      3219595 A U 02-NOV-05 01.36.15.853565 AM        13445 <Effort>                       rander         R          100
+      3219627 A U 02-NOV-05 01.36.21.909419 AM        13445 <User>                         rander         U
+      3219832 A U 02-NOV-05 01.36.41.456162 AM        13475 <Effort>                       schmerl        C          100
+      3219852 A U 02-NOV-05 01.36.45.487472 AM        13475 <User>                         schmerl        U
+      3220136 A U 02-NOV-05 01.37.06.027323 AM        13452 <Effort>                       woytek         R          100
+      3220150 A U 02-NOV-05 01.37.08.763779 AM        13452 <User>                         woytek         U
+      3220257 A U 02-NOV-05 01.37.15.105139 AM         8354 <Effort>                       joonhwan       H          100
+      3220268 A U 02-NOV-05 01.37.17.362961 AM         8354 <User>                         joonhwan       U
+      3220388 A U 02-NOV-05 01.37.28.678003 AM        13497 <Effort>                       lafferty       C          100
+      3220405 A U 02-NOV-05 01.37.31.957812 AM        13497 <User>                         lafferty       U
+      3220779 A U 02-NOV-05 01.38.04.412392 AM        13429 <Effort>                       carley         W          100
+      3220796 A U 02-NOV-05 01.38.07.596009 AM        13429 <User>                         carley         U
+      3220982 A U 02-NOV-05 01.38.23.793156 AM        13464 <Effort>                       gennady        E          100
+      3220992 A U 02-NOV-05 01.38.26.273067 AM         6073 <User>                         gennady        U
+      3221001 A U 02-NOV-05 01.38.26.821730 AM        13482 <Effort>                       banerjee       M          100
+      3221015 A U 02-NOV-05 01.38.30.009174 AM        13482 <User>                         banerjee       U
+      3221099 A U 02-NOV-05 01.38.35.695241 AM        13410 <Effort>                       johnz          H          100
+      3221116 A U 02-NOV-05 01.38.39.138257 AM        13410 <User>                         johnz          U
+      3221175 A U 02-NOV-05 01.38.44.956852 AM        11573 <Effort>                       jreminga       W          100
+      3221186 A U 02-NOV-05 01.38.48.162492 AM        11573 <User>                         jreminga       U
+      3221203 A U 02-NOV-05 01.38.50.886301 AM          728 <Effort>                       lanthony       H          100
+      3221213 A U 02-NOV-05 01.38.53.211389 AM         7531 <User>                         lanthony       U
+      3221224 A U 02-NOV-05 01.38.53.812131 AM        12311 <Effort>                       msergi         R          100
+      3221235 A U 02-NOV-05 01.38.56.163467 AM        12311 <User>                         msergi         U
+      3221238 A U 02-NOV-05 01.38.56.382704 AM        10860 <Effort>                       sesch          H          100
+      3221249 A U 02-NOV-05 01.38.58.761434 AM        10860 <User>                         sesch          U
+      3221295 A U 02-NOV-05 01.39.02.442647 AM        11427 <Effort>                       smagill        C          100
+      3221306 A U 02-NOV-05 01.39.04.827739 AM        11427 <User>                         smagill        U
+      3221341 A U 02-NOV-05 01.39.07.721935 AM        12144 <Effort>                       tdudek         R          100
+      3221352 A U 02-NOV-05 01.39.10.095990 AM        12144 <User>                         tdudek         U
+      3221355 A U 02-NOV-05 01.39.10.304079 AM        13483 <Effort>                       blangner       M          100
+      3221369 A U 02-NOV-05 01.39.13.229193 AM        13483 <User>                         blangner       U
+      3221409 A U 02-NOV-05 01.39.17.307021 AM        13451 <Effort>                       wcohen         A          100
+      3221432 A U 02-NOV-05 01.39.21.926990 AM        13451 <User>                         wcohen         U
+      3221614 A U 02-NOV-05 01.39.37.530517 AM        12627 <Effort>                       matth          e       147.47
+      3221637 A U 02-NOV-05 01.39.40.772893 AM        12627 <User>                         matth          U
+      3221648 A U 02-NOV-05 01.39.41.284663 AM        12975 <Effort>                       zmo            R          100
+      3221659 A U 02-NOV-05 01.39.43.776384 AM        12975 <User>                         zmo            U
+      3221685 A U 02-NOV-05 01.39.45.936950 AM        13431 <Effort>                       craigs         W          100
+      3221699 A U 02-NOV-05 01.39.48.821478 AM        13431 <User>                         craigs         U
+      3221706 A U 02-NOV-05 01.39.49.234698 AM        13155 <Effort>                       emalloy        W          100
+      3221717 A U 02-NOV-05 01.39.51.647862 AM        13155 <User>                         emalloy        U
+      3221733 A U 02-NOV-05 01.39.52.877886 AM        11733 <Effort>                       er1k           M          100
+      3221744 A U 02-NOV-05 01.39.55.233662 AM        11733 <User>                         er1k           U
+      3221747 A U 02-NOV-05 01.39.55.427357 AM        13469 <Effort>                       kristen        R          100
+      3221757 A U 02-NOV-05 01.39.57.807689 AM        12872 <User>                         kristen        U
+      3221764 A U 02-NOV-05 01.39.58.256998 AM        13506 <Effort>                       mstilman       R          100
+      3221781 A U 02-NOV-05 01.40.01.635744 AM        13506 <User>                         mstilman       U
+      3221831 A U 02-NOV-05 01.40.06.727320 AM        13460 <Effort>                       diesner        W          100
+      3221845 A U 02-NOV-05 01.40.09.948033 AM        13460 <User>                         diesner        U
+      3221886 A U 02-NOV-05 01.40.12.652758 AM        12047 <Effort>                       psylum         r        43.63
+      3221909 A U 02-NOV-05 01.40.16.228081 AM        12047 <User>                         psylum         U
+      3221916 A U 02-NOV-05 01.40.16.607130 AM        11171 <Effort>                       siddiqi        R          100
+      3221930 A U 02-NOV-05 01.40.19.910012 AM        11171 <User>                         siddiqi        U
+      3221978 A U 02-NOV-05 01.40.24.980255 AM        13418 <Effort>                       skhoo          R          100
+      3221992 A U 02-NOV-05 01.40.27.866198 AM        13418 <User>                         skhoo          U
+      3222041 A U 02-NOV-05 01.40.31.653440 AM        13350 <Effort>                       awd            R          100
+      3222058 A U 02-NOV-05 01.40.35.146851 AM        13350 <User>                         awd            U
+      3222141 A U 02-NOV-05 01.40.42.984890 AM        10100 <Effort>                       jkomarek       R          100
+      3222152 A U 02-NOV-05 01.40.45.321856 AM        10100 <User>                         jkomarek       U
+      3222163 A U 02-NOV-05 01.40.45.845075 AM         6496 <Effort>                       valois         R          100
+      3222174 A U 02-NOV-05 01.40.48.343773 AM         6496 <User>                         valois         U
+      3222181 A U 02-NOV-05 01.40.48.734105 AM        13454 <Effort>                       akhurst        H          100
+      3222195 A U 02-NOV-05 01.40.51.569801 AM        13454 <User>                         akhurst        U
+      3222202 A U 02-NOV-05 01.40.51.940515 AM        13455 <Effort>                       aldrich        W          100
+      3222212 A U 02-NOV-05 01.40.54.281635 AM        11707 <User>                         aldrich        U
+      3222231 A U 02-NOV-05 01.40.55.270801 AM         8746 <Effort>                       anthonyg       R          100
+      3222242 A U 02-NOV-05 01.40.57.603788 AM         8746 <User>                         anthonyg       U
+      3222264 A U 02-NOV-05 01.40.59.323951 AM        11818 <Effort>                       cyprus         M          100
+      3222275 A U 02-NOV-05 01.41.01.704642 AM        11818 <User>                         cyprus         U
+      3222299 A U 02-NOV-05 01.41.03.716112 AM        13427 <Effort>                       dbohus         C          100
+      3222310 A U 02-NOV-05 01.41.06.144976 AM        13427 <User>                         dbohus         U
+      3222355 A U 02-NOV-05 01.41.09.861154 AM        13463 <Effort>                       egolden        H          100
+      3222369 A U 02-NOV-05 01.41.12.751685 AM        13463 <User>                         egolden        U
+      3222442 A U 02-NOV-05 01.41.20.177756 AM        13493 <Effort>                       jonbrown       M          100
+      3222452 A U 02-NOV-05 01.41.22.526003 AM         9174 <User>                         jonbrown       U
+      3222459 A U 02-NOV-05 01.41.22.935466 AM        13411 <Effort>                       kf3cr          W          100
+      3222470 A U 02-NOV-05 01.41.25.299455 AM        13411 <User>                         kf3cr          U
+      3222543 A U 02-NOV-05 01.41.33.174802 AM        13471 <Effort>                       lkontor        A          100
+      3222557 A U 02-NOV-05 01.41.36.176714 AM        13471 <User>                         lkontor        U
+      3222638 A U 02-NOV-05 01.41.42.925602 AM        13414 <Effort>                       matts          C          100
+      3222652 A U 02-NOV-05 01.41.45.978461 AM        13414 <User>                         matts          U
+      3222705 A U 02-NOV-05 01.41.50.340196 AM        13474 <Effort>                       prybski        R          100
+      3222725 A U 02-NOV-05 01.41.54.061794 AM        13474 <User>                         prybski        U
+      3222976 A U 02-NOV-05 01.42.10.947718 AM        12876 <Effort>                       rburcin        R          100
+      3222990 A U 02-NOV-05 01.42.13.845337 AM        12876 <User>                         rburcin        U
+      3222997 A U 02-NOV-05 01.42.14.438645 AM        13496 <Effort>                       jstanley       R          100
+      3223020 A U 02-NOV-05 01.42.19.823592 AM        13496 <User>                         jstanley       U
+      3223033 A U 02-NOV-05 01.42.20.541571 AM        13373 <Effort>                       mrd            R          100
+      3223047 A U 02-NOV-05 01.42.23.416742 AM        13373 <User>                         mrd            U
+      3223054 A U 02-NOV-05 01.42.23.820513 AM        13421 <Effort>                       wangt          A           50
+      3223068 A U 02-NOV-05 01.42.26.610631 AM        13421 <User>                         wangt          U
+      3223071 A U 02-NOV-05 01.42.26.807939 AM        13383 <Effort>                       alad           M          100
+      3223085 A U 02-NOV-05 01.42.29.650697 AM        13383 <User>                         alad           U
+      3223129 A U 02-NOV-05 01.42.33.530730 AM        10391 <Effort>                       bryon          R          100
+      3223140 A U 02-NOV-05 01.42.35.905598 AM        10391 <User>                         bryon          U
+      3223143 A U 02-NOV-05 01.42.36.101048 AM        13407 <Effort>                       einat          M          100
+      3223154 A U 02-NOV-05 01.42.38.480880 AM        13407 <User>                         einat          U
+      3223222 A U 02-NOV-05 01.42.44.296833 AM        13420 <Effort>                       tanja          M          100
+      3223242 A U 02-NOV-05 01.42.48.458857 AM        13420 <User>                         tanja          U
+      3223361 A U 02-NOV-05 01.42.56.372475 AM        13481 <Effort>                       ackleygc       R          100
+      3223378 A U 02-NOV-05 01.42.59.789056 AM        13481 <User>                         ackleygc       U
+      3223397 A U 02-NOV-05 01.43.00.976476 AM        11911 <Effort>                       gmathis        w       110.91
+      3223420 A U 02-NOV-05 01.43.04.487338 AM        11911 <User>                         gmathis        U
+      3223442 A U 02-NOV-05 01.43.06.927426 AM        13511 <Effort>                       waldbaum       R          100
+      3223456 A U 02-NOV-05 01.43.10.159656 AM        13511 <User>                         waldbaum       U
+      3223459 A U 02-NOV-05 01.43.10.354156 AM        13382 <Effort>                       ajit           A          100
+      3223479 A U 02-NOV-05 01.43.14.190707 AM        13382 <User>                         ajit           U
+      3223494 A U 02-NOV-05 01.43.15.208997 AM        10695 <Effort>                       alg2           R          100
+      3223505 A U 02-NOV-05 01.43.17.490629 AM        10695 <User>                         alg2           U
+      3223508 A U 02-NOV-05 01.43.17.689356 AM        13427 <Effort>                       archan         C          100
+      3223519 A U 02-NOV-05 01.43.20.069491 AM        13427 <User>                         archan         U
+      3223547 A U 02-NOV-05 01.43.22.240255 AM        12047 <Effort>                       bjr40          r        40.55
+      3223570 A U 02-NOV-05 01.43.25.437336 AM        12047 <User>                         bjr40          U
+      3223573 A U 02-NOV-05 01.43.25.637711 AM        13487 <Effort>                       colmstea       R          100
+      3223590 A U 02-NOV-05 01.43.29.009687 AM        13487 <User>                         colmstea       U
+      3223593 A U 02-NOV-05 01.43.29.221245 AM         9052 <Effort>                       achand         h           47
+      3223616 A U 02-NOV-05 01.43.32.445639 AM         9052 <User>                         achand         U
+      3223619 A U 02-NOV-05 01.43.32.679647 AM        13456 <Effort>                       amahmed        M          100
+      3223630 A U 02-NOV-05 01.43.35.099911 AM        13456 <User>                         amahmed        U
+      3223656 A U 02-NOV-05 01.43.37.410636 AM        13457 <Effort>                       ashishj        R          100
+      3223670 A U 02-NOV-05 01.43.40.383373 AM        13457 <User>                         ashishj        U
+      3223691 A U 02-NOV-05 01.43.41.605444 AM        11733 <Effort>                       benhdj         M          100
+      3223702 A U 02-NOV-05 01.43.44.186872 AM        11733 <User>                         benhdj         U
+      3223742 A U 02-NOV-05 01.43.47.445855 AM        12767 <Effort>                       bhima          m        33.18
+      3223752 A U 02-NOV-05 01.43.49.762261 AM        10073 <User>                         bhima          U
+      3223769 A U 02-NOV-05 01.43.50.803417 AM          329 <Effort>                       coharris       c         7.37
+      3223792 A U 02-NOV-05 01.43.54.144962 AM          329 <User>                         coharris       U
+      3223795 A U 02-NOV-05 01.43.54.355109 AM          195 <Effort>                       daz            c       113.06
+      3223818 A U 02-NOV-05 01.43.57.326221 AM          195 <User>                         daz            U
+      3223829 A U 02-NOV-05 01.43.57.956586 AM        13432 <Effort>                       datong         C          100
+      3223843 A U 02-NOV-05 01.44.00.858450 AM        13432 <User>                         datong         U
+      3223898 A U 02-NOV-05 01.44.04.461465 AM        13409 <Effort>                       jdkim          M          100
+      3223909 A U 02-NOV-05 01.44.06.895918 AM        13409 <User>                         jdkim          U
+      3223949 A U 02-NOV-05 01.44.10.040432 AM         8354 <Effort>                       jeffreyn       H          100
+      3223959 A U 02-NOV-05 01.44.12.381274 AM         5892 <User>                         jeffreyn       U
+      3223966 A U 02-NOV-05 01.44.12.752144 AM        13385 <Effort>                       alik           R          100
+      3223976 A U 02-NOV-05 01.44.15.132314 AM        13078 <User>                         alik           U
+      3223987 A U 02-NOV-05 01.44.15.800785 AM        13509 <Effort>                       thgordon       R          100
+      3224001 A U 02-NOV-05 01.44.18.811267 AM        13509 <User>                         thgordon       U
+      3224013 A U 02-NOV-05 01.44.19.709551 AM        11805 <Effort>                       hyifen         M          100
+      3224024 A U 02-NOV-05 01.44.22.112889 AM        11805 <User>                         hyifen         U
+      3224050 A U 02-NOV-05 01.44.24.552081 AM        13375 <Effort>                       qyj            M          100
+      3224064 A U 02-NOV-05 01.44.27.725165 AM        13375 <User>                         qyj            U
+      3224071 A U 02-NOV-05 01.44.28.164071 AM        13346 <Effort>                       acw            C          100
+      3224088 A U 02-NOV-05 01.44.31.615042 AM        13346 <User>                         acw            U
+      3224190 A U 02-NOV-05 01.44.40.518150 AM        13358 <Effort>                       cwc            R          100
+      3224201 A U 02-NOV-05 01.44.42.908103 AM        13358 <User>                         cwc            U
+      3224223 A U 02-NOV-05 01.44.44.989761 AM         7153 <Effort>                       droot          W          100
+      3224237 A U 02-NOV-05 01.44.48.496219 AM         7153 <User>                         droot          U
+      3224290 A U 02-NOV-05 01.44.54.203906 AM        13358 <Effort>                       lkramer        R          100
+      3224301 A U 02-NOV-05 01.44.56.779799 AM        13358 <User>                         lkramer        U
+      3224361 A U 02-NOV-05 01.45.01.152159 AM        13503 <Effort>                       mitchell       A          100
+      3224387 A U 02-NOV-05 01.45.06.604317 AM        13503 <User>                         mitchell       U
+      3224523 A U 02-NOV-05 01.45.17.656554 AM        13374 <Effort>                       pjj            M          100
+      3224537 A U 02-NOV-05 01.45.20.404813 AM        13374 <User>                         pjj            U
+      3224586 A U 02-NOV-05 01.45.23.308660 AM        13417 <Effort>                       roseh          C          100
+      3224600 A U 02-NOV-05 01.45.26.599254 AM        13417 <User>                         roseh          U
+      3224648 A U 02-NOV-05 01.45.31.608570 AM        13092 <Effort>                       rvb            C          100
+      3224662 A U 02-NOV-05 01.45.34.788581 AM        13092 <User>                         rvb            U
+      3224803 A U 02-NOV-05 01.45.47.090609 AM        10482 <Effort>                       stephan        R          100
+      3224813 A U 02-NOV-05 01.45.49.408860 AM        10067 <User>                         stephan        U
+      3224816 A U 02-NOV-05 01.45.49.640596 AM        13331 <Effort>                       yitao          M          100
+      3224827 A U 02-NOV-05 01.45.52.096644 AM        13331 <User>                         yitao          U
+      3224874 A U 02-NOV-05 01.45.56.114816 AM         8452 <Effort>                       neill          C          100
+      3224884 A U 02-NOV-05 01.45.58.506483 AM        10100 <User>                         neill          U
+      3224891 A U 02-NOV-05 01.45.58.967896 AM        13422 <Effort>                       woomy          A          100
+      3224905 A U 02-NOV-05 01.46.01.923346 AM        13422 <User>                         woomy          U
+      3224979 A U 02-NOV-05 01.46.08.994028 AM        13450 <Effort>                       tracyf         C          100
+      3224992 A U 02-NOV-05 01.46.12.900417 AM        10382 <User>                         tracyf         U
+      3225007 A U 02-NOV-05 01.46.14.304382 AM        13359 <Effort>                       dlr            R          100
+      3225021 A U 02-NOV-05 01.46.17.170397 AM        13359 <User>                         dlr            U
+      3225054 A U 02-NOV-05 01.46.19.470299 AM        13453 <Effort>                       zzhang         H          100
+      3225068 A U 02-NOV-05 01.46.22.318567 AM        13453 <User>                         zzhang         U
+      3225071 A U 02-NOV-05 01.46.22.528618 AM        13347 <Effort>                       ahw            M          100
+      3225088 A U 02-NOV-05 01.46.25.854811 AM        13347 <User>                         ahw            U
+      3225255 A U 02-NOV-05 01.46.36.614491 AM        13426 <Effort>                       ankurd         R          100
+      3225265 A U 02-NOV-05 01.46.38.859000 AM         7217 <User>                         ankurd         U
+      3225276 A U 02-NOV-05 01.46.39.503882 AM        12832 <Effort>                       barbic         C          100
+      3225287 A U 02-NOV-05 01.46.41.981718 AM        12832 <User>                         barbic         U
+      3225325 A U 02-NOV-05 01.46.46.157316 AM        13489 <Effort>                       dhuggins       M          100
+      3225339 A U 02-NOV-05 01.46.49.162643 AM        13489 <User>                         dhuggins       U
+      3225371 A U 02-NOV-05 01.46.51.283394 AM        13434 <Effort>                       elissa         W          100
+      3225385 A U 02-NOV-05 01.46.54.205534 AM        13434 <User>                         elissa         U
+      3225429 A U 02-NOV-05 01.46.58.091778 AM        13435 <Effort>                       elliel         R          100
+      3225446 A U 02-NOV-05 01.47.01.805020 AM        13435 <User>                         elliel         U
+      3225453 A U 02-NOV-05 01.47.02.269674 AM         9054 <Effort>                       amccue         h        87.86
+      3225476 A U 02-NOV-05 01.47.05.825471 AM         9054 <User>                         amccue         U
+      3225479 A U 02-NOV-05 01.47.06.048853 AM         8784 <Effort>                       bighead        r         7.86
+      3225502 A U 02-NOV-05 01.47.09.203790 AM         8784 <User>                         bighead        U
+      3225505 A U 02-NOV-05 01.47.09.534365 AM        13494 <Effort>                       josephad       R          100
+      3225519 A U 02-NOV-05 01.47.12.496191 AM        13494 <User>                         josephad       U
+      3225522 A U 02-NOV-05 01.47.12.701375 AM        13405 <Effort>                       bshyu          c        16.59
+      3225554 A U 02-NOV-05 01.47.16.294107 AM        13405 <User>                         bshyu          U
+      3225557 A U 02-NOV-05 01.47.16.508991 AM        10695 <Effort>                       kp             R          100
+      3225568 A U 02-NOV-05 01.47.19.117774 AM        10695 <User>                         kp             U
+      3225594 A U 02-NOV-05 01.47.21.754759 AM        13406 <Effort>                       cdima          R          100
+      3225608 A U 02-NOV-05 01.47.24.878385 AM        13406 <User>                         cdima          U
+      3225637 A U 02-NOV-05 01.47.26.794891 AM        13395 <Effort>                       leak           C          100
+      3225648 A U 02-NOV-05 01.47.29.136761 AM        13395 <User>                         leak           U
+      3225690 A U 02-NOV-05 01.47.33.414336 AM        13459 <Effort>                       cwellin        R          100
+      3225707 A U 02-NOV-05 01.47.36.797430 AM        13459 <User>                         cwellin        U
+      3225794 A U 02-NOV-05 01.47.44.526141 AM        12660 <Effort>                       pakyan         R          100
+      3225808 A U 02-NOV-05 01.47.47.509989 AM        12660 <User>                         pakyan         U
+      3225815 A U 02-NOV-05 01.47.47.874652 AM        13392 <Effort>                       jgao           C          100
+      3225825 A U 02-NOV-05 01.47.50.456840 AM         7149 <User>                         jgao           U
+      3225832 A U 02-NOV-05 01.47.50.976295 AM        13415 <Effort>                       mazda          H          100
+      3225843 A U 02-NOV-05 01.47.53.508502 AM        13415 <User>                         mazda          U
+      3225876 A U 02-NOV-05 01.47.56.812599 AM         5829 <Effort>                       brig           R          100
+      3225887 A U 02-NOV-05 01.47.59.301697 AM         5829 <User>                         brig           U
+      3226001 A U 02-NOV-05 01.48.08.942742 AM        13357 <Effort>                       lmm278         R          100
+      3226015 A U 02-NOV-05 01.48.11.879524 AM        13357 <User>                         lmm278         U
+      3226022 A U 02-NOV-05 01.48.12.238723 AM          140 <Effort>                       maryjob        m         76.8
+      3226045 A U 02-NOV-05 01.48.15.604600 AM          140 <User>                         maryjob        U
+      3226052 A U 02-NOV-05 01.48.16.086209 AM        12918 <Effort>                       rcolon         r        62.06
+      3226075 A U 02-NOV-05 01.48.19.345393 AM        12918 <User>                         rcolon         U
+      3226078 A U 02-NOV-05 01.48.19.768167 AM         7894 <Effort>                       stef           M          100
+      3226088 A U 02-NOV-05 01.48.22.857398 AM         7894 <User>                         stef           U
+      3226099 A U 02-NOV-05 01.48.23.996902 AM        10751 <Effort>                       hildum         R          100
+      3226110 A U 02-NOV-05 01.48.26.777462 AM        10751 <User>                         hildum         U
+      3226132 A U 02-NOV-05 01.48.28.756859 AM        13466 <Effort>                       jinghai        W          100
+      3226143 A U 02-NOV-05 01.48.31.113917 AM        13466 <User>                         jinghai        U
+      3226146 A U 02-NOV-05 01.48.31.319852 AM        13427 <Effort>                       karora         M          100
+      3226162 A U 02-NOV-05 01.48.35.136098 AM        12348 <User>                         karora         U
+      3226165 A U 02-NOV-05 01.48.35.335566 AM        13380 <Effort>                       tss            R          100
+      3226182 A U 02-NOV-05 01.48.38.756550 AM        13380 <User>                         tss            U
+      3226238 A U 02-NOV-05 01.48.43.742850 AM        10884 <Effort>                       dbradley       R          100
+      3226249 A U 02-NOV-05 01.48.46.124470 AM        10884 <User>                         dbradley       U
+      3226256 A U 02-NOV-05 01.48.46.548117 AM        11405 <Effort>                       ggweon         H          100
+      3226267 A U 02-NOV-05 01.48.48.916550 AM        11405 <User>                         ggweon         U
+      3226282 A U 02-NOV-05 01.48.49.814006 AM        13391 <Effort>                       hetu           C          100
+      3226293 A U 02-NOV-05 01.48.52.254912 AM        13391 <User>                         hetu           U
+      3226328 A U 02-NOV-05 01.48.56.114236 AM        11148 <Effort>                       jch1           R          100
+      3226339 A U 02-NOV-05 01.48.58.543130 AM        11148 <User>                         jch1           U
+      3226365 A U 02-NOV-05 01.49.00.854482 AM         9054 <Effort>                       jeffreyw       h        19.54
+      3226388 A U 02-NOV-05 01.49.04.152152 AM         9054 <User>                         jeffreyw       U
+      3226391 A U 02-NOV-05 01.49.04.370465 AM        13440 <Effort>                       jelsas         M          100
+      3226402 A U 02-NOV-05 01.49.07.002188 AM        13440 <User>                         jelsas         U
+      3226428 A U 02-NOV-05 01.49.09.712767 AM        11269 <Effort>                       jha            C          100
+      3226439 A U 02-NOV-05 01.49.12.179732 AM        11269 <User>                         jha            U
+      3226477 A U 02-NOV-05 01.49.17.432343 AM        11818 <Effort>                       jingruih       A          100
+      3226488 A U 02-NOV-05 01.49.20.281228 AM        11818 <User>                         jingruih       U
+      3226499 A U 02-NOV-05 01.49.21.182693 AM         6701 <Effort>                       jkretz         r        33.49
+      3226522 A U 02-NOV-05 01.49.24.123551 AM         6701 <User>                         jkretz         U
+      3226525 A U 02-NOV-05 01.49.24.336102 AM        13468 <Effort>                       jrivera        W          100
+      3226542 A U 02-NOV-05 01.49.27.753495 AM        13468 <User>                         jrivera        U
+      3226621 A U 02-NOV-05 01.49.34.493913 AM         8452 <Effort>                       kaustav        A          100
+      3226632 A U 02-NOV-05 01.49.36.813308 AM         8452 <User>                         kaustav        U
+      3226662 A U 02-NOV-05 01.49.39.281377 AM        10511 <Effort>                       ksohn          C          100
+      3226673 A U 02-NOV-05 01.49.41.625471 AM        10511 <User>                         ksohn          U
+      3226708 A U 02-NOV-05 01.49.45.513966 AM        13413 <Effort>                       llita          C          100
+      3226722 A U 02-NOV-05 01.49.48.457623 AM        13413 <User>                         llita          U
+      3226754 A U 02-NOV-05 01.49.50.436961 AM        13443 <Effort>                       manjhi         C          100
+      3226765 A U 02-NOV-05 01.49.52.975943 AM        13443 <User>                         manjhi         U
+      3226793 A U 02-NOV-05 01.49.55.382866 AM        13500 <Effort>                       mcataldo       W          100
+      3226810 A U 02-NOV-05 01.49.58.828468 AM        13500 <User>                         mcataldo       U
+      3226817 A U 02-NOV-05 01.49.59.247202 AM        13328 <Effort>                       mcmillen       C          100
+      3226828 A U 02-NOV-05 01.50.01.618499 AM        13328 <User>                         mcmillen       U
+      3226846 A U 02-NOV-05 01.50.02.757783 AM        11047 <Effort>                       mderosa        C          100
+      3226857 A U 02-NOV-05 01.50.05.159017 AM        11047 <User>                         mderosa        U
+      3226885 A U 02-NOV-05 01.50.07.468969 AM        13501 <Effort>                       mgoodste       C          100
+      3226899 A U 02-NOV-05 01.50.10.620523 AM        13501 <User>                         mgoodste       U
+      3226943 A U 02-NOV-05 01.50.14.588472 AM        13440 <Effort>                       mrogati        C          100
+      3226954 A U 02-NOV-05 01.50.16.963027 AM        13440 <User>                         mrogati        U
+      3226987 A U 02-NOV-05 01.50.19.458455 AM        10757 <Effort>                       narmstro       R          100
+      3226998 A U 02-NOV-05 01.50.21.807948 AM        10757 <User>                         narmstro       U
+      3227037 A U 02-NOV-05 01.50.25.974811 AM          329 <Effort>                       ngm            c        73.73
+      3227060 A U 02-NOV-05 01.50.29.017910 AM          329 <User>                         ngm            U
+      3227063 A U 02-NOV-05 01.50.29.215091 AM        12362 <Effort>                       pbarnum        R          100
+      3227074 A U 02-NOV-05 01.50.31.633799 AM        12362 <User>                         pbarnum        U
+      3227100 A U 02-NOV-05 01.50.33.889275 AM        13416 <Effort>                       rongz          M          100
+      3227111 A U 02-NOV-05 01.50.36.361409 AM        13416 <User>                         rongz          U
+      3227156 A U 02-NOV-05 01.50.40.286342 AM        11047 <Effort>                       rravicha       R          100
+      3227167 A U 02-NOV-05 01.50.42.704364 AM        11047 <User>                         rravicha       U
+      3227202 A U 02-NOV-05 01.50.46.976740 AM         7246 <Effort>                       rys            C          100
+      3227213 A U 02-NOV-05 01.50.49.536178 AM         7246 <User>                         rys            U
+      3227239 A U 02-NOV-05 01.50.52.082101 AM        13328 <Effort>                       soniac         C          100
+      3227250 A U 02-NOV-05 01.50.54.761644 AM        13328 <User>                         soniac         U
+      3227285 A U 02-NOV-05 01.50.57.988074 AM        13419 <Effort>                       stein          R          100
+      3227295 A U 02-NOV-05 01.51.00.428881 AM        12190 <User>                         stein          U
+      3227306 A U 02-NOV-05 01.51.01.051968 AM        13328 <Effort>                       szickler       C          100
+      3227317 A U 02-NOV-05 01.51.04.094642 AM        13328 <User>                         szickler       U
+      3227352 A U 02-NOV-05 01.51.09.240012 AM        13477 <Effort>                       tingliu        C          100
+      3227366 A U 02-NOV-05 01.51.12.216701 AM        13477 <User>                         tingliu        U
+      3227410 A U 02-NOV-05 01.51.14.917757 AM        11759 <Effort>                       tisganit       M          100
+      3227421 A U 02-NOV-05 01.51.17.273216 AM        11759 <User>                         tisganit       U
+      3227456 A U 02-NOV-05 01.51.21.125402 AM         4982 <Effort>                       vaibhav        C          100
+      3227467 A U 02-NOV-05 01.51.23.558339 AM         4982 <User>                         vaibhav        U
+      3227495 A U 02-NOV-05 01.51.25.926758 AM        13407 <Effort>                       vitor          M          100
+      3227506 A U 02-NOV-05 01.51.28.335990 AM        13407 <User>                         vitor          U
+      3227557 A U 02-NOV-05 01.51.32.579492 AM        13479 <Effort>                       yanxins        M          100
+      3227571 A U 02-NOV-05 01.51.35.484570 AM        13479 <User>                         yanxins        U
+      3227606 A U 02-NOV-05 01.51.37.666118 AM        10504 <Effort>                       rochelle       W          100
+      3227629 A U 02-NOV-05 01.51.41.368482 AM        10504 <User>                         rochelle       U
+      3227632 A U 02-NOV-05 01.51.41.583032 AM        13430 <Effort>                       cprose         M          100
+      3227649 A U 02-NOV-05 01.51.45.206836 AM        13430 <User>                         cprose         U
+      3227760 A U 02-NOV-05 01.51.53.481033 AM        12047 <Effort>                       dack           r       182.18
+      3227783 A U 02-NOV-05 01.51.56.752998 AM        12047 <User>                         dack           U
+      3227830 A U 02-NOV-05 01.51.59.422075 AM        11018 <Effort>                       gkusbit        h        93.27
+      3227853 A U 02-NOV-05 01.52.02.672612 AM        11018 <User>                         gkusbit        U
+      3227856 A U 02-NOV-05 01.52.02.856607 AM        13492 <Effort>                       jiloreta       h        37.17
+      3227866 A U 02-NOV-05 01.52.05.284495 AM         9054 <User>                         jiloreta       U
+      3227869 A U 02-NOV-05 01.52.05.513236 AM        13470 <Effort>                       kuffner        R          100
+      3227883 A U 02-NOV-05 01.52.08.745581 AM        13470 <User>                         kuffner        U
+      3227943 A U 02-NOV-05 01.52.13.169342 AM        13499 <Effort>                       mbilotti       M          100
+      3227956 A U 02-NOV-05 01.52.16.108017 AM        12925 <User>                         mbilotti       U
+      3227963 A U 02-NOV-05 01.52.16.557517 AM        13472 <Effort>                       msnider        e       124.73
+      3227996 A U 02-NOV-05 01.52.20.240798 AM        13513 <User>                         msnider        U
+      3227999 A U 02-NOV-05 01.52.20.461678 AM        12047 <Effort>                       sabymike       r        20.28
+      3228009 A U 02-NOV-05 01.52.22.847742 AM        12089 <User>                         sabymike       U
+      3228012 A U 02-NOV-05 01.52.23.086584 AM        13485 <Effort>                       ccasingh       r        52.22
+      3228051 A U 02-NOV-05 01.52.27.242174 AM        13514 <User>                         ccasingh       U
+      3228054 A U 02-NOV-05 01.52.27.466610 AM        13490 <Effort>                       houghton       R          100
+      3228065 A U 02-NOV-05 01.52.29.906626 AM        13490 <User>                         houghton       U
+      3228139 A U 02-NOV-05 01.52.36.662195 AM        12047 <Effort>                       jrollo         r        22.12
+      3228162 A U 02-NOV-05 01.52.39.663245 AM        12047 <User>                         jrollo         U
+      3228165 A U 02-NOV-05 01.52.39.856995 AM        13498 <Effort>                       lillianc       R          100
+      3228175 A U 02-NOV-05 01.52.42.247024 AM         9144 <User>                         lillianc       U
+      3228182 A U 02-NOV-05 01.52.42.975725 AM        12682 <Effort>                       bsofman        R          100
+      3228193 A U 02-NOV-05 01.52.45.531307 AM        12682 <User>                         bsofman        U
+      3228238 A U 02-NOV-05 01.52.50.053555 AM        13433 <Effort>                       dsigel         R          100
+      3228248 A U 02-NOV-05 01.52.52.578532 AM         5248 <User>                         dsigel         U
+      3228255 A U 02-NOV-05 01.52.53.108742 AM        11359 <Effort>                       gholling       R          100
+      3228266 A U 02-NOV-05 01.52.55.514523 AM        11359 <User>                         gholling       U
+      3228301 A U 02-NOV-05 01.52.59.454267 AM        13437 <Effort>                       glopez         R          100
+      3228311 A U 02-NOV-05 01.53.01.839159 AM         1855 <User>                         glopez         U
+      3228324 A U 02-NOV-05 01.53.02.723444 AM        13412 <Effort>                       lingx          R          100
+      3228334 A U 02-NOV-05 01.53.05.137241 AM         6433 <User>                         lingx          U
+      3228341 A U 02-NOV-05 01.53.05.591866 AM        10882 <Effort>                       mgm            W          100
+      3228352 A U 02-NOV-05 01.53.08.026064 AM        10882 <User>                         mgm            U
+      3228362 A U 02-NOV-05 01.53.08.862150 AM        13504 <Effort>                       mpalatuc       R          100
+      3228372 A U 02-NOV-05 01.53.11.285825 AM        10684 <User>                         mpalatuc       U
+      3228379 A U 02-NOV-05 01.53.11.774682 AM        11571 <Effort>                       rohitk         M          100
+      3228390 A U 02-NOV-05 01.53.14.267586 AM        11571 <User>                         rohitk         U
+      3228397 A U 02-NOV-05 01.53.14.781963 AM        11047 <Effort>                       sfuniak        R          100
+      3228408 A U 02-NOV-05 01.53.17.422619 AM        11047 <User>                         sfuniak        U
+      3228434 A I 02-NOV-05 01.53.19.961456 AM        12196 <Effort>                       rasconi        R          100
+      3228445 A U 02-NOV-05 01.53.22.722720 AM        12196 <User>                         rasconi        U
+      3228452 A I 02-NOV-05 01.53.23.322365 AM          329 <Effort>                       froseph        c        110.6
+      3228475 A U 02-NOV-05 01.53.26.768449 AM          329 <User>                         froseph        U
+      3228478 A I 02-NOV-05 01.53.27.039720 AM         3550 <Effort>                       jetong         c         55.3
+      3228501 A U 02-NOV-05 01.53.30.064138 AM         3550 <User>                         jetong         U
+      3228504 A I 02-NOV-05 01.53.30.348776 AM           76 <Effort>                       bb2            n        36.87
+      3228527 A U 02-NOV-05 01.53.33.365936 AM           76 <User>                         bb2            U
+      3228530 A I 02-NOV-05 01.53.33.640175 AM         7277 <Effort>                       harchol        C          100
+      3228553 A U 02-NOV-05 01.53.37.240902 AM         7277 <User>                         harchol        U
+      3228734 A I 02-NOV-05 01.53.55.589111 AM        13328 <Effort>                       jstolarz       R          100
+      3228745 A U 02-NOV-05 01.53.58.073486 AM        13328 <User>                         jstolarz       U
+      3228777 A I 02-NOV-05 01.54.00.497871 AM        12201 <Effort>                       eim            r        53.46
+      3228800 A U 02-NOV-05 01.54.03.376287 AM        12201 <User>                         eim            U
+      3228803 A I 02-NOV-05 01.54.03.636864 AM        10908 <Effort>                       kramnath       R          100
+      3228814 A U 02-NOV-05 01.54.06.035883 AM        10908 <User>                         kramnath       U
+      3228817 A I 02-NOV-05 01.54.06.284792 AM        10511 <Effort>                       thlin          M          100
+      3228828 A U 02-NOV-05 01.54.08.723876 AM        10511 <User>                         thlin          U
+      3228852 A I 02-NOV-05 01.54.10.979503 AM        12190 <Effort>                       dbatra         r        31.95
+      3228875 A U 02-NOV-05 01.54.14.069622 AM        12190 <User>                         dbatra         U
+      3228878 A I 02-NOV-05 01.54.14.380416 AM          329 <Effort>                       jthumma        c        48.23
+      3228901 A U 02-NOV-05 01.54.17.386653 AM          329 <User>                         jthumma        U
+      3228904 A I 02-NOV-05 01.54.17.654949 AM        10685 <Effort>                       arkao          c        21.51
+      3228927 A U 02-NOV-05 01.54.20.741161 AM        10685 <User>                         arkao          U
+      3228930 A I 02-NOV-05 01.54.21.015137 AM        13069 <Effort>                       rons           H          100
+      3228941 A U 02-NOV-05 01.54.23.495083 AM        13069 <User>                         rons           U
+      3228944 A I 02-NOV-05 01.54.23.774600 AM        13425 <Effort>                       ankita         cw       110.6
+      3228976 A U 02-NOV-05 01.54.27.340579 AM        13425 <User>                         ankita         U
+      3228979 A I 02-NOV-05 01.54.27.616681 AM         3742 <Effort>                       hsaini         c         76.8
+      3229002 A U 02-NOV-05 01.54.30.648744 AM         3742 <User>                         hsaini         U
+      3229005 A I 02-NOV-05 01.54.30.929039 AM          329 <Effort>                       mock           c        11.98
+      3229028 A U 02-NOV-05 01.54.34.060073 AM          329 <User>                         mock           U
+      3229031 A I 02-NOV-05 01.54.34.338590 AM          195 <Effort>                       spalmer        c        28.88
+      3229054 A U 02-NOV-05 01.54.37.617767 AM          195 <User>                         spalmer        U
+      3229057 A I 02-NOV-05 01.54.37.972363 AM         3947 <Effort>                       mnulph         w         12.9
+      3229080 A U 02-NOV-05 01.54.40.994648 AM         3947 <User>                         mnulph         U
+      3229083 A I 02-NOV-05 01.54.41.263672 AM        12753 <Effort>                       dhorbatt       c        110.6
+      3229106 A U 02-NOV-05 01.54.44.363006 AM        12753 <User>                         dhorbatt       U
+      3229109 A I 02-NOV-05 01.54.44.623048 AM           23 <Effort>                       mscott         H          100
+      3229132 A U 02-NOV-05 01.54.47.526605 AM           23 <User>                         mscott         U
+      3229147 A I 02-NOV-05 01.54.48.425170 AM        12273 <Effort>                       ekratzer       r        35.64
+      3229182 A U 02-NOV-05 01.54.52.368457 AM        12273 <User>                         ekratzer       U
+      3229192 A I 02-NOV-05 01.54.53.361223 AM        13442 <Effort>                       luveun         C          100
+      3229215 A U 02-NOV-05 01.54.56.363362 AM        13442 <User>                         luveun         U
+      3229218 A I 02-NOV-05 01.54.56.619522 AM        13068 <Effort>                       gdozzi         H          100
+      3229228 A U 02-NOV-05 01.54.59.007744 AM        13068 <User>                         gdozzi         U
+      3229231 A I 02-NOV-05 01.54.59.280460 AM          329 <Effort>                       siddhart       c        110.6
+      3229254 A U 02-NOV-05 01.55.02.279450 AM          329 <User>                         siddhart       U
+      3229257 A I 02-NOV-05 01.55.02.566781 AM        12047 <Effort>                       pcuadra        r         7.99
+      3229267 A U 02-NOV-05 01.55.05.007535 AM        12047 <User>                         pcuadra        U
+      3229270 A I 02-NOV-05 01.55.05.284818 AM         9054 <Effort>                       kwada          h        20.89
+      3229293 A U 02-NOV-05 01.55.08.406186 AM         9054 <User>                         kwada          U
+      3229296 A I 02-NOV-05 01.55.08.870832 AM        13510 <Effort>                       vvaradha       R          100
+      3229307 A U 02-NOV-05 01.55.11.350626 AM        13510 <User>                         vvaradha       U
+      3229333 A I 02-NOV-05 01.55.14.106915 AM         8729 <Effort>                       awalsh         M          100
+      3229344 A U 02-NOV-05 01.55.16.640666 AM         8729 <User>                         awalsh         U
+      3229351 A I 02-NOV-05 01.55.17.263117 AM        13508 <Effort>                       terleski       h        26.11
+      3229374 A U 02-NOV-05 01.55.20.399543 AM        13508 <User>                         terleski       U
+      3229377 A I 02-NOV-05 01.55.20.681165 AM         9329 <Effort>                       hcheng         H          100
+      3229388 A U 02-NOV-05 01.55.24.026177 AM         9329 <User>                         hcheng         U
+      3229391 A I 02-NOV-05 01.55.24.310654 AM         7122 <Effort>                       alicez         R          100
+      3229402 A U 02-NOV-05 01.55.26.718397 AM         7122 <User>                         alicez         U
+      3229405 A I 02-NOV-05 01.55.26.984890 AM        13409 <Effort>                       rgangadh       M          100
+      3229416 A U 02-NOV-05 01.55.29.648937 AM        13409 <User>                         rgangadh       U
+      3229442 A I 02-NOV-05 01.55.31.969149 AM          329 <Effort>                       sma1           c        21.51
+      3229465 A U 02-NOV-05 01.55.35.103420 AM          329 <User>                         sma1           U
+      3229468 A I 02-NOV-05 01.55.35.390974 AM        13328 <Effort>                       kmy            R          100
+      3229479 A U 02-NOV-05 01.55.37.866208 AM        13328 <User>                         kmy            U
+      3229505 A I 02-NOV-05 01.55.40.155210 AM        11263 <Effort>                       nielsp         H          100
+      3229516 A U 02-NOV-05 01.55.42.603350 AM        11263 <User>                         nielsp         U
+      3229523 A I 02-NOV-05 01.55.43.189624 AM        12359 <Effort>                       thuylinh       M          100
+      3229534 A U 02-NOV-05 01.55.45.694289 AM        12359 <User>                         thuylinh       U
+      3229537 A I 02-NOV-05 01.55.45.962254 AM         4967 <Effort>                       oh2            h        66.97
+      3229547 A U 02-NOV-05 01.55.48.405656 AM          105 <User>                         oh2            U
+      3229550 A I 02-NOV-05 01.55.48.687195 AM        11818 <Effort>                       ksalomat       M          100
+      3229561 A U 02-NOV-05 01.55.51.198912 AM        11818 <User>                         ksalomat       U
+      3229587 A I 02-NOV-05 01.55.53.817503 AM         7693 <Effort>                       violetta       M          100
+      3229598 A U 02-NOV-05 01.55.56.313488 AM         7693 <User>                         violetta       U
+      3229633 A I 02-NOV-05 01.56.00.707410 AM          329 <Effort>                       yankal         c        98.31
+      3229656 A U 02-NOV-05 01.56.03.631245 AM          329 <User>                         yankal         U
+      3229659 A I 02-NOV-05 01.56.03.884821 AM         9144 <Effort>                       mmcnaugh       R          100
+      3229670 A U 02-NOV-05 01.56.06.407477 AM         9144 <User>                         mmcnaugh       U
+      3229696 A I 02-NOV-05 01.56.09.274800 AM           61 <Effort>                       gla            C          100
+      3229719 A U 02-NOV-05 01.56.12.303564 AM           61 <User>                         gla            U
+      3229745 A I 02-NOV-05 01.56.14.581271 AM         8116 <Effort>                       fcalder        R          100
+      3229756 A U 02-NOV-05 01.56.17.021195 AM         8116 <User>                         fcalder        U
+      3229763 H D 02-NOV-05 01.56.17.683065 AM        10811 <Effort>                       acove          r        49.16
+      3229786 A U 02-NOV-05 01.56.20.653237 AM        10811 <User>                         acove          U
+      3229789 H D 02-NOV-05 01.56.20.868631 AM        13186 <Effort>                       bortiz         R          100
+      3229795 H D 02-NOV-05 01.56.21.298827 AM        13078 <Effort>                       broberts       R          100
+      3229806 A U 02-NOV-05 01.56.23.685765 AM         3278 <User>                         broberts       U
+      3229828 H D 02-NOV-05 01.56.25.513020 AM        12190 <Effort>                       chtan          r        32.57
+      3229851 A U 02-NOV-05 01.56.28.375153 AM        12190 <User>                         chtan          U
+      3229854 H D 02-NOV-05 01.56.28.564193 AM        12190 <Effort>                       crp            R          100
+      3229865 A U 02-NOV-05 01.56.30.896313 AM         5248 <User>                         crp            U
+      3229900 H D 02-NOV-05 01.56.33.757448 AM         9048 <Effort>                       dhousman       h         9.22
+      3229910 A U 02-NOV-05 01.56.36.233322 AM         7229 <User>                         dhousman       U
+      3229917 H D 02-NOV-05 01.56.36.603375 AM         9128 <Effort>                       dwilson        R          100
+      3229923 H D 02-NOV-05 01.56.36.957519 AM        12760 <Effort>                       ema            H          100
+      3229933 A U 02-NOV-05 01.56.39.228416 AM         6966 <User>                         ema            U
+      3229940 H D 02-NOV-05 01.56.39.597159 AM        13204 <Effort>                       hemant         W          100
+      3229951 A U 02-NOV-05 01.56.41.925925 AM         4605 <User>                         hemant         U
+      3229977 H D 02-NOV-05 01.56.44.439809 AM         8784 <Effort>                       jamesl         r        14.75
+      3230000 A U 02-NOV-05 01.56.47.286776 AM         8784 <User>                         jamesl         U
+      3230003 H D 02-NOV-05 01.56.47.459971 AM        12047 <Effort>                       jblocki        r          4.3
+      3230026 A U 02-NOV-05 01.56.50.421191 AM        12047 <User>                         jblocki        U
+      3230029 H D 02-NOV-05 01.56.50.741788 AM        11555 <Effort>                       jsstylos       C          100
+      3230040 A U 02-NOV-05 01.56.53.550716 AM           77 <User>                         jsstylos       U
+      3230075 H D 02-NOV-05 01.56.57.269610 AM        11818 <Effort>                       khlim          m        24.58
+      3230098 A U 02-NOV-05 01.57.00.004985 AM         8454 <User>                         khlim          U
+      3230101 H D 02-NOV-05 01.57.00.156999 AM        13213 <Effort>                       krahul         R          100
+      3230111 A U 02-NOV-05 01.57.02.357848 AM         5628 <User>                         krahul         U
+      3230114 H D 02-NOV-05 01.57.02.504945 AM         3947 <Effort>                       lisa           w        40.25
+      3230137 A U 02-NOV-05 01.57.05.390960 AM         3947 <User>                         lisa           U
+      3230140 H D 02-NOV-05 01.57.05.541553 AM        10925 <Effort>                       lizpearl       R          100
+      3230151 A U 02-NOV-05 01.57.07.809384 AM         5248 <User>                         lizpearl       U
+      3230173 H D 02-NOV-05 01.57.09.511332 AM        11815 <Effort>                       mfarrell       h        36.87
+      3230196 A U 02-NOV-05 01.57.12.591685 AM        10854 <User>                         mfarrell       U
+      3230199 H D 02-NOV-05 01.57.12.748150 AM        10376 <Effort>                       mpucevic       r        71.95
+      3230222 A U 02-NOV-05 01.57.15.551072 AM        10376 <User>                         mpucevic       U
+      3230225 H D 02-NOV-05 01.57.15.738808 AM         9407 <Effort>                       mzwang         C          100
+      3230236 A U 02-NOV-05 01.57.17.994426 AM         9324 <User>                         mzwang         U
+      3230272 H D 02-NOV-05 01.57.20.735304 AM          195 <Effort>                       nm10           C          100
+      3230290 H D 02-NOV-05 01.57.21.515920 AM        11312 <Effort>                       pdhangwa       r        81.72
+      3230313 A U 02-NOV-05 01.57.24.332337 AM        11312 <User>                         pdhangwa       U
+      3230316 H D 02-NOV-05 01.57.24.502099 AM        13204 <Effort>                       pgarimel       W          100
+      3230327 A U 02-NOV-05 01.57.26.804783 AM         9109 <User>                         pgarimel       U
+      3230330 H D 02-NOV-05 01.57.26.973136 AM        11571 <Effort>                       rcarey         M          100
+      3230341 A U 02-NOV-05 01.57.29.252667 AM        10383 <User>                         rcarey         U
+      3230344 H D 02-NOV-05 01.57.29.422128 AM         8073 <Effort>                       siddh          R          100
+      3230357 A U 02-NOV-05 01.57.32.136031 AM         8073 <User>                         siddh          U
+      3230364 H D 02-NOV-05 01.57.32.474065 AM         9331 <Effort>                       skumar         R          100
+      3230374 A U 02-NOV-05 01.57.34.742961 AM         1227 <User>                         skumar         U
+      3230381 H D 02-NOV-05 01.57.35.078727 AM        10222 <Effort>                       spapadim       C          100
+      3230392 A U 02-NOV-05 01.57.37.377866 AM         3003 <User>                         spapadim       U
+      3230418 H D 02-NOV-05 01.57.40.131310 AM         5625 <Effort>                       sramesh        c        20.89
+      3230441 A U 02-NOV-05 01.57.43.126531 AM         5617 <User>                         sramesh        U
+      3230444 H D 02-NOV-05 01.57.43.279584 AM         7228 <Effort>                       stavros        C          100
+      3230455 A U 02-NOV-05 01.57.45.578010 AM         4622 <User>                         stavros        U
+      3230462 H D 02-NOV-05 01.57.45.856923 AM         8249 <Effort>                       tacscm         w        49.16
+      3230485 A U 02-NOV-05 01.57.48.563323 AM         8249 <User>                         tacscm         U
+      3230488 H D 02-NOV-05 01.57.48.719937 AM        12756 <Effort>                       wehrer         R          100
+      3230511 A U 02-NOV-05 01.57.51.438884 AM        12756 <User>                         wehrer         U
+      3230534 H D 02-NOV-05 01.57.52.219214 AM        12147 <Effort>                       worthy         M          100
+      3230545 A U 02-NOV-05 01.57.54.439005 AM          140 <User>                         worthy         U
+
+703 rows selected.
+
+
+no rows selected
+
+
+NAME                             COUNT(*)
+------------------------------ ----------
+<Effort>                              353
+<User>                                350
+
+2 rows selected.
+

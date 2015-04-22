@@ -1,0 +1,55 @@
+# This is the mail config file for service charge reports
+# Lines *start* with # are comments
+# The format is VAR_NAME = VAR_VALUE
+# Currently the following configuration variables are supported.
+#
+#	'X-Rams-Mode'	: The flag variable being put in email header to indicate test/production
+#			: If the value is PRODUCTION or BETA, email addresses will be replaced by 
+#			: those from database.
+#			: THIS FLAG CONTROLS WHETHER MAILS ARE SENT OUT
+#			: AND WHETHER MAILS GO TO USERS!!!!!
+#
+# Those below will be overridden by data from Database.
+#	Sender            
+#	From            
+#	To              
+#	'Reply-To'      
+#	Subject         
+#	Cc              
+#	Bcc             
+#	Type            
+#	Data           
+#
+# Those variables below are used by client application only. Not in database.
+#
+#	AdminTo	= 'yangl+test@cs.cmu.edu',
+#	AdminCc	= '',
+#	AdminBcc	= 'ramscya+@cs.cmu.edu',
+#	'Admin-ReplyTo'	= 'help+costing@cs.cmu.edu',
+#	AdminSubject	= 'Summary Message',
+#
+#	'X-Rams-From' 	: These variables will replace the above value for testing.
+#	'X-Rams-To'  
+#	'X-Rams-Reply-To'
+#	'X-Rams-Subject'
+#	'X-Rams-Cc'    
+#	'X-Rams-Bcc'  
+#	'X-Rams-Type'
+
+X-Rams-Mode=production
+
+#Subject= Test Message
+'Return-Path'	= yangl@cs.cmu.edu
+Sender		= fac-costing-staff@cs.cmu.edu
+From		= fac-costing-staff@cs.cmu.edu
+To		= tfaulk+@cs.cmu.edu
+Reply-To	= yangl+@cs.cmu.edu
+Cc		= kzm+@cs.cmu.edu, michael.nikithser@cs.cmu.edu, ed0u+@cs.cmu.edu
+Bcc		= yangl+@cs.cmu.edu, ramscya+@cs.cmu.edu
+Type		= TEXT
+
+AdminTo		= yangl+test@cs.cmu.edu
+AdminCc		= 
+AdminBcc	= yangl+@cs.cmu.edu
+'Admin-ReplyTo'	= yangl+@cs.cmu.edu
+AdminSubject	= Summary Message

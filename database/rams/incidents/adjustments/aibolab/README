@@ -1,0 +1,15 @@
+pendingentry.sql    - query pending adjustment entries for aibolab machines.
+
+init_trx.log    - transactions (monthly, adjusted, pending adjust) for aibol machines.
+
+adjust_save.sql - create host/who_adjust_charge_save tables
+                    save entries with journal 1, 268, 271
+                    purge those entries from host/who_adjust_charge
+
+fix.sql     - search for exactly same transactions in host/who_charged for pending trx
+                in host/who_adjust_charge.
+                These are duplicated adjustments.
+                Save them in *_adjust_charge_save
+                Purge them from *_adjust_charge
+
+purge_invalidacct.sql   - script to purge those pending adjustments for closed oracle strings for aibolab.

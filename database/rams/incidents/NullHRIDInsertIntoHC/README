@@ -1,0 +1,16 @@
+Sep. sunspot data validation
+	- capequip table was not imported correctly (schema changed.)
+
+Oct production run for assetno UPATTY.00
+	- No hoststab record but in machtab and capequip
+	- by switching qualifier to 'z' and back to fix it.
+
+March 2006 assetno UMATT1.00 (the same asset as 135858.00)
+	- caused by having duplicate assets for the same asset
+	- then changed the hoststab.assetno column from UMATT1.00 to 135858.00 for hostname mattsmacbook.hand.cs.cmu.edu
+	- hostdb.host_service.pri was still 0 (instead of 999998) which caused 
+		hostdb.run.record fail with hr_id null.
+	- when changing hostdb.hoststab.assetno, should check or call trigger for old assetno.
+	- refer to
+		hostsrec
+		hostsmachcap

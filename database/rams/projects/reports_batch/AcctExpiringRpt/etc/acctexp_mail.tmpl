@@ -1,0 +1,39 @@
+-----------------------------------
+Oracle string: {$account} {$proj_name}
+Net charge   : {sprintf "\$ %s", $amount}
+{sprintf "No report managers found." if($rpt_mgr_msg)}
+
+Dear Customer,
+
+This Oracle string { if($reason == 4) 
+				{ if ($daycount > 0) 
+				  {
+					if($daycount < 2) {
+						sprintf "will be expiring tomorrow, %s", $expdate 
+					} else {
+						sprintf "will be expiring in %d days on %s", $daycount, $expdate 
+					}
+				  } else { 
+					sprintf "has expired"
+				  }
+			        }
+			      }. The following user(s)/machines(s) currently charge to this Oracle string.
+
+Please either :
+
+ - make sure this Oracle string will be valid at the end of the month
+	or
+ - provide a valid Oracle string for these service charges 
+
+Please refer to the SCS Facilities charging policy for more information:
+
+  http://www.cs.cmu.edu/~help/support_charges/policy.html
+
+Thank you for your attention,
+
+SCS Help Desk
+
+We recommend using "Courier New" font to view this email. 
+{sprintf('-'x72)}
+
+{$report}

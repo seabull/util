@@ -1,0 +1,33 @@
+-----------------------------------
+Oracle string : {$account} {$proj_name} 
+Net { if ($amount >= 0) {
+	sprintf "Increase  : \$ %s", $amount_str;
+      } else {
+	sprintf "Reduction : \$ %s", $amount_str;
+      }
+    }
+{sprintf "$rpt_mgr_msg" if($rpt_mgr_msg)}
+
+Dear Customer,
+
+Service Charges to this Oracle string were affected by Labor Distribution changes made last month.
+The following user(s)/machines(s) were affected.
+
+Please respond to this email within 30 days referencing any specific changes that are not valid.
+
+For a more detailed explanation of this notification, please refer to the SCS Facilities summary of Email Notifications at:
+
+  http://www.cs.cmu.edu/~help/support_charges/notification_summary.html
+
+For more information regarding the SCS Facilities charging policy, please refer to:
+
+  http://www.cs.cmu.edu/~help/support_charges/policy.html
+
+Thank you for your attention,
+
+SCS Help Desk
+
+We recommend using "Courier New" font to view this email.
+{sprintf('-'x72)}
+
+{$report}

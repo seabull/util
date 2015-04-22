@@ -1,0 +1,46 @@
+hostdb@FAC.SUNSPOT.SRV.CS.CMU.EDU> @./adjust_save.sql
+
+Table created.
+
+   JOURNAL   COUNT(*)
+---------- ----------
+         1        421
+       268        956
+       271        272
+                 3395
+
+4 rows selected.
+
+   JOURNAL   COUNT(*)
+---------- ----------
+         1         24
+       268        660
+                  697
+
+3 rows selected.
+
+
+1649 rows created.
+
+
+684 rows created.
+
+
+1649 rows deleted.
+
+
+684 rows deleted.
+
+   JOURNAL   COUNT(*)
+---------- ----------
+                 3395
+
+1 row selected.
+
+   JOURNAL   COUNT(*)
+---------- ----------
+                  697
+
+1 row selected.
+
+

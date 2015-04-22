@@ -1,0 +1,8 @@
+/default_trace.sql/1.1/Wed Oct 20 16:11:55 2010//
+/list_allEventsColumns.sql/1.1/Mon Apr 25 16:48:27 2011//
+/list_defaulttrace_info.sql/1.1/Mon Apr 25 16:48:27 2011//
+/list_tracedef.sql/1.1/Mon Apr 25 16:48:27 2011//
+/misc_trace.sql/1.1/Wed Oct 20 16:11:55 2010//
+/sqltrace.sp/1.1/Thu Mar 10 16:06:05 2011//
+D/Profiler////
+D/trace_utils////

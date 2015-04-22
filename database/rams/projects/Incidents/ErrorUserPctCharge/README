@@ -1,0 +1,13 @@
+-- $Id: README,v 1.2 2005/08/30 15:41:12 yangl Exp $
+
+@integrity.sql.prod
+@who_triggers.sql.prod
+
+-- To fix the problem
+@error_users_correction.sql.prod
+
+--alter trigger hostdb.who_pct_chgd disable;
+--alter trigger hostdb.who_pct_chgs disable;
+
+--drop trigger hostdb.who_pct_chgd ;
+--drop trigger hostdb.who_pct_chgs ;
