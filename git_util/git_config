@@ -1,0 +1,29 @@
+[user]
+	name = Longjiang Yang
+	email = Yanglj@gmail.com
+[http]
+	proxy = http://proxy-mdha.target.com:8080
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[hub]
+	host = git.target.com
+[url "https://github.com/"]
+	insteadOf = git://github.com
+[alias]
+	co = checkout
+	ci = commit
+	last = log -1 HEAD
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+	lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+	ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+	le = log --oneline --decorate
+	filelog = log -u
+	fl = log -u
+	f = "!git ls-files | grep -i"
+	lsalias = "!git config -l | grep alias | cut -c 7-"
+[help]
+	format = web
