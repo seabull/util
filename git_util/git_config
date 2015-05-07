@@ -25,5 +25,11 @@
 	fl = log -u
 	f = "!git ls-files | grep -i"
 	lsalias = "!git config -l | grep alias | cut -c 7-"
+	stash-unapply = "!git stash show -p | git apply -R"
+	br = branch -av
+	ba = branch -a -vv
+	list-remote-branches = "!listRemoteBranches() { git branch -r | sed \"/->/d; s/ origin\\///g\"; }; listRemoteBranches"
+        checkout-remote-branches = "!checkoutRemoteBranches() { for name in `git list-remote-branches`; do git checkout $name; done; }; checkoutRemoteBranches"
+        clone-with-branches = "!cloneWithBranches() { git clone $1 $2; cd $2; git checkout-remote-branches; git remote rm origin }; cloneWithBranches"
 [help]
 	format = web
